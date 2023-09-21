@@ -1,0 +1,9 @@
+.app {
+    background-color: hsl(258, 64%, 35%);
+    display: flex;;
+    justify-content: center;
+    align-items: center;
+    margin: -8px;
+    height: 100vh;
+    position: relative;
+}
