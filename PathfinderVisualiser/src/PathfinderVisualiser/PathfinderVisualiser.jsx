@@ -7,7 +7,7 @@ export default function PathfinderVisualiser() {
   const [grid, setGrid] = useState([]);
   const [startNodeRow, setStartNodeRow] = useState(10);
   const [startNodeCol, setStartNodeCol] = useState(15);
-  const [targetNodeRow, setTargetRowCol] = useState(10);
+  const [targetNodeRow, setTargetNodeRow] = useState(10);
   const [targetNodeCol, setTargetNodeCol] = useState(35);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
   const [resetCounter, setResetCounter] = useState(0);
@@ -15,11 +15,20 @@ export default function PathfinderVisualiser() {
   const [resetRequired, setResetRequired] = useState(false);
 
   useEffect(() => {
-    const newGrid = initialiseGrid();
+    const newGrid = initialiseGrid(
+      startNodeCol,
+      startNodeRow,
+      targetNodeCol,
+      targetNodeRow
+    );
     setGrid(newGrid);
   }, [resetCounter]);
 
   const handleMouseDown = (row, col) => {
+    if (row === startNodeRow && col === startNodeCol) {
+      this.className = "node";
+      this.isStart = false;
+    }
     const newGrid = getNewGridWithWallToggled(grid, row, col);
     setGrid(newGrid);
     setMouseIsPressed(true);
@@ -72,12 +81,12 @@ export default function PathfinderVisualiser() {
         {grid.map((row, rowIdx) => (
           <div key={rowIdx}>
             {row.map((node, nodeIdx) => {
-              const { row, col, isFinish, isStart, isWall, isVisited } = node;
+              const { row, col, isTarget, isStart, isWall, isVisited } = node;
               return (
                 <Node
                   key={nodeIdx}
                   col={col}
-                  isFinish={isFinish}
+                  isTarget={isTarget}
                   isStart={isStart}
                   isWall={isWall}
                   isVisited={isVisited}
@@ -122,6 +131,7 @@ const animateShortestPath = (nodesInShortestPathOrder) => {
         "node node-shortest-path";
     }, 50 * i);
   }
+  setCanClick(true);
 };
 const isStartOrTarget = (node) => {
   return node.isStart || node.isFinish;
@@ -139,14 +149,12 @@ const getNewGridWithWallToggled = (grid, row, col) => {
 };
 
 const initialiseGrid = (
-  col,
-  row,
   startNodeCol,
   startNodeRow,
   targetNodeCol,
   targetNodeRow
-) => {
-  return Array.from({ length: 20 }, (_, row) =>
+) =>
+  Array.from({ length: 20 }, (_, row) =>
     Array.from({ length: 50 }, (_, col) =>
       initialiseNode(
         col,
@@ -158,4 +166,3 @@ const initialiseGrid = (
       )
     )
   );
-};
