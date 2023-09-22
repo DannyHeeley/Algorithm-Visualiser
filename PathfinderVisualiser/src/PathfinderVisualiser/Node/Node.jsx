@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./Node.css";
 
 export function initialiseNode(
@@ -25,6 +24,7 @@ export function initialiseNode(
 
 export function Node({
   col,
+  row,
   isTarget,
   isStart,
   isWall,
@@ -33,7 +33,6 @@ export function Node({
   onMouseDown,
   onMouseEnter,
   onMouseUp,
-  row,
 }) {
   const extraClassName = isTarget
     ? "node-target"

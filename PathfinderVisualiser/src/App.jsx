@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import PathfinderVisualiser from "./PathfinderVisualiser/PathfinderVisualiser";
+import { dijkstra } from "./algorithms/dijkstra/dijkstra";
 
 function App() {
   return (
     <div className="app">
-      <PathfinderVisualiser></PathfinderVisualiser>
+      <PathfinderVisualiser algorithm={dijkstra}></PathfinderVisualiser>
     </div>
   );
 }
