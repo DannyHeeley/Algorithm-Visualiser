@@ -7,37 +7,106 @@ export default function PathfinderVisualiser() {
   const [grid, setGrid] = useState([]);
   const [startNodeRow, setStartNodeRow] = useState(10);
   const [startNodeCol, setStartNodeCol] = useState(15);
+  const [isStartNodeSet, setIsStartNodeSet] = useState(true);
   const [targetNodeRow, setTargetNodeRow] = useState(10);
   const [targetNodeCol, setTargetNodeCol] = useState(35);
+  const [isTargetNodeSet, setIsTargetNodeSet] = useState(true);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
   const [resetCounter, setResetCounter] = useState(0);
-  const [canClick, setCanClick] = useState(true);
-  const [resetRequired, setResetRequired] = useState(false);
+  const [isWallToggled, toggleWall] = useState(true);
+  const [toggleText, setToggleText] = useState("Draw Walls"); // Initialize state
 
   useEffect(() => {
     const newGrid = initialiseGrid(
       startNodeCol,
       startNodeRow,
       targetNodeCol,
-      targetNodeRow
+      targetNodeRow,
+      isStartNodeSet,
+      isTargetNodeSet
     );
     setGrid(newGrid);
   }, [resetCounter]);
 
+  const GridType = {
+    IS_START: "isStart",
+    IS_TARGET: "isTarget",
+    IS_WALL: "isWall",
+    IS_WEIGHT: "isWeight",
+  };
+
   const handleMouseDown = (row, col) => {
-    if (row === startNodeRow && col === startNodeCol) {
-      this.className = "node";
-      this.isStart = false;
+    if (col === startNodeCol && row === startNodeRow && isStartNodeSet) {
+      const newGrid = getNewGridFor(GridType.IS_START, grid, row, col);
+      setGrid(newGrid);
+      setIsStartNodeSet((prevState) => {
+        console.log("Updated:", !prevState);
+        return !prevState;
+      });
+      return;
+    } else if (
+      !isStartNodeSet &&
+      row != targetNodeRow &&
+      col != targetNodeCol
+    ) {
+      setStartNodeRow(row);
+      setStartNodeCol(col);
+      const newGrid = getNewGridFor(GridType.IS_START, grid, row, col);
+      setGrid(newGrid);
+      setIsStartNodeSet((prevState) => {
+        console.log("Updated:", !prevState);
+        return !prevState;
+      });
+      return;
+    } else if (
+      col === targetNodeCol &&
+      row === targetNodeRow &&
+      isTargetNodeSet &&
+      isStartNodeSet
+    ) {
+      const newGrid = getNewGridFor(GridType.IS_TARGET, grid, row, col);
+      setGrid(newGrid);
+      setIsTargetNodeSet((prevState) => {
+        console.log("Updated:", !prevState);
+        return !prevState;
+      });
+      return;
+    } else if (!isTargetNodeSet && row != startNodeRow && col != startNodeCol) {
+      setTargetNodeRow(row);
+      setTargetNodeCol(col);
+      const newGrid = getNewGridFor(GridType.IS_TARGET, grid, row, col);
+      setGrid(newGrid);
+      setIsTargetNodeSet((prevState) => {
+        console.log("Updated:", !prevState);
+        return !prevState;
+      });
+      return;
     }
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
-    setGrid(newGrid);
-    setMouseIsPressed(true);
+    if ((isStartNodeSet || isTargetNodeSet) && isWallToggled === true) {
+      const newGrid = getNewGridFor(GridType.IS_WALL, grid, row, col);
+      setGrid(newGrid);
+      setMouseIsPressed(true);
+    }
+    if ((isStartNodeSet || isTargetNodeSet) && isWallToggled === false) {
+      const newGrid = getNewGridFor(GridType.IS_WEIGHT, grid, row, col);
+      setGrid(newGrid);
+      setMouseIsPressed(true);
+    }
   };
 
   const handleMouseEnter = (row, col) => {
+    if (col === startNodeCol && row === startNodeRow) {
+      return;
+    }
     if (!mouseIsPressed) return;
-    const newGrid = getNewGridWithWallToggled(grid, row, col);
-    setGrid(newGrid);
+    if ((isStartNodeSet || isTargetNodeSet) && isWallToggled === true) {
+      const newGrid = getNewGridFor(GridType.IS_WALL, grid, row, col);
+      setGrid(newGrid);
+    }
+    if ((isStartNodeSet || isTargetNodeSet) && isWallToggled === false) {
+      const newGrid = getNewGridFor(GridType.IS_WEIGHT, grid, row, col);
+      setGrid(newGrid);
+    }
   };
 
   const handleMouseUp = () => {
@@ -45,19 +114,23 @@ export default function PathfinderVisualiser() {
   };
 
   const visualiseDijkstra = () => {
-    if (!resetRequired) {
-      setCanClick(false);
-      const startNode = grid[startNodeRow][startNodeCol];
-      const targetNode = grid[targetNodeRow][targetNodeCol];
-      const visitedNodesInOrder = dijkstra(grid, startNode, targetNode);
-      const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
-      animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
-      setResetRequired(true);
+    const startNode = grid[startNodeRow][startNodeCol];
+    const targetNode = grid[targetNodeRow][targetNodeCol];
+    const visitedNodesInOrder = dijkstra(grid, startNode, targetNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
+    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
+  };
+
+  const handleToggleText = () => {
+    if (toggleText === "Draw Walls") {
+      setToggleText("Draw Weight");
+    } else if (toggleText === "Draw Weight") {
+      setToggleText("Draw Walls");
     }
+    toggleWall((prevState) => !prevState);
   };
 
   const handleReset = () => {
-    if (!canClick) return;
     setResetCounter((prevCounter) => prevCounter + 1);
     grid.forEach((row) => {
       row.forEach((node) => {
@@ -65,7 +138,6 @@ export default function PathfinderVisualiser() {
         node.isWall = false;
       });
     });
-    setResetRequired(false);
   };
 
   return (
@@ -74,14 +146,21 @@ export default function PathfinderVisualiser() {
         Visualise Dijkstra's Algorithm
       </button>
       <button onClick={handleReset}>Reset</button>
-      <div
-        className="grid-container"
-        style={{ pointerEvents: !canClick ? "none" : "auto" }}
-      >
+      <button onClick={handleToggleText}>Toggle</button>
+      <div className="toggle-text">{toggleText}</div>
+      <div className="grid-container">
         {grid.map((row, rowIdx) => (
           <div key={rowIdx}>
             {row.map((node, nodeIdx) => {
-              const { row, col, isTarget, isStart, isWall, isVisited } = node;
+              const {
+                row,
+                col,
+                isTarget,
+                isStart,
+                isWall,
+                isVisited,
+                isWeight,
+              } = node;
               return (
                 <Node
                   key={nodeIdx}
@@ -90,6 +169,7 @@ export default function PathfinderVisualiser() {
                   isStart={isStart}
                   isWall={isWall}
                   isVisited={isVisited}
+                  isWeight={isWeight}
                   mouseIsPressed={mouseIsPressed}
                   onMouseDown={handleMouseDown}
                   onMouseEnter={handleMouseEnter}
@@ -131,18 +211,18 @@ const animateShortestPath = (nodesInShortestPathOrder) => {
         "node node-shortest-path";
     }, 50 * i);
   }
-  setCanClick(true);
-};
-const isStartOrTarget = (node) => {
-  return node.isStart || node.isFinish;
 };
 
-const getNewGridWithWallToggled = (grid, row, col) => {
+const isStartOrTarget = (node) => {
+  return node.isStart || node.isTarget;
+};
+
+const getNewGridFor = (gridType, grid, row, col) => {
   const newGrid = grid.slice();
   const node = newGrid[row][col];
   const newNode = {
     ...node,
-    isWall: !node.isWall,
+    [gridType]: !node[gridType],
   };
   newGrid[row][col] = newNode;
   return newGrid;

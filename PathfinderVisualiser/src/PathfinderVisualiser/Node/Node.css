@@ -1,3 +1,14 @@
+.toggle-text {
+    background-color: rgb(243, 243, 243);
+    display: inline-block;
+    padding: 1px;
+    border-radius: 2px;
+    font-size: 95%;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 2px solid black;
+}
+
 .node {
     width: calc(2vw - 2px);
     height: calc(2vw - 2px);
@@ -18,6 +29,10 @@
 
 .node-wall {
     background-color: black;
+}
+
+.node-weight {
+    background-color: chocolate;
 }
 
 .node-visited {
