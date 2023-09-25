@@ -1,18 +1,24 @@
-const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
-  for (let i = 0; i <= visitedNodesInOrder.length; i++) {
-    if (i === visitedNodesInOrder.length) {
-      setTimeout(() => {
-        animateShortestPath(nodesInShortestPathOrder);
-      }, 10 * i);
+const animateDijkstra = (
+  visitedNodesInOrder,
+  nodesInShortestPathOrder,
+  setIsAnimating
+) => {
+  let i = 0;
+  function frame() {
+    if (i >= visitedNodesInOrder.length) {
+      animateShortestPath(nodesInShortestPathOrder);
+      setIsAnimating((prevState) => !prevState);
       return;
     }
     const node = visitedNodesInOrder[i];
-    setTimeout(() => {
-      if (isStartOrTarget(node)) return;
+    if (!isStartOrTarget(node)) {
       document.getElementById(`node-${node.row}-${node.col}`).className =
         "node node-visited";
-    }, 10 * i);
+    }
+    i++;
+    requestAnimationFrame(frame);
   }
+  frame();
 };
 
 const animateShortestPath = (nodesInShortestPathOrder) => {
