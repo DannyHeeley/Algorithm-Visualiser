@@ -5,7 +5,7 @@ import { dijkstra } from "./algorithms/dijkstra/dijkstra";
 
 function App() {
   return (
-    <div className="app">
+    <div className="app-container">
       <PathfinderVisualiser algorithm={dijkstra}></PathfinderVisualiser>
     </div>
   );

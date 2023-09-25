@@ -1,38 +1,53 @@
-.app-container {
+.pathfinder-container {
   display: grid;
   grid-template-rows: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 0.4fr;
-  grid-template-columns: 0.51fr 0.1fr 1fr 1fr 1fr 1fr; 
-    border: 2px solid rgb(115, 175, 140);
+  grid-template-columns: 0.1fr 0.51fr 0.1fr 1fr 1fr 1fr 1fr; 
+    border: 2px solid rgb(102, 18, 18);
     border-radius: 10px;
 }
 
 .grid-container {
     grid-row: 2 / 8;
-    grid-column: 3 / 7;
+    grid-column: 4 / 8;
     background-color: aliceblue;
     line-height: 0 ;
     box-sizing: border-box;
     border-radius: 8px;
     border: 2px solid rgb(53, 0, 53);
+
+}
+
+.app-title {
+    grid-row: 1 / 2;
+    grid-column: 4 / 8;
+    text-align: center;
+    font-size: 200%;
+    font-weight: bold;
+    color: rgb(255, 255, 255);
+    background-color: rgb(51, 39, 102);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 2px solid rgb(53, 0, 53);
+    padding: 10px;
 }
 
 .reset {
 width:fit-content;
   grid-row: 8/ 9;
-  grid-column: 3 / 4;
+  grid-column: 4 / 5;
       border-bottom-left-radius: 10px;
 }
 
 .visualise {
   grid-row: 8 / 9; 
-  grid-column: 6 / 7; 
+  grid-column: 7 / 8; 
       border-bottom-right-radius: 10px;
+      height: 40px
 }
 
 .toggle-wall {
     grid-row: 4 / 5;
-    grid-column: 1 / 2;
-        border: 1px solid white;
+    grid-column: 2 / 3;
         padding-top: 10px;
         padding-bottom: 10px;
         display: flex;
@@ -54,8 +69,7 @@ width:fit-content;
 
 .toggle-algorithm {
     grid-row: 3 / 4;
-    grid-column: 1 / 2;
-        border: 1px solid white;
+    grid-column: 2 / 3;
         padding-top: 10px;
         padding-bottom: 10px;
         display: flex;

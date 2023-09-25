@@ -11,7 +11,7 @@ const animateDijkstra = (
       return;
     }
     const node = visitedNodesInOrder[i];
-    if (!isStartOrTarget(node)) {
+    if (!isStartOrTarget(node) && !node.isWeighted) {
       document.getElementById(`node-${node.row}-${node.col}`).className =
         "node node-visited";
     }
@@ -26,8 +26,14 @@ const animateShortestPath = (nodesInShortestPathOrder) => {
     const node = nodesInShortestPathOrder[i];
     setTimeout(() => {
       if (isStartOrTarget(node)) return;
+      if (node.isWeighted) {
+document.getElementById(`node-${node.row}-${node.col}`).className =
+          "node node-weighted-shortest-path";
+      } else {
       document.getElementById(`node-${node.row}-${node.col}`).className =
         "node node-shortest-path";
+      }
+
     }, 50 * i);
   }
 };
