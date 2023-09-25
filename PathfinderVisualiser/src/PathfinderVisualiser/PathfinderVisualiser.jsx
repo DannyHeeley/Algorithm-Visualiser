@@ -21,66 +21,32 @@ export default function PathfinderVisualiser({ algorithm }) {
   const [wallType, setWallType] = useState("wall-type-wall");
 
   useEffect(() => {
-    const newGrid = useInitialiseGrid();
+    const newGrid = useInitialiseGrid(
+      startNodeCol,
+      startNodeRow,
+      targetNodeCol,
+      targetNodeRow
+    );
     setGrid(newGrid);
   }, [resetCounter]);
 
   const handleMouseDown = (row, col) => {
-    if (col === startNodeCol && row === startNodeRow && isStartNodeSet) {
-      const newGrid = useGetNewGridFor(GridType.IS_START, grid, row, col);
-      setGrid(newGrid);
-      setIsStartNodeSet((prevState) => {
-        console.log("Updated:", !prevState);
-        return !prevState;
-      });
-      return;
+    if (row === startNodeRow && col === startNodeCol && isStartNodeSet) {
+      return deselectStartNode(row, col);
     } else if (
-      !isStartNodeSet &&
-      row != targetNodeRow &&
-      col != targetNodeCol
-    ) {
-      setStartNodeRow(row);
-      setStartNodeCol(col);
-      const newGrid = useGetNewGridFor(GridType.IS_START, grid, row, col);
-      setGrid(newGrid);
-      setIsStartNodeSet((prevState) => {
-        console.log("Updated:", !prevState);
-        return !prevState;
-      });
-      return;
-    } else if (
-      col === targetNodeCol &&
       row === targetNodeRow &&
-      isTargetNodeSet &&
-      isStartNodeSet
+      col === targetNodeCol &&
+      isTargetNodeSet
     ) {
-      const newGrid = useGetNewGridFor(GridType.IS_TARGET, grid, row, col);
-      setGrid(newGrid);
-      setIsTargetNodeSet((prevState) => {
-        console.log("Updated:", !prevState);
-        return !prevState;
-      });
-      return;
-    } else if (!isTargetNodeSet && row != startNodeRow && col != startNodeCol) {
-      setTargetNodeRow(row);
-      setTargetNodeCol(col);
-      const newGrid = useGetNewGridFor(GridType.IS_TARGET, grid, row, col);
-      setGrid(newGrid);
-      setIsTargetNodeSet((prevState) => {
-        console.log("Updated:", !prevState);
-        return !prevState;
-      });
-      return;
-    }
-    if ((isStartNodeSet || isTargetNodeSet) && isWallToggled) {
-      const newGrid = useGetNewGridFor(GridType.IS_WALL, grid, row, col);
-      setGrid(newGrid);
-      setMouseIsPressed(true);
-    }
-    if ((isStartNodeSet || isTargetNodeSet) && !isWallToggled) {
-      const newGrid = useGetNewGridFor(GridType.IS_WEIGHT, grid, row, col);
-      setGrid(newGrid);
-      setMouseIsPressed(true);
+      return deselectTargetNode(row, col);
+    } else if (!isStartNodeSet) {
+      return selectStartNode(row, col);
+    } else if (!isTargetNodeSet) {
+      return selectTargetNode(row, col);
+    } else if (isStartNodeSet && isTargetNodeSet && isWallToggled) {
+      return handleDrawWalls(row, col);
+    } else {
+      return handleDrawWeight(row, col);
     }
   };
 
@@ -189,4 +155,55 @@ export default function PathfinderVisualiser({ algorithm }) {
       </button>
     </div>
   );
+
+  function selectStartNode(row, col) {
+    setStartNodeRow(row);
+    setStartNodeCol(col);
+    const newGrid = useGetNewGridFor(GridType.IS_START, grid, row, col);
+    setGrid(newGrid);
+    setIsStartNodeSet((prevState) => {
+      console.log("IsStartNodeSet:", !prevState);
+      return !prevState;
+    });
+    return;
+  }
+  function deselectStartNode(row, col) {
+    const newGrid = useGetNewGridFor(GridType.IS_START, grid, row, col);
+    setGrid(newGrid);
+    setIsStartNodeSet((prevState) => {
+      console.log("IsStartNodeSet:", !prevState);
+      return !prevState;
+    });
+    return;
+  }
+  function selectTargetNode(row, col) {
+    setTargetNodeRow(row);
+    setTargetNodeCol(col);
+    const newGrid = useGetNewGridFor(GridType.IS_TARGET, grid, row, col);
+    setGrid(newGrid);
+    setIsTargetNodeSet((prevState) => {
+      console.log("IsTargetNodeSet:", !prevState);
+      return !prevState;
+    });
+    return;
+  }
+  function deselectTargetNode(row, col) {
+    const newGrid = useGetNewGridFor(GridType.IS_TARGET, grid, row, col);
+    setGrid(newGrid);
+    setIsTargetNodeSet((prevState) => {
+      console.log("IsTargetNodeSet:", !prevState);
+      return !prevState;
+    });
+    return;
+  }
+  function handleDrawWeight(row, col) {
+    const newGrid = useGetNewGridFor(GridType.IS_WEIGHT, grid, row, col);
+    setGrid(newGrid);
+    setMouseIsPressed(true);
+  }
+  function handleDrawWalls(row, col) {
+    const newGrid = useGetNewGridFor(GridType.IS_WALL, grid, row, col);
+    setGrid(newGrid);
+    setMouseIsPressed(true);
+  }
 }
