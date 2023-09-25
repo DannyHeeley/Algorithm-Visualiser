@@ -19,6 +19,9 @@ export function initialiseNode(
     isWall: false,
     isWeighted: false,
     previousNode: null,
+    gScore: Infinity,
+    fScore: Infinity,
+    cameFrom: null,
   };
 }
 
