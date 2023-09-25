@@ -3,15 +3,18 @@ import { Node } from "./Node/Node";
 import { useGridComponent } from "./Grid";
 import { getNodesInShortestPathOrder } from "../algorithms/dijkstra/dijkstra.js";
 import { animateDijkstra } from "../algorithms/dijkstra/dijkstraAnimation";
+//import { animateAStar } from "../algorithms/aStar/aStarAnimation";
 
 import "./PathfinderVisualiser.css";
 
-export default function PathfinderVisualiser({ algorithm }) {
+export default function PathfinderVisualiser({ algorithms }) {
   const [grid, setGrid] = useState([]);
   const [toggleText, setToggleText] = useState("Draw Walls");
   const [isWallToggled, setIsWallToggled] = useState(true);
   const [wallType, setWallType] = useState("wall-type-wall");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [algorithmName, setAlgorithmName] = useState("Dijkstra");
+  const [algorithm, setAlgorithm] = useState(() => algorithms.dijkstra);
 
   const {
     initialiseGrid,
@@ -76,12 +79,23 @@ export default function PathfinderVisualiser({ algorithm }) {
     setIsAnimating((prevState) => !prevState);
   };
 
+  const changeAlgorithm = () => {
+    if (isAnimating) return;
+    if (algorithmName === "Dijkstra") {
+      setAlgorithmName("A*");
+      setAlgorithm(algorithms.aStar);
+    } else if (algorithmName === "A*") {
+      setAlgorithmName("Dijkstra");
+      setAlgorithm(algorithms.dijkstra);
+    }
+  };
+
   return (
     <div className="pathfinder-container">
       <div className="app-title">ALGORITHM VISUALISER</div>
       <div className="toggle-algorithm">
-        <button onClick={null}>+</button>
-        <div className="algorithm-text">Algorithm: {algorithm.name}</div>
+        <button onClick={changeAlgorithm}>+</button>
+        <div className="algorithm-text">Algorithm: {algorithmName}</div>
       </div>
       <div className="toggle-wall">
         <button className={wallType} onClick={toggleWallType}>
@@ -102,6 +116,9 @@ export default function PathfinderVisualiser({ algorithm }) {
                 isVisited,
                 isWeighted,
                 mouseIsPressed,
+                gScore,
+                fScore,
+                cameFrom,
               } = node;
               return (
                 <Node
@@ -113,6 +130,9 @@ export default function PathfinderVisualiser({ algorithm }) {
                   isWall={isWall}
                   isVisited={isVisited}
                   isWeighted={isWeighted}
+                  gScore={gScore}
+                  fScore={fScore}
+                  cameFrom={cameFrom}
                   mouseIsPressed={mouseIsPressed}
                   onMouseDown={handleMouseDown}
                   onMouseEnter={handleMouseEnter}
