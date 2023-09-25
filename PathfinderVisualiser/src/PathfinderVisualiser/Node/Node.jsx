@@ -17,7 +17,7 @@ export function initialiseNode(
     distance: Infinity,
     isVisited: false,
     isWall: false,
-    isWeight: false,
+    isWeighted: false,
     previousNode: null,
   };
 }
@@ -28,7 +28,7 @@ export function Node({
   isTarget,
   isStart,
   isWall,
-  isWeight,
+  isWeighted,
   isVisited,
   onMouseDown,
   onMouseEnter,
@@ -42,8 +42,8 @@ export function Node({
     ? "node-wall"
     : isVisited
     ? "node-visited"
-    : isWeight
-    ? "node-weight"
+    : isWeighted
+    ? "node-weighted"
     : "node";
   return (
     <div

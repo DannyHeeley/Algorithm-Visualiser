@@ -19,6 +19,7 @@ export default function PathfinderVisualiser({ algorithm }) {
   const [toggleText, setToggleText] = useState("Draw Walls");
   const [isWallToggled, setIsWallToggled] = useState(true);
   const [wallType, setWallType] = useState("wall-type-wall");
+  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     const newGrid = useInitialiseGrid(
@@ -30,22 +31,51 @@ export default function PathfinderVisualiser({ algorithm }) {
     setGrid(newGrid);
   }, [resetCounter]);
 
+  const visualiseAlgorithm = () => {
+    if (isAnimating) return;
+    setIsAnimating((prevState) => !prevState);
+    setTimeout(() => {
+      const startNode = grid[startNodeRow][startNodeCol];
+      const targetNode = grid[targetNodeRow][targetNodeCol];
+      const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
+      const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
+      animateDijkstra(
+        visitedNodesInOrder,
+        nodesInShortestPathOrder,
+        setIsAnimating
+      );
+    }, 0);
+  };
+
   const handleMouseDown = (row, col) => {
-    if (row === startNodeRow && col === startNodeCol && isStartNodeSet) {
+    console.log(isWallToggled);
+    if (isAnimating) return;
+    // Only allow placing the start node if it is not set
+    if (!isStartNodeSet) {
+      if (row !== targetNodeRow || col !== targetNodeCol) {
+        return selectStartNode(row, col);
+      }
+      return;
+    }
+    // Only allow placing the target node if it is not set
+    if (!isTargetNodeSet) {
+      if (row !== startNodeRow || col !== startNodeCol) {
+        return selectTargetNode(row, col);
+      }
+      return;
+    }
+    // If the target node is set, deselect it
+    if (row === startNodeRow && col === startNodeCol) {
       return deselectStartNode(row, col);
-    } else if (
-      row === targetNodeRow &&
-      col === targetNodeCol &&
-      isTargetNodeSet
-    ) {
+    }
+    // If target node is set, deselect it
+    if (row === targetNodeRow && col === targetNodeCol) {
       return deselectTargetNode(row, col);
-    } else if (!isStartNodeSet) {
-      return selectStartNode(row, col);
-    } else if (!isTargetNodeSet) {
-      return selectTargetNode(row, col);
-    } else if (isStartNodeSet && isTargetNodeSet && isWallToggled) {
+    }
+    if (isWallToggled) {
       return handleDrawWalls(row, col);
-    } else {
+    }
+    if (!isWallToggled) {
       return handleDrawWeight(row, col);
     }
   };
@@ -60,101 +90,13 @@ export default function PathfinderVisualiser({ algorithm }) {
       setGrid(newGrid);
     }
     if ((isStartNodeSet || isTargetNodeSet) && !isWallToggled) {
-      const newGrid = useGetNewGridFor(GridType.IS_WEIGHT, grid, row, col);
+      const newGrid = useGetNewGridFor(GridType.IS_WEIGHTED, grid, row, col);
       setGrid(newGrid);
     }
   };
-
   const handleMouseUp = () => {
     setMouseIsPressed(false);
   };
-
-  const visualiseAlgorithm = () => {
-    const startNode = grid[startNodeRow][startNodeCol];
-    const targetNode = grid[targetNodeRow][targetNodeCol];
-    const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
-    const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
-    animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
-  };
-
-  const toggleWallTypeText = () => {
-    if (toggleText === "Draw Walls") {
-      setToggleText("Draw Weight");
-    } else if (toggleText === "Draw Weight") {
-      setToggleText("Draw Walls");
-    }
-    if (wallType === "wall-type-wall") {
-      setWallType("wall-type-weight");
-    } else if (wallType === "wall-type-weight") {
-      setWallType("wall-type-wall");
-    }
-    setIsWallToggled((prevState) => !prevState);
-  };
-
-  const handleResetButton = () => {
-    setResetCounter((prevCounter) => prevCounter + 1);
-    grid.forEach((row) => {
-      row.forEach((node) => {
-        node.className = "node";
-        node.isWall = false;
-      });
-    });
-  };
-
-  return (
-    <div className="app-container">
-      <div className="toggle-algorithm">
-        <button onClick={null}>+</button>
-        <div className="algorithm-text">Algorithm: {algorithm.name}</div>
-      </div>
-      <div className="toggle-wall">
-        <button className={wallType} onClick={toggleWallTypeText}>
-          <div className="no-display">+</div>
-        </button>
-        <div className="toggle-text">{toggleText}</div>
-      </div>
-      <div className="grid-container">
-        {grid.map((row, rowIdx) => (
-          <div key={rowIdx}>
-            {row.map((node, nodeIdx) => {
-              const {
-                row,
-                col,
-                isTarget,
-                isStart,
-                isWall,
-                isVisited,
-                isWeight,
-                mouseIsPressed,
-              } = node;
-              return (
-                <Node
-                  key={nodeIdx}
-                  row={row}
-                  col={col}
-                  isTarget={isTarget}
-                  isStart={isStart}
-                  isWall={isWall}
-                  isVisited={isVisited}
-                  isWeight={isWeight}
-                  mouseIsPressed={mouseIsPressed}
-                  onMouseDown={handleMouseDown}
-                  onMouseEnter={handleMouseEnter}
-                  onMouseUp={handleMouseUp}
-                ></Node>
-              );
-            })}
-          </div>
-        ))}
-      </div>
-      <button className="reset" onClick={handleResetButton}>
-        Reset
-      </button>
-      <button className="visualise" onClick={visualiseAlgorithm}>
-        Visualise Algorithm
-      </button>
-    </div>
-  );
 
   function selectStartNode(row, col) {
     setStartNodeRow(row);
@@ -197,7 +139,7 @@ export default function PathfinderVisualiser({ algorithm }) {
     return;
   }
   function handleDrawWeight(row, col) {
-    const newGrid = useGetNewGridFor(GridType.IS_WEIGHT, grid, row, col);
+    const newGrid = useGetNewGridFor(GridType.IS_WEIGHTED, grid, row, col);
     setGrid(newGrid);
     setMouseIsPressed(true);
   }
@@ -206,4 +148,86 @@ export default function PathfinderVisualiser({ algorithm }) {
     setGrid(newGrid);
     setMouseIsPressed(true);
   }
+
+  const toggleWallType = () => {
+    if (isAnimating) return;
+    if (toggleText === "Draw Walls") {
+      setToggleText("Draw Weight");
+    } else if (toggleText === "Draw Weight") {
+      setToggleText("Draw Walls");
+    }
+    if (wallType === "wall-type-wall") {
+      setWallType("wall-type-weight");
+    } else if (wallType === "wall-type-weight") {
+      setWallType("wall-type-wall");
+    }
+    setIsWallToggled((prevState) => !prevState);
+  };
+
+  const handleResetButton = () => {
+    if (isAnimating) return;
+    setResetCounter((prevCounter) => prevCounter + 1);
+    grid.forEach((row) => {
+      row.forEach((node) => {
+        node.className = "node";
+        node.isWall = false;
+      });
+    });
+    setIsAnimating((prevState) => !prevState);
+  };
+
+  return (
+    <div className="app-container">
+      <div className="toggle-algorithm">
+        <button onClick={null}>+</button>
+        <div className="algorithm-text">Algorithm: {algorithm.name}</div>
+      </div>
+      <div className="toggle-wall">
+        <button className={wallType} onClick={toggleWallType}>
+          <div className="no-display">+</div>
+        </button>
+        <div className="toggle-text">{toggleText}</div>
+      </div>
+      <div className="grid-container">
+        {grid.map((row, rowIdx) => (
+          <div key={rowIdx}>
+            {row.map((node, nodeIdx) => {
+              const {
+                row,
+                col,
+                isTarget,
+                isStart,
+                isWall,
+                isVisited,
+                isWeighted,
+                mouseIsPressed,
+              } = node;
+              return (
+                <Node
+                  key={nodeIdx}
+                  row={row}
+                  col={col}
+                  isTarget={isTarget}
+                  isStart={isStart}
+                  isWall={isWall}
+                  isVisited={isVisited}
+                  isWeighted={isWeighted}
+                  mouseIsPressed={mouseIsPressed}
+                  onMouseDown={handleMouseDown}
+                  onMouseEnter={handleMouseEnter}
+                  onMouseUp={handleMouseUp}
+                ></Node>
+              );
+            })}
+          </div>
+        ))}
+      </div>
+      <button className="reset" onClick={handleResetButton}>
+        Reset
+      </button>
+      <button className="visualise" onClick={visualiseAlgorithm}>
+        Visualise Algorithm
+      </button>
+    </div>
+  );
 }
