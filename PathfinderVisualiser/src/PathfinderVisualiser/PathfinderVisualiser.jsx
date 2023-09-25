@@ -122,7 +122,7 @@ export default function PathfinderVisualiser({ algorithm }) {
     } else if (wallType === "wall-type-weight") {
       setWallType("wall-type-wall");
     }
-    toggleWall((prevState) => !prevState);
+    setIsWallToggled((prevState) => !prevState);
   };
 
   const handleResetButton = () => {
