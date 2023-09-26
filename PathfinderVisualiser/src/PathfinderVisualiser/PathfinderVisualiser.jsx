@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Node } from "./Node/Node";
+import { useNode } from "./Node/Node";
 import { useGridComponent } from "./Grid";
 import { getNodesInShortestPathOrder } from "../algorithms/dijkstra/dijkstra.js";
 import { animateDijkstra } from "../algorithms/dijkstra/dijkstraAnimation";
@@ -15,6 +15,7 @@ export default function PathfinderVisualiser({ algorithms }) {
   const [isAnimating, setIsAnimating] = useState(false);
   const [algorithmName, setAlgorithmName] = useState("Dijkstra");
   const [algorithm, setAlgorithm] = useState(() => algorithms.dijkstra);
+  const [keyCounter, setKeyCounter] = useState(0);
 
   const {
     initialiseGrid,
@@ -29,6 +30,8 @@ export default function PathfinderVisualiser({ algorithms }) {
     handleMouseUp,
   } = useGridComponent(grid, setGrid, isWallToggled, isAnimating);
 
+  const { Node } = useNode();
+
   useEffect(() => {
     const newGrid = initialiseGrid(
       startNodeCol,
@@ -39,12 +42,12 @@ export default function PathfinderVisualiser({ algorithms }) {
     setGrid(newGrid);
   }, []);
 
-  const visualiseAlgorithm = (isAnimating) => {
+  const visualiseAlgorithm = (grid, isAnimating) => {
     if (isAnimating) return;
     setIsAnimating((prevState) => !prevState);
     setTimeout(() => {
-      const startNode = grid[startNodeRow][startNodeCol];
-      const targetNode = grid[targetNodeRow][targetNodeCol];
+      const startNode = grid[startNodeRow]?.[startNodeCol];
+      const targetNode = grid[targetNodeRow]?.[targetNodeCol];
       const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
       const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
       animateDijkstra(
@@ -85,13 +88,21 @@ export default function PathfinderVisualiser({ algorithms }) {
     <div className="pathfinder-container">
       <div className="app-title">ALGORITHM VISUALISER</div>
       <div className="toggle-algorithm">
-        <button className="toggle-algorithm-button" onClick={changeAlgorithm}>
+        <button
+          className="toggle-algorithm-button"
+          onClick={() =>
+            changeAlgorithm(isAnimating, algorithmName, algorithms)
+          }
+        >
           +
         </button>
         <div className="algorithm-text">Algorithm: {algorithmName}</div>
       </div>
       <div className="toggle-wall">
-        <button className={wallType} onClick={toggleWallType}>
+        <button
+          className={wallType}
+          onClick={() => toggleWallType(isAnimating, toggleText, wallType)}
+        >
           <div className="no-display">+</div>
         </button>
         <div className="toggle-text">{toggleText}</div>
@@ -123,7 +134,7 @@ export default function PathfinderVisualiser({ algorithms }) {
           <p className="legend-text">Weighted Node</p>
         </div>
       </div>
-      <div className="grid-container">
+      <div className="grid-container" key={keyCounter}>
         {grid.map((row, rowIdx) => (
           <div key={rowIdx}>
             {row.map((node, nodeIdx) => {
@@ -189,20 +200,24 @@ export default function PathfinderVisualiser({ algorithms }) {
       </div>
       <button
         className="reset"
-        onClick={() =>
+        onClick={() => {
           setGrid(
             initialiseGrid(
               startNodeCol,
               startNodeRow,
               targetNodeCol,
               targetNodeRow
-            )
-          )
-        }
+            ),
+            setKeyCounter((prevState) => prevState++)
+          );
+        }}
       >
         Reset
       </button>
-      <button className="visualise" onClick={visualiseAlgorithm}>
+      <button
+        className="visualise"
+        onClick={() => visualiseAlgorithm(grid, isAnimating)}
+      >
         Visualise Algorithm
       </button>
     </div>

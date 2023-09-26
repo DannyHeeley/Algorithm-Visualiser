@@ -1,12 +1,9 @@
-// implement the A* algorithm for pathfinding visualiser
-
 export function aStar(grid, startNode, targetNode) {
     let openList = [startNode];
     let visitedList = [];
+    console.log({startNode, targetNode})
     startNode.gScore = 0;
     startNode.fScore = distanceBetween(startNode, targetNode);
-
-    // While there are nodes in the open list
     while (openList.length > 0) {
         // Find the node with the lowest F score
         let currentNode = openList[0];
@@ -15,12 +12,10 @@ export function aStar(grid, startNode, targetNode) {
                 currentNode = openList[i];
             }
         }
-
-        // If the current node is the end node, we're done
+        // If the current node is the end node, return
         if (currentNode === targetNode) {
             return reconstructPath(currentNode);
         }
-
         // Move the current node from the open list to the closed list
         openList.splice(openList.indexOf(currentNode), 1);
         visitedList.push(currentNode);
@@ -30,7 +25,6 @@ export function aStar(grid, startNode, targetNode) {
             if (visitedList.includes(neighbor)) {
                 continue;
             }
-
             // Calculate the tentative G score for the neighbor
             let tentativeGScore = currentNode.gScore + distanceBetween(currentNode, neighbor);
 
@@ -41,14 +35,12 @@ export function aStar(grid, startNode, targetNode) {
                 // If the tentative G score is not better than the current G score, skip this neighbor
                 continue;
             }
-
-            // This path is the best until now. Record it!
+            // This path is the best until now. Record it
             neighbor.cameFrom = currentNode;
             neighbor.gScore = tentativeGScore;
             neighbor.fScore = neighbor.gScore + distanceBetween(neighbor, targetNode);
         }
     }
-
     // If we get here, there is no path
     return null;
 }

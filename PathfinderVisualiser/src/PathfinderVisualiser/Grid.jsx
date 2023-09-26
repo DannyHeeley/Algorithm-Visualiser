@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { initialiseNode } from "./Node/Node";
+import { useNode } from "./Node/Node";
 
 export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
   const [startNodeRow, setStartNodeRow] = useState(10);
@@ -9,6 +9,8 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
   const [targetNodeCol, setTargetNodeCol] = useState(35);
   const [isTargetNodeSet, setIsTargetNodeSet] = useState(true);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
+
+  const { initialiseNode } = useNode();
 
   const useGetNewGridFor = (nodeType, row, col) => {
     const newGrid = grid.slice();
@@ -47,34 +49,24 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     const newGrid = useGetNewGridFor(nodeType, row, col);
     setGrid(newGrid);
     if (nodeType === NodeType.START) {
-      setIsStartNodeSet((prevState) => {
-        return !prevState;
-      });
-      return;
+      setIsStartNodeSet((prevState) => !prevState);
     }
     if (nodeType === NodeType.TARGET) {
-      setIsTargetNodeSet((prevState) => {
-        return !prevState;
-      });
-      return;
+      setIsTargetNodeSet((prevState) => !prevState);
     }
   }
+
   function deselectNode(nodeType, row, col) {
     const newGrid = useGetNewGridFor(nodeType, row, col);
     setGrid(newGrid);
     if (nodeType === NodeType.START) {
-      setIsStartNodeSet((prevState) => {
-        return !prevState;
-      });
-      return;
+      setIsStartNodeSet((prevState) => !prevState);
     }
     if (nodeType === NodeType.TARGET) {
-      setIsTargetNodeSet((prevState) => {
-        return !prevState;
-      });
-      return;
+      setIsTargetNodeSet((prevState) => !prevState);
     }
   }
+
   function handleWall(nodeType, row, col) {
     const newGrid = useGetNewGridFor(nodeType, row, col);
     setGrid(newGrid);
