@@ -1,6 +1,9 @@
 .app-container {
-    background-color: hsl(258, 64%, 35%);
-    display: flex;;
+    background-image: url('assets/img/abstract-cube-cyan-purple-wallpaper-08d6cc1a3f5c67c94ee0f9e2e2a99b00.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: flex;
     justify-content: center;
     align-items: center;
     margin: -8px;
@@ -8,3 +11,4 @@
     width: 100vw;
     position: relative;
 }
+

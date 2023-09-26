@@ -17,7 +17,7 @@ export function dijkstra(grid, startNode, targetNode) {
 function updateUnvisitedNeighbors(node, grid) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
     for (const neighbor of unvisitedNeighbors) {
-        let tentativeDistance = node.distance + (neighbor.isWeighted ? 1.5 : 1);
+        let tentativeDistance = node.distance + (neighbor.isWeighted ? 5 : 1);
         if (tentativeDistance < neighbor.distance) {
             neighbor.distance = tentativeDistance;
             neighbor.previousNode = node;

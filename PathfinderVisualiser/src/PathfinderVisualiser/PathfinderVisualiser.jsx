@@ -43,17 +43,21 @@ export default function PathfinderVisualiser({ algorithms }) {
     setTimeout(() => {
       const startNode = grid[startNodeRow][startNodeCol];
       const targetNode = grid[targetNodeRow][targetNodeCol];
+      console.log(algorithm);
       const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
       const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
+      console.log(isAnimating);
       animateDijkstra(
         visitedNodesInOrder,
         nodesInShortestPathOrder,
         setIsAnimating
       );
+      console.log(isAnimating);
     }, 0);
   };
 
   const toggleWallType = () => {
+    console.log(isAnimating);
     if (isAnimating) return;
     if (toggleText === "Draw Walls") {
       setToggleText("Draw Weight");
@@ -94,7 +98,9 @@ export default function PathfinderVisualiser({ algorithms }) {
     <div className="pathfinder-container">
       <div className="app-title">ALGORITHM VISUALISER</div>
       <div className="toggle-algorithm">
-        <button onClick={changeAlgorithm}>+</button>
+        <button className="toggle-algorithm-button" onClick={changeAlgorithm}>
+          +
+        </button>
         <div className="algorithm-text">Algorithm: {algorithmName}</div>
       </div>
       <div className="toggle-wall">
@@ -102,6 +108,33 @@ export default function PathfinderVisualiser({ algorithms }) {
           <div className="no-display">+</div>
         </button>
         <div className="toggle-text">{toggleText}</div>
+      </div>
+      <div className="legend">
+        <h3 className="legend-title">Legend:</h3>
+        <div className="legend-item">
+          <div className="legend-icon start"></div>
+          <p className="legend-text">Start Node</p>
+        </div>
+        <div className="legend-item">
+          <div className="legend-icon target"></div>
+          <p className="legend-text">Target Node</p>
+        </div>
+        <div className="legend-item">
+          <div className="legend-icon visited"></div>
+          <p className="legend-text">Visited Node</p>
+        </div>
+        <div className="legend-item">
+          <div className="legend-icon shortest"></div>
+          <p className="legend-text">Shortest Path</p>
+        </div>
+        <div className="legend-item">
+          <div className="legend-icon wall"></div>
+          <p className="legend-text">Walls</p>
+        </div>
+        <div className="legend-item">
+          <div className="legend-icon weighted"></div>
+          <p className="legend-text">Weighted Node</p>
+        </div>
       </div>
       <div className="grid-container">
         {grid.map((row, rowIdx) => (
