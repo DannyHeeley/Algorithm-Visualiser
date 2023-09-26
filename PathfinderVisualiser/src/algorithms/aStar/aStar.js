@@ -3,7 +3,7 @@
 export function aStar(grid, startNode, targetNode) {
     let openList = [startNode];
     let visitedList = [];
-    //startNode.gScore = 0;
+    startNode.gScore = 0;
     startNode.fScore = distanceBetween(startNode, targetNode);
 
     // While there are nodes in the open list

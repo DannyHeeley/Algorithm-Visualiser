@@ -19,7 +19,7 @@ export function initialiseNode(
     isWall: false,
     isWeighted: false,
     previousNode: null,
-    gScore: Infinity,
+    gScore: row == startNodeRow && col === startNodeCol ? 0 : Infinity,
     fScore: Infinity,
     cameFrom: null,
   };

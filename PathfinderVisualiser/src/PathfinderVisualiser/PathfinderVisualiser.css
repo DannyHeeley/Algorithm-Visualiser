@@ -1,9 +1,17 @@
 .pathfinder-container {
-  display: grid;
-  grid-template-rows: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 0.4fr;
-  grid-template-columns: 0.1fr 0.51fr 0.1fr 1fr 1fr 1fr 1fr; 
+    display: grid;
+    grid-template-rows: 0.4fr 1fr 1fr 1fr 1fr 1fr 1fr 0.4fr;
+    grid-template-columns: 0.1fr 0.51fr 0.1fr 1fr 1fr 1fr 1fr; 
     border: 2px solid rgb(102, 18, 18);
     border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    padding-bottom: 15px;
+    padding-top: 35px;
+    padding-left: 10px;
+    padding-right: 40px;
+    margin-left: 40px;
+    margin-right: 40px;
 }
 
 .grid-container {
@@ -14,17 +22,20 @@
     box-sizing: border-box;
     border-radius: 8px;
     border: 2px solid rgb(53, 0, 53);
-
+    opacity: 100%;
+        height: calc((1.6vw - 2px) * 20);
+        min-height: 305px;
+        min-width: 754px;
 }
 
 .app-title {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
     grid-row: 1 / 2;
     grid-column: 4 / 8;
     text-align: center;
-    font-size: 200%;
-    font-weight: bold;
+    font-size: 280%;
     color: rgb(255, 255, 255);
-    background-color: rgb(51, 39, 102);
+    background: conic-gradient(from -40deg at 75% -25%, rgb(95, 26, 5), rgba(114, 1, 129, 0.904));
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     border-bottom: 2px solid rgb(53, 0, 53);
@@ -32,60 +43,80 @@
 }
 
 .reset {
+        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 width:fit-content;
   grid-row: 8/ 9;
   grid-column: 4 / 5;
-      border-bottom-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 120%;
+    background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904));
+    color: white;
+    margin-top: 1px;
 }
 
 .visualise {
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
   grid-row: 8 / 9; 
   grid-column: 7 / 8; 
-      border-bottom-right-radius: 10px;
-      height: 40px
+  border-bottom-right-radius: 10px;
+  height: 40px;
+  font-size: 120%;
+  background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904)); 
+  color: white;
+      margin-top: 1px;
 }
 
 .toggle-wall {
-    grid-row: 4 / 5;
+    grid-row: 2 / 3;
     grid-column: 2 / 3;
-        padding-top: 10px;
-        padding-bottom: 10px;
         display: flex;
         align-self: center;
+                    border: 1px solid rgb(102, 18, 18);
+                border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
 }
 
 .toggle-text {
-    background-color: rgb(243, 243, 243);
+        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+                font-weight: bold;
+    background-color: rgb(246, 240, 255);
     display: inline-block;
-    padding: 1px;
     border-radius: 2px;
     font-size: 95%;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 2px solid black;
-    width: fit-content;
-    height: fit-content;
+    padding: 15px;;
+    border: 1px solid rgb(102, 18, 18);
+                border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    width: 6.5vw;
 }
 
 .toggle-algorithm {
-    grid-row: 3 / 4;
+    grid-row: 1 / 2;
     grid-column: 2 / 3;
-        padding-top: 10px;
-        padding-bottom: 10px;
         display: flex;
         align-self: center;
+            border: 1px solid rgb(102, 18, 18);
+                border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
 }
 
 .algorithm-text {
-    background-color: rgb(243, 243, 243);
+        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+        font-weight: bold;
+    background-color: rgb(246, 240, 255);
     display: inline-block;
-    padding: 1px;
     border-radius: 2px;
     font-size: 95%;
-    padding-left: 5px;
-    padding-right: 5px;
-    border: 2px solid black;
+    padding: 5px;
+    border: 1px solid rgb(102, 18, 18);
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
     width: fit-content;
+}
+
+.toggle-algorithm-button {
+        background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904));
+    color: white;
 }
 
 .no-display {
@@ -98,4 +129,66 @@ width:fit-content;
 
 .wall-type-weight {
     background-color: chocolate;
+}
+
+.legend {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    grid-row: 4 / 8;
+    grid-column: 2 / 3;
+    width: 100%;
+    margin-top: 10px;
+    background-color: rgb(246, 240, 255);
+    border: 1px solid rgb(102, 18, 18);
+    border-radius: 10px;
+}
+
+.legend-title {
+    margin-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid black;
+    font-size: 110%;
+    font-weight: lighter;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 10px;
+    margin-top: -4px;
+}
+
+.legend-icon {
+    width: calc(1.6vw - 2px);
+    height: calc(1.6vw - 2px);
+    box-sizing: border-box;
+    border: 2px solid black;
+    margin-right: 10px; /* spacing between icon and text */
+}
+
+.legend-text {
+    font-weight: lighter;
+}
+
+.visited {
+        background-color: rgb(0, 183, 255);
+}
+
+.target {
+    background-color: red;
+}
+
+.start {
+    background-color: rgb(165, 0, 180);
+}
+
+.wall {
+    background-color: black;
+}
+
+.weighted {
+    background-color: chocolate;
+}
+
+.shortest {
+    background-color: yellow;
 }

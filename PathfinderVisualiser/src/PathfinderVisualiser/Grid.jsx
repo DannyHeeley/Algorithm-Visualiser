@@ -10,12 +10,12 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
   const [isTargetNodeSet, setIsTargetNodeSet] = useState(true);
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
 
-  const useGetNewGridFor = (gridType, row, col) => {
+  const useGetNewGridFor = (nodeType, row, col) => {
     const newGrid = grid.slice();
     const node = newGrid[row][col];
     const newNode = {
       ...node,
-      [gridType]: !node[gridType],
+      [nodeType]: !node[nodeType],
     };
     newGrid[row][col] = newNode;
     return newGrid;
@@ -41,53 +41,42 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     );
   };
 
-  function selectStartNode(row, col) {
+  function selectNode(nodeType, row, col) {
     setStartNodeRow(row);
     setStartNodeCol(col);
-    const newGrid = useGetNewGridFor(GridType.IS_START, row, col);
+    const newGrid = useGetNewGridFor(nodeType, row, col);
     setGrid(newGrid);
-    setIsStartNodeSet((prevState) => {
-      console.log("IsStartNodeSet:", !prevState);
-      return !prevState;
-    });
-    return;
+    if (nodeType === NodeType.START) {
+      setIsStartNodeSet((prevState) => {
+        return !prevState;
+      });
+      return;
+    }
+    if (nodeType === NodeType.TARGET) {
+      setIsTargetNodeSet((prevState) => {
+        return !prevState;
+      });
+      return;
+    }
   }
-  function deselectStartNode(row, col) {
-    const newGrid = useGetNewGridFor(GridType.IS_START, row, col);
+  function deselectNode(nodeType, row, col) {
+    const newGrid = useGetNewGridFor(nodeType, row, col);
     setGrid(newGrid);
-    setIsStartNodeSet((prevState) => {
-      console.log("IsStartNodeSet:", !prevState);
-      return !prevState;
-    });
-    return;
+    if (nodeType === NodeType.START) {
+      setIsStartNodeSet((prevState) => {
+        return !prevState;
+      });
+      return;
+    }
+    if (nodeType === NodeType.TARGET) {
+      setIsTargetNodeSet((prevState) => {
+        return !prevState;
+      });
+      return;
+    }
   }
-  function selectTargetNode(row, col) {
-    setTargetNodeRow(row);
-    setTargetNodeCol(col);
-    const newGrid = useGetNewGridFor(GridType.IS_TARGET, row, col);
-    setGrid(newGrid);
-    setIsTargetNodeSet((prevState) => {
-      console.log("IsTargetNodeSet:", !prevState);
-      return !prevState;
-    });
-    return;
-  }
-  function deselectTargetNode(row, col) {
-    const newGrid = useGetNewGridFor(GridType.IS_TARGET, row, col);
-    setGrid(newGrid);
-    setIsTargetNodeSet((prevState) => {
-      console.log("IsTargetNodeSet:", !prevState);
-      return !prevState;
-    });
-    return;
-  }
-  function handleDrawWeight(row, col) {
-    const newGrid = useGetNewGridFor(GridType.IS_WEIGHTED, row, col);
-    setGrid(newGrid);
-    setMouseIsPressed(true);
-  }
-  function handleDrawWalls(row, col) {
-    const newGrid = useGetNewGridFor(GridType.IS_WALL, row, col);
+  function handleWall(nodeType, row, col) {
+    const newGrid = useGetNewGridFor(nodeType, row, col);
     setGrid(newGrid);
     setMouseIsPressed(true);
   }
@@ -96,17 +85,17 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     if (isAnimating) return;
     switch (true) {
       case !isStartNodeSet && row !== targetNodeRow && col !== targetNodeCol:
-        return selectStartNode(row, col);
+        return selectNode(NodeType.START, row, col);
       case !isTargetNodeSet && row !== startNodeRow && col !== startNodeCol:
-        return selectTargetNode(row, col);
+        return selectNode(NodeType.TARGET, row, col);
       case row === startNodeRow && col === startNodeCol:
-        return deselectStartNode(row, col);
+        return deselectNode(NodeType.START, row, col);
       case row === targetNodeRow && col === targetNodeCol:
-        return deselectTargetNode(row, col);
+        return deselectNode(NodeType.TARGET, row, col);
       case isWallToggled:
-        return handleDrawWalls(row, col);
+        return handleWall(NodeType.WALL, row, col);
       case !isWallToggled:
-        return handleDrawWeight(row, col);
+        return handleWall(NodeType.WEIGHTED, row, col);
     }
   };
 
@@ -116,11 +105,11 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     }
     if (!mouseIsPressed) return;
     if ((isStartNodeSet || isTargetNodeSet) && isWallToggled) {
-      const newGrid = useGetNewGridFor(GridType.IS_WALL, row, col);
+      const newGrid = useGetNewGridFor(NodeType.WALL, row, col);
       setGrid(newGrid);
     }
     if ((isStartNodeSet || isTargetNodeSet) && !isWallToggled) {
-      const newGrid = useGetNewGridFor(GridType.IS_WEIGHTED, row, col);
+      const newGrid = useGetNewGridFor(NodeType.WEIGHTED, row, col);
       setGrid(newGrid);
     }
   };
@@ -128,11 +117,11 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     setMouseIsPressed(false);
   };
 
-  const GridType = {
-    IS_START: "isStart",
-    IS_TARGET: "isTarget",
-    IS_WALL: "isWall",
-    IS_WEIGHTED: "isWeighted",
+  const NodeType = {
+    START: "isStart",
+    TARGET: "isTarget",
+    WALL: "isWall",
+    WEIGHTED: "isWeighted",
   };
 
   return {
