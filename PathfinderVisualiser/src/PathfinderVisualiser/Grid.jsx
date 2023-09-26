@@ -81,7 +81,18 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     setMouseIsPressed(true);
   }
 
-  const handleMouseDown = (row, col) => {
+  const handleMouseDown = (
+    row,
+    col,
+    isAnimating,
+    isWallToggled,
+    isStartNodeSet,
+    isTargetNodeSet,
+    startNodeCol,
+    startNodeRow,
+    targetNodeCol,
+    targetNodeRow
+  ) => {
     if (isAnimating) return;
     switch (true) {
       case !isStartNodeSet && row !== targetNodeRow && col !== targetNodeCol:
@@ -99,7 +110,16 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     }
   };
 
-  const handleMouseEnter = (row, col) => {
+  const handleMouseEnter = (
+    row,
+    col,
+    startNodeCol,
+    startNodeRow,
+    isWallToggled,
+    isStartNodeSet,
+    isTargetNodeSet,
+    mouseIsPressed
+  ) => {
     if (col === startNodeCol && row === startNodeRow) {
       return;
     }
@@ -128,8 +148,10 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     initialiseGrid,
     startNodeCol,
     startNodeRow,
+    isStartNodeSet,
     targetNodeCol,
     targetNodeRow,
+    isTargetNodeSet,
     handleMouseDown,
     handleMouseEnter,
     handleMouseUp,
