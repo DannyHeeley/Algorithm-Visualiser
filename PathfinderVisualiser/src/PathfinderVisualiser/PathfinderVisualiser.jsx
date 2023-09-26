@@ -13,7 +13,7 @@ export default function PathfinderVisualiser({ algorithms }) {
   const [isWallToggled, setIsWallToggled] = useState(true);
   const [wallType, setWallType] = useState("wall-type-wall");
   const [isAnimating, setIsAnimating] = useState(false);
-  const [algorithmName, setAlgorithmName] = useState("Dijkstra");
+  const [algorithmName, setAlgorithmName] = useState("DIJKSTRA'S");
   const [algorithm, setAlgorithm] = useState(() => algorithms.dijkstra);
   const [keyCounter, setKeyCounter] = useState(0);
 
@@ -75,18 +75,18 @@ export default function PathfinderVisualiser({ algorithms }) {
 
   const changeAlgorithm = (isAnimating, algorithmName, algorithms) => {
     if (isAnimating) return;
-    if (algorithmName === "Dijkstra") {
+    if (algorithmName === "DIJKSTRA'S") {
       setAlgorithmName("A*");
       setAlgorithm(algorithms.aStar);
     } else if (algorithmName === "A*") {
-      setAlgorithmName("Dijkstra");
+      setAlgorithmName("DIJKSTRA'S");
       setAlgorithm(algorithms.dijkstra);
     }
   };
 
   return (
     <div className="pathfinder-container">
-      <div className="app-title">ALGORITHM VISUALISER</div>
+      <div className="app-title">ALGORITHM VISUALISER </div>
       <div className="toggle-algorithm">
         <button
           className="toggle-algorithm-button"
@@ -94,7 +94,7 @@ export default function PathfinderVisualiser({ algorithms }) {
             changeAlgorithm(isAnimating, algorithmName, algorithms)
           }
         >
-          +
+          &#129518;
         </button>
         <div className="algorithm-text">Algorithm: {algorithmName}</div>
       </div>
@@ -103,12 +103,11 @@ export default function PathfinderVisualiser({ algorithms }) {
           className={wallType}
           onClick={() => toggleWallType(isAnimating, toggleText, wallType)}
         >
-          <div className="no-display">+</div>
+          <div className="">&#9999;&#65039;</div>
         </button>
         <div className="toggle-text">{toggleText}</div>
       </div>
       <div className="legend">
-        <h3 className="legend-title">Legend:</h3>
         <div className="legend-item">
           <div className="legend-icon start"></div>
           <p className="legend-text">Start Node</p>
@@ -133,6 +132,9 @@ export default function PathfinderVisualiser({ algorithms }) {
           <div className="legend-icon weighted"></div>
           <p className="legend-text">Weighted Node</p>
         </div>
+      </div>
+      <div className="info">
+        <span>Click on a start or target node to change its position</span>
       </div>
       <div className="grid-container" key={keyCounter}>
         {grid.map((row, rowIdx) => (
@@ -212,13 +214,13 @@ export default function PathfinderVisualiser({ algorithms }) {
           );
         }}
       >
-        Reset
+        Reset ⭯
       </button>
       <button
         className="visualise"
         onClick={() => visualiseAlgorithm(grid, isAnimating)}
       >
-        Visualise Algorithm
+        Visualise Algorithm &#128104;&#127995;&#8205;&#128187;
       </button>
     </div>
   );
