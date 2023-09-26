@@ -9,6 +9,21 @@
     display: inline-block;
 }
 
+#node-19-49 {
+    border-bottom-right-radius: 5px;
+}
+
+#node-19-0 {
+    border-bottom-left-radius: 5px;
+}
+
+#node-0-0 {
+    border-top-left-radius: 5px;
+}
+
+#node-0-49 {
+    border-top-right-radius: 5px;
+}
 
 .node-target {
     background-color: red;

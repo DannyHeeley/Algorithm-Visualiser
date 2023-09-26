@@ -20,8 +20,10 @@ export default function PathfinderVisualiser({ algorithms }) {
     initialiseGrid,
     startNodeCol,
     startNodeRow,
+    isStartNodeSet,
     targetNodeCol,
     targetNodeRow,
+    isTargetNodeSet,
     handleMouseDown,
     handleMouseEnter,
     handleMouseUp,
@@ -37,27 +39,23 @@ export default function PathfinderVisualiser({ algorithms }) {
     setGrid(newGrid);
   }, []);
 
-  const visualiseAlgorithm = () => {
+  const visualiseAlgorithm = (isAnimating) => {
     if (isAnimating) return;
     setIsAnimating((prevState) => !prevState);
     setTimeout(() => {
       const startNode = grid[startNodeRow][startNodeCol];
       const targetNode = grid[targetNodeRow][targetNodeCol];
-      console.log(algorithm);
       const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
       const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
-      console.log(isAnimating);
       animateDijkstra(
         visitedNodesInOrder,
         nodesInShortestPathOrder,
         setIsAnimating
       );
-      console.log(isAnimating);
     }, 0);
   };
 
-  const toggleWallType = () => {
-    console.log(isAnimating);
+  const toggleWallType = (isAnimating, toggleText, wallType) => {
     if (isAnimating) return;
     if (toggleText === "Draw Walls") {
       setToggleText("Draw Weight");
@@ -72,18 +70,7 @@ export default function PathfinderVisualiser({ algorithms }) {
     setIsWallToggled((prevState) => !prevState);
   };
 
-  const handleResetButton = () => {
-    if (isAnimating) return;
-    grid.forEach((row) => {
-      row.forEach((node) => {
-        node.className = "node";
-        node.isWall = false;
-      });
-    });
-    setIsAnimating((prevState) => !prevState);
-  };
-
-  const changeAlgorithm = () => {
+  const changeAlgorithm = (isAnimating, algorithmName, algorithms) => {
     if (isAnimating) return;
     if (algorithmName === "Dijkstra") {
       setAlgorithmName("A*");
@@ -167,8 +154,32 @@ export default function PathfinderVisualiser({ algorithms }) {
                   fScore={fScore}
                   cameFrom={cameFrom}
                   mouseIsPressed={mouseIsPressed}
-                  onMouseDown={handleMouseDown}
-                  onMouseEnter={handleMouseEnter}
+                  onMouseDown={() =>
+                    handleMouseDown(
+                      row,
+                      col,
+                      isAnimating,
+                      isWallToggled,
+                      isStartNodeSet,
+                      isTargetNodeSet,
+                      startNodeCol,
+                      startNodeRow,
+                      targetNodeCol,
+                      targetNodeRow
+                    )
+                  }
+                  onMouseEnter={() =>
+                    handleMouseEnter(
+                      row,
+                      col,
+                      startNodeCol,
+                      startNodeRow,
+                      isWallToggled,
+                      isStartNodeSet,
+                      isTargetNodeSet,
+                      mouseIsPressed
+                    )
+                  }
                   onMouseUp={handleMouseUp}
                 ></Node>
               );
@@ -176,7 +187,19 @@ export default function PathfinderVisualiser({ algorithms }) {
           </div>
         ))}
       </div>
-      <button className="reset" onClick={handleResetButton}>
+      <button
+        className="reset"
+        onClick={() =>
+          setGrid(
+            initialiseGrid(
+              startNodeCol,
+              startNodeRow,
+              targetNodeCol,
+              targetNodeRow
+            )
+          )
+        }
+      >
         Reset
       </button>
       <button className="visualise" onClick={visualiseAlgorithm}>
