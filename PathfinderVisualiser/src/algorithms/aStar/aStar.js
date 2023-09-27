@@ -1,9 +1,10 @@
 export function aStar(grid, startNode, targetNode) {
     let openList = [startNode];
     let visitedList = [];
-    console.log({startNode, targetNode})
+
     startNode.gScore = 0;
     startNode.fScore = distanceBetween(startNode, targetNode);
+
     while (openList.length > 0) {
         // Find the node with the lowest F score
         let currentNode = openList[0];
@@ -41,7 +42,7 @@ export function aStar(grid, startNode, targetNode) {
             neighbor.fScore = neighbor.gScore + distanceBetween(neighbor, targetNode);
         }
     }
-    // If we get here, there is no path
+    // return null if there is no path
     return null;
 }
 
