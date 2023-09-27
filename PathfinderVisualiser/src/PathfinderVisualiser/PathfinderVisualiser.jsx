@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNode } from "./Node/Node";
 import { useGridComponent } from "./Grid";
 import { getNodesInShortestPathOrder } from "../algorithms/dijkstra/dijkstra.js";
-import { animateDijkstra } from "../algorithms/dijkstra/dijkstraAnimation";
-//import { animateAStar } from "../algorithms/aStar/aStarAnimation";
+// import { animateDijkstra } from "../algorithms/dijkstra/dijkstraAnimation";
+// import { animateAStar } from "../algorithms/aStar/aStarAnimation";
 
 import "./PathfinderVisualiser.css";
 
@@ -14,7 +14,12 @@ export default function PathfinderVisualiser({ algorithms }) {
   const [wallType, setWallType] = useState("wall-type-wall");
   const [isAnimating, setIsAnimating] = useState(false);
   const [algorithmName, setAlgorithmName] = useState("DIJKSTRA'S");
-  const [algorithm, setAlgorithm] = useState(() => algorithms.dijkstra);
+  const [algorithm, setAlgorithm] = useState(
+    () => algorithms.dijkstra.algorithm
+  );
+  const [animationFunc, setAnimation] = useState(
+    () => algorithms.dijkstra.animation
+  );
   const [keyCounter, setKeyCounter] = useState(0);
 
   const {
@@ -42,15 +47,16 @@ export default function PathfinderVisualiser({ algorithms }) {
     setGrid(newGrid);
   }, []);
 
-  const visualiseAlgorithm = (grid, isAnimating) => {
+  const visualiseAlgorithm = (grid, isAnimating, algorithm, animationFunc) => {
+    const newGrid = grid;
     if (isAnimating) return;
     setIsAnimating((prevState) => !prevState);
     setTimeout(() => {
       const startNode = grid[startNodeRow]?.[startNodeCol];
       const targetNode = grid[targetNodeRow]?.[targetNodeCol];
-      const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
+      const visitedNodesInOrder = algorithm(newGrid, startNode, targetNode);
       const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
-      animateDijkstra(
+      animationFunc(
         visitedNodesInOrder,
         nodesInShortestPathOrder,
         setIsAnimating
@@ -77,10 +83,12 @@ export default function PathfinderVisualiser({ algorithms }) {
     if (isAnimating) return;
     if (algorithmName === "DIJKSTRA'S") {
       setAlgorithmName("A*");
-      setAlgorithm(algorithms.aStar);
+      setAlgorithm(() => algorithms.aStar.algorithm);
+      setAnimation(() => algorithms.aStar.animation);
     } else if (algorithmName === "A*") {
       setAlgorithmName("DIJKSTRA'S");
-      setAlgorithm(algorithms.dijkstra);
+      setAlgorithm(() => algorithms.dijkstra.algorithm);
+      setAnimation(() => algorithms.dijkstra.animation);
     }
   };
 
@@ -218,7 +226,9 @@ export default function PathfinderVisualiser({ algorithms }) {
       </button>
       <button
         className="visualise"
-        onClick={() => visualiseAlgorithm(grid, isAnimating)}
+        onClick={() =>
+          visualiseAlgorithm(grid, isAnimating, algorithm, animationFunc)
+        }
       >
         Visualise Algorithm &#128104;&#127995;&#8205;&#128187;
       </button>
