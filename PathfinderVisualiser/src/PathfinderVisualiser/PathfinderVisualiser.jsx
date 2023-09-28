@@ -11,6 +11,7 @@ export default function PathfinderVisualiser({ algorithms }) {
   const [isWallToggled, setIsWallToggled] = useState(true);
   const [wallType, setWallType] = useState("wall-type-wall");
   const [isAnimating, setIsAnimating] = useState(false);
+  const [needsReset, setNeedsReset] = useState(false);
   const [algorithmName, setAlgorithmName] = useState("DIJKSTRA'S");
   const [algorithm, setAlgorithm] = useState(
     () => algorithms.dijkstra.algorithm
@@ -31,6 +32,7 @@ export default function PathfinderVisualiser({ algorithms }) {
     handleMouseDown,
     handleMouseEnter,
     handleMouseUp,
+    mouseIsPressed,
   } = useGridComponent(grid, setGrid, isWallToggled, isAnimating);
 
   const { Node } = useNode();
@@ -51,8 +53,9 @@ export default function PathfinderVisualiser({ algorithms }) {
     algorithm,
     algorithmAnimation
   ) => {
-    if (isAnimating) return;
+    if (isAnimating || needsReset) return;
     setIsAnimating((prevState) => !prevState);
+    setNeedsReset(() => true);
     setTimeout(() => {
       const startNode = grid[startNodeRow]?.[startNodeCol];
       const targetNode = grid[targetNodeRow]?.[targetNodeCol];
@@ -178,8 +181,6 @@ export default function PathfinderVisualiser({ algorithms }) {
                     handleMouseDown(
                       row,
                       col,
-                      isAnimating,
-                      isWallToggled,
                       isStartNodeSet,
                       isTargetNodeSet,
                       startNodeCol,
@@ -196,11 +197,10 @@ export default function PathfinderVisualiser({ algorithms }) {
                       startNodeRow,
                       isWallToggled,
                       isStartNodeSet,
-                      isTargetNodeSet,
-                      mouseIsPressed
+                      isTargetNodeSet
                     )
                   }
-                  onMouseUp={() => handleMouseUp}
+                  onMouseUp={handleMouseUp}
                 ></Node>
               );
             })}
@@ -209,7 +209,7 @@ export default function PathfinderVisualiser({ algorithms }) {
       </div>
       <button
         className="reset"
-        onClick={(isAnimating) => {
+        onClick={() => {
           if (isAnimating) return;
           setGrid(
             initialiseGrid(
@@ -218,7 +218,8 @@ export default function PathfinderVisualiser({ algorithms }) {
               targetNodeCol,
               targetNodeRow
             ),
-            setKeyCounter((prevState) => prevState++)
+            setKeyCounter((prevState) => prevState++),
+            setNeedsReset(() => false)
           );
         }}
       >
@@ -226,9 +227,9 @@ export default function PathfinderVisualiser({ algorithms }) {
       </button>
       <button
         className="visualise"
-        onClick={() =>
-          visualiseAlgorithm(grid, isAnimating, algorithm, algorithmAnimation)
-        }
+        onClick={() => {
+          visualiseAlgorithm(grid, isAnimating, algorithm, algorithmAnimation);
+        }}
       >
         Visualise Algorithm &#128104;&#127995;&#8205;&#128187;
       </button>
