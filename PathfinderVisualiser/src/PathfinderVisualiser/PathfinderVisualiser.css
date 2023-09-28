@@ -66,7 +66,7 @@
   grid-column: 7 / 8; 
   border-bottom-right-radius: 10px;
   height: 5vh;
-  width: 17vw;
+  width: 16.5vw;
   min-width: 192px;
   background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904)); 
   color: white;

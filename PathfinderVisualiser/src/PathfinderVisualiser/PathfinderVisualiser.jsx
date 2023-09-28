@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useNode } from "./Node/Node";
 import { useGridComponent } from "./Grid";
 import { getNodesInShortestPathOrder } from "../algorithms/dijkstra/dijkstra.js";
-// import { animateDijkstra } from "../algorithms/dijkstra/dijkstraAnimation";
-// import { animateAStar } from "../algorithms/aStar/aStarAnimation";
 
 import "./PathfinderVisualiser.css";
 
@@ -17,7 +15,7 @@ export default function PathfinderVisualiser({ algorithms }) {
   const [algorithm, setAlgorithm] = useState(
     () => algorithms.dijkstra.algorithm
   );
-  const [animationFunc, setAnimation] = useState(
+  const [algorithmAnimation, setAnimation] = useState(
     () => algorithms.dijkstra.animation
   );
   const [keyCounter, setKeyCounter] = useState(0);
@@ -47,16 +45,20 @@ export default function PathfinderVisualiser({ algorithms }) {
     setGrid(newGrid);
   }, []);
 
-  const visualiseAlgorithm = (grid, isAnimating, algorithm, animationFunc) => {
-    const newGrid = grid;
+  const visualiseAlgorithm = (
+    grid,
+    isAnimating,
+    algorithm,
+    algorithmAnimation
+  ) => {
     if (isAnimating) return;
     setIsAnimating((prevState) => !prevState);
     setTimeout(() => {
       const startNode = grid[startNodeRow]?.[startNodeCol];
       const targetNode = grid[targetNodeRow]?.[targetNodeCol];
-      const visitedNodesInOrder = algorithm(newGrid, startNode, targetNode);
+      const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
       const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
-      animationFunc(
+      algorithmAnimation(
         visitedNodesInOrder,
         nodesInShortestPathOrder,
         setIsAnimating
@@ -64,16 +66,13 @@ export default function PathfinderVisualiser({ algorithms }) {
     }, 0);
   };
 
-  const toggleWallType = (isAnimating, toggleText, wallType) => {
+  const toggleWallType = (isAnimating, toggleText) => {
     if (isAnimating) return;
     if (toggleText === "Draw Walls") {
       setToggleText("Draw Weight");
+      setWallType("wall-type-weight");
     } else if (toggleText === "Draw Weight") {
       setToggleText("Draw Walls");
-    }
-    if (wallType === "wall-type-wall") {
-      setWallType("wall-type-weight");
-    } else if (wallType === "wall-type-weight") {
       setWallType("wall-type-wall");
     }
     setIsWallToggled((prevState) => !prevState);
@@ -109,7 +108,7 @@ export default function PathfinderVisualiser({ algorithms }) {
       <div className="toggle-wall">
         <button
           className={wallType}
-          onClick={() => toggleWallType(isAnimating, toggleText, wallType)}
+          onClick={() => toggleWallType(isAnimating, toggleText)}
         >
           <div className="">&#9999;&#65039;</div>
         </button>
@@ -201,7 +200,7 @@ export default function PathfinderVisualiser({ algorithms }) {
                       mouseIsPressed
                     )
                   }
-                  onMouseUp={handleMouseUp}
+                  onMouseUp={() => handleMouseUp}
                 ></Node>
               );
             })}
@@ -210,7 +209,8 @@ export default function PathfinderVisualiser({ algorithms }) {
       </div>
       <button
         className="reset"
-        onClick={() => {
+        onClick={(isAnimating) => {
+          if (isAnimating) return;
           setGrid(
             initialiseGrid(
               startNodeCol,
@@ -227,7 +227,7 @@ export default function PathfinderVisualiser({ algorithms }) {
       <button
         className="visualise"
         onClick={() =>
-          visualiseAlgorithm(grid, isAnimating, algorithm, animationFunc)
+          visualiseAlgorithm(grid, isAnimating, algorithm, algorithmAnimation)
         }
       >
         Visualise Algorithm &#128104;&#127995;&#8205;&#128187;
