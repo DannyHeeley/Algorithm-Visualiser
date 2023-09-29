@@ -44,16 +44,14 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
   };
 
   function selectNode(nodeType, row, col) {
+    setStartNodeRow(row);
+    setStartNodeCol(col);
     const newGrid = useGetNewGridFor(nodeType, row, col);
     setGrid(newGrid);
     if (nodeType === NodeType.START) {
-      setStartNodeCol(col);
-      setStartNodeRow(row);
       setIsStartNodeSet((prevState) => !prevState);
     }
     if (nodeType === NodeType.TARGET) {
-      setTargetNodeCol(col);
-      setTargetNodeRow(row);
       setIsTargetNodeSet((prevState) => !prevState);
     }
   }
@@ -78,6 +76,8 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
   const handleMouseDown = (
     row,
     col,
+    isAnimating,
+    isWallToggled,
     isStartNodeSet,
     isTargetNodeSet,
     startNodeCol,
@@ -109,15 +109,13 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     startNodeRow,
     isWallToggled,
     isStartNodeSet,
-    isTargetNodeSet
+    isTargetNodeSet,
+    mouseIsPressed
   ) => {
-    if (
-      (col === startNodeCol && row === startNodeRow) ||
-      (col === targetNodeCol && row === targetNodeRow) ||
-      !mouseIsPressed
-    ) {
+    if (col === startNodeCol && row === startNodeRow) {
       return;
     }
+    if (!mouseIsPressed) return;
     if ((isStartNodeSet || isTargetNodeSet) && isWallToggled) {
       const newGrid = useGetNewGridFor(NodeType.WALL, row, col);
       setGrid(newGrid);
@@ -127,9 +125,15 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
       setGrid(newGrid);
     }
   };
-
   const handleMouseUp = () => {
     setMouseIsPressed(false);
+  };
+
+  const NodeType = {
+    START: "isStart",
+    TARGET: "isTarget",
+    WALL: "isWall",
+    WEIGHTED: "isWeighted",
   };
 
   return {
@@ -144,10 +148,4 @@ export const useGridComponent = (grid, setGrid, isWallToggled, isAnimating) => {
     handleMouseEnter,
     handleMouseUp,
   };
-};
-const NodeType = {
-  START: "isStart",
-  TARGET: "isTarget",
-  WALL: "isWall",
-  WEIGHTED: "isWeighted",
 };
