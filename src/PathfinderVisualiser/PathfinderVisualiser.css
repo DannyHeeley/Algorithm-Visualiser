@@ -1,0 +1,259 @@
+.pathfinder-container {
+    display: grid;
+    grid-template-rows: auto 1fr 1fr 1fr 1fr auto 1fr auto;
+    grid-template-columns: auto auto auto auto auto auto; 
+    border: 2px solid rgb(102, 18, 18);
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.6);
+    box-sizing: border-box;
+    padding-bottom: 15px;
+    padding-top: 35px;
+    padding-left: 10px;
+    padding-right: 40px;
+    margin-left: 3vw;
+    margin-right: 3vw;
+            
+
+}
+
+.grid-container {
+    grid-row: 2 / 8;
+    grid-column: 3 / 7;
+    background-color: aliceblue;
+    line-height: 0;
+    border: 2px solid rgb(53, 0, 53);
+        border-radius: 8px;
+    opacity: 100%;
+        height: calc(((1.6vw - 2px) * 20) + 2px);
+        width: calc(((1.6vw - 2px) * 50) + 2px);
+    min-height: 370px;
+    min-width: 925px;
+}
+
+.app-title {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    grid-row: 1 / 2;
+    grid-column: 3 / 7;
+    text-align: center;
+    font-size: 280%;
+    color: rgb(255, 255, 255);
+    background: conic-gradient(from -40deg at 75% -25%, rgb(95, 26, 5), rgba(114, 1, 129, 0.904));
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom: 2px solid rgb(53, 0, 53);
+    padding: 10px;
+        width: calc(((1.6vw - 2.3px) * 50));
+            min-width: 900px;
+}
+
+.reset {
+        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  grid-row: 8/ 9;
+  grid-column: 3 / 4;
+    border-bottom-left-radius: 10px;
+      height: 5vh;
+min-height: 40px;
+  width: 15vw;
+    font-size: 120%;
+    background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904));
+    color: white;
+    margin-top: 1px;
+}
+
+.visualise {
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+  grid-row: 8 / 9; 
+  grid-column: 6 / 7; 
+  border-bottom-right-radius: 10px;
+  height: 5vh;
+min-height: 40px;
+  width: 16.5vw;
+  min-width: 192px;
+  background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904)); 
+  color: white;
+  margin-top: 1px;
+          font-size: clamp(0.8rem, 1vw, 4rem);
+}
+
+.toggle-wall {
+    grid-row: 2 / 3;
+    grid-column: 1 / 2;
+        display: flex;
+        align-self: center;
+                    border: 1px solid rgb(102, 18, 18);
+                border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        margin-top: -2.3vw;
+max-width: 62%;
+    margin-right: 10px;
+    margin-left: 30px;
+        min-width: 155px;
+}
+
+.toggle-text {
+        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+                font-weight: bold;
+    background-color: rgb(246, 255, 240);
+    display: inline-block;
+    border-radius: 2px;
+    padding: 15px;
+    border: 1px solid rgb(102, 18, 18);
+                border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        font-size: clamp(0.8rem, 0.9vw, 4rem);
+        width: 100%;
+}
+
+.toggle-algorithm {
+    grid-row: 1 / 2;
+    grid-column: 1 / 2;
+        display: flex;
+        align-self: center;
+            border: 1px solid rgb(102, 18, 18);
+                border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+min-width: 155px;
+margin-right: 10px;
+    margin-left: 30px;
+    max-width: 62%;
+}
+
+.algorithm-text {
+        font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+        font-weight: bold;
+    background-color: rgb(246, 255, 240);
+    display: inline-block;
+    border-radius: 2px;
+    padding: 10px;
+    border: 1px solid rgb(102, 18, 18);
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+        font-size: clamp(0.8rem, 0.9vw, 4rem);
+width: 100%;
+
+}
+
+.toggle-algorithm-button {
+        background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904));
+    color: white;
+        width: 2.2vw;
+        min-width: 35px;
+}
+
+.no-display {
+    visibility: hidden;
+    width: 0.80vw;
+}
+
+.wall-type-wall {
+    background-color: black;
+}
+
+.wall-type-weight {
+    background-color: chocolate;
+}
+
+.legend {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    grid-row: 3 / 6;
+    grid-column: 1 / 2;
+    padding-right: 5px;
+    padding-top: 0.5vw;
+    background-color: rgb(241, 232, 255);
+    border: 1px solid rgb(102, 18, 18);
+    border-radius: 10px;
+    height: 14.5vw;
+    width: 9vw;
+        min-height: 241px;
+        min-width: 150px;
+                margin-top: -1.75vw;
+margin-right: 10px;
+    margin-left: 30px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin: 5px 10px;
+    margin-top: -0.4vw;
+}
+
+.legend-icon {
+    width: calc(1.6vw - 2px);
+    height: calc(1.6vw - 2px);
+    box-sizing: border-box;
+    border: 2px solid black;
+    margin-right: 10px;
+}
+
+.legend-text {
+    font-weight: lighter;
+        font-size: clamp(0.8rem, 0.8vw, 4rem);
+        white-space: nowrap;
+}
+
+.visited {
+        background-color: rgb(0, 183, 255);
+}
+
+.target {
+    background-color: red;
+}
+
+.start {
+    background-color: rgb(165, 0, 180);
+}
+
+.wall {
+    background-color: black;
+}
+
+.weighted {
+    background-color: chocolate;
+}
+
+.shortest {
+    background-color: yellow;
+}
+
+.info {
+display: flex;
+    justify-content: center;
+    text-align: center;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    grid-row: 7 / 9;
+    grid-column: 1 / 2;
+    background-color: rgb(205, 250, 231);
+    border: 1px solid rgb(0, 255, 34);
+    border-radius: 10px;
+    text-align: center;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-weight: 900;
+    font-size: clamp(0.8rem, 0.8vw, 4rem);
+        margin-top: 0.7vw;
+    min-height: 95px;
+min-width: 125px;
+    margin-right: 10px;
+    margin-left: 30px;
+    max-width: 50%;
+    height: fit-content;
+}
+
+.info span {
+    position: relative;
+  margin-top: 15px
+}
+
+.slider {
+
+    display: flex;
+    grid-row: 8 / 9;
+    grid-column: 5 / 6;
+    border-radius: 10px;
+    justify-content: center;
+    height: 5vh;
+    padding-right: 40px;
+    margin-bottom: 20px;
+    width: 25vw;
+}
