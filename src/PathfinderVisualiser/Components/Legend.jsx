@@ -1,4 +1,5 @@
 export const Legend = () => {
+  console.log("Legend");
   return (
     <div className="legend">
       <div className="legend-item">

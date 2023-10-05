@@ -1,7 +1,8 @@
 import { Slider, Box } from "@mui/material";
-import React from "react";
+import PropTypes from "prop-types";
 
 export const useDiscreteSlider = () => {
+  console.log("UseDiscreteSlider");
   const generateMarks = (start, stop, step) => {
     const marks = [];
     for (let i = start; i <= stop; i += step) {
@@ -37,12 +38,10 @@ export const useDiscreteSlider = () => {
             sx={{
               "& .MuiSlider-valueLabel": {
                 color: "white",
+                font: "Courier New, courier, Lucida Sans Typewriter, Lucida Typewriter, monospace",
               },
               "& .MuiSlider-markLabel": {
                 color: "white",
-              },
-              "& .MuiSlider-valueLabel": {
-                font: "Courier New, courier, Lucida Sans Typewriter, Lucida Typewriter, monospace",
               },
             }}
           />
@@ -50,6 +49,14 @@ export const useDiscreteSlider = () => {
       </div>
     );
   };
+
+  DiscreteSlider.propTypes = {
+    isAnimating: PropTypes.bool.isRequired,
+    needsReset: PropTypes.bool.isRequired,
+    fps: PropTypes.number.isRequired,
+    setFps: PropTypes.func.isRequired,
+  };
+
   return {
     DiscreteSlider,
   };

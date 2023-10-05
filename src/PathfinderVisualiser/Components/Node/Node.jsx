@@ -1,65 +1,38 @@
+/* eslint-disable react/prop-types */
 import React, { forwardRef } from "react";
+
 import "./Node.css";
 
 export const useNode = () => {
-  const initialiseNode = (
-    col,
-    row,
-    startNodeCol,
-    startNodeRow,
-    targetNodeCol,
-    targetNodeRow
-  ) => {
+  const initialiseNode = (col, row, isStart, isTarget, gScore) => {
     return {
       col,
       row,
-      isStart: row === startNodeRow && col === startNodeCol,
-      isTarget: row === targetNodeRow && col === targetNodeCol,
-      distance: Infinity,
-      isVisited: false,
+      isStart,
+      isTarget,
       isWall: false,
       isWeighted: false,
+      isVisited: false,
+      distance: Infinity,
       previousNode: null,
-      gScore: row == startNodeRow && col === startNodeCol ? 0 : Infinity,
+      gScore,
       fScore: Infinity,
       cameFrom: null,
     };
   };
 
   const NodeComponent = (
-    {
-      col,
-      row,
-      isTarget,
-      isStart,
-      isWall,
-      isWeighted,
-      isVisited,
-      onMouseDown,
-      onMouseEnter,
-      onMouseUp,
-    },
+    { col, row, onMouseDown, onMouseEnter, onMouseUp, extraClassName },
     nodeRef
   ) => {
-    const extraClassName = isTarget
-      ? "node-target"
-      : isStart
-      ? "node-start"
-      : isWall
-      ? "node-wall"
-      : isVisited
-      ? "node-visited"
-      : isWeighted
-      ? "node-weighted"
-      : "node";
     return (
       <div
         ref={nodeRef}
         id={`node-${row}-${col}`}
         className={`node ${extraClassName}`}
-        onMouseDown={() => onMouseDown(row, col)}
-        onMouseEnter={() => onMouseEnter(row, col)}
-        onMouseUp={() => onMouseUp()}
+        onMouseDown={onMouseDown}
+        onMouseEnter={onMouseEnter}
+        onMouseUp={onMouseUp}
       ></div>
     );
   };

@@ -1,4 +1,5 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
+import PropTypes from "prop-types";
 import { useDiscreteSlider } from "./Components/Slider.jsx";
 import { Legend } from "./Components/Legend.jsx";
 import { useButtons } from "./Components/Buttons.jsx";
@@ -6,6 +7,7 @@ import { useGridComponent } from "./Components/Grid.jsx";
 import "./PathfinderVisualiser.css";
 
 export default function PathfinderVisualiser({ algorithms }) {
+  console.log("PathfinderVisualiser");
   const [fps, setFps] = useState(60);
   const [isAnimating, setIsAnimating] = useState(false);
   const [isWallToggled, setIsWallToggled] = useState(true);
@@ -20,8 +22,13 @@ export default function PathfinderVisualiser({ algorithms }) {
 
   const { Grid, grid, setGrid, initialiseGrid } = useGridComponent();
 
-  const { ToggleAlgorithm, ToggleWall, ResetButton, VisualiseButton } =
-    useButtons();
+  const {
+    ToggleAlgorithm,
+    ToggleWall,
+    ResetButton,
+    needsReset,
+    VisualiseButton,
+  } = useButtons();
 
   const { DiscreteSlider } = useDiscreteSlider();
 
@@ -55,7 +62,12 @@ export default function PathfinderVisualiser({ algorithms }) {
           isAnimating={isAnimating}
           initialiseGrid={initialiseGrid}
         ></ResetButton>
-        <DiscreteSlider isAnimating={isAnimating} fps={fps} setFps={setFps} />
+        <DiscreteSlider
+          isAnimating={isAnimating}
+          fps={fps}
+          setFps={setFps}
+          needsReset={needsReset}
+        />
         <VisualiseButton
           fps={fps}
           grid={grid}
@@ -69,3 +81,12 @@ export default function PathfinderVisualiser({ algorithms }) {
     </>
   );
 }
+
+PathfinderVisualiser.propTypes = {
+  algorithms: PropTypes.shape({
+    dijkstra: PropTypes.shape({
+      algorithm: PropTypes.func.isRequired,
+      animation: PropTypes.func.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
