@@ -1,42 +1,41 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-
-import { useGridComponent } from "./Grid";
 import { getNodesInShortestPathOrder } from "../../algorithms/dijkstra/dijkstra.js";
 
 export const useButtons = () => {
-  console.log("UseButtons");
-  const [toggleText, setToggleText] = useState("Draw Walls");
+  const [wallTypeText, setWallTypeText] = useState("Draw Walls");
   const [wallType, setWallType] = useState("wall-type-wall");
-  const [needsReset, setNeedsReset] = useState(false);
 
-  const {
-    startNodeCol,
-    startNodeRow,
-    targetNodeCol,
-    targetNodeRow,
-    isStartNodeSet,
-    isTargetNodeSet,
-  } = useGridComponent();
+  console.log("UseButtons mounted");
 
-  const ToggleAlgorithm = ({
+  const ToggleAlgorithmButton = ({
     algorithms,
-    isAnimating,
-    setAnimation,
-    algorithmName,
-    setAlgorithm,
-    setAlgorithmName,
+    gridState,
+    setGridState,
+    setAlgorithms,
   }) => {
     const changeAlgorithm = () => {
-      if (isAnimating || needsReset) return;
-      if (algorithmName === "DIJKSTRA'S") {
-        setAlgorithmName("A*");
-        setAlgorithm(() => algorithms.aStar.algorithm);
-        setAnimation(() => algorithms.aStar.animation);
-      } else if (algorithmName === "A*") {
-        setAlgorithmName("DIJKSTRA'S");
-        setAlgorithm(() => algorithms.dijkstra.algorithm);
-        setAnimation(() => algorithms.dijkstra.animation);
+      if (gridState.isAnimating || gridState.needsReset) return;
+      if (gridState.algorithmName === "DIJKSTRA'S") {
+        setGridState((prevNodeState) => ({
+          ...prevNodeState,
+          algorithmAnimation: "A*",
+        }));
+        setAlgorithms((prevAlgorithmsState) => ({
+          ...prevAlgorithmsState,
+          currentAlgorithm: algorithms.aStar.algorithm,
+          currentAnimation: algorithms.aStar.animation,
+        }));
+      } else if (gridState.algorithmName === "A*") {
+        setGridState((prevNodeState) => ({
+          ...prevNodeState,
+          algorithmAnimation: "DIJKSTRA'S",
+        }));
+        setAlgorithms((prevAlgorithmsState) => ({
+          ...prevAlgorithmsState,
+          currentAlgorithm: algorithms.dijkstra.algorithm,
+          currentAnimation: algorithms.dijkstra.animation,
+        }));
       }
     };
     return (
@@ -44,12 +43,14 @@ export const useButtons = () => {
         <button className="toggle-algorithm-button" onClick={changeAlgorithm}>
           &#129518;
         </button>
-        <div className="algorithm-text">Algorithm: {algorithmName}</div>
+        <div className="algorithm-text">
+          Algorithm: {gridState.algorithmName}
+        </div>
       </div>
     );
   };
 
-  ToggleAlgorithm.propTypes = {
+  ToggleAlgorithmButton.propTypes = {
     algorithms: PropTypes.shape({
       dijkstra: PropTypes.shape({
         algorithm: PropTypes.func.isRequired,
@@ -60,48 +61,60 @@ export const useButtons = () => {
         animation: PropTypes.func.isRequired,
       }).isRequired,
     }).isRequired,
-    isAnimating: PropTypes.bool.isRequired,
-    setAnimation: PropTypes.func.isRequired,
-    algorithmName: PropTypes.string.isRequired,
-    setAlgorithm: PropTypes.func.isRequired,
-    setAlgorithmName: PropTypes.func.isRequired,
+    setAlgorithms: PropTypes.func.isRequired,
+    gridState: PropTypes.shape({
+      isAnimating: PropTypes.bool.isRequired,
+      needsReset: PropTypes.bool.isRequired,
+      algorithmName: PropTypes.string.isRequired,
+    }).isRequired,
+    setGridState: PropTypes.func.isRequired,
   };
 
-  const ToggleWall = ({ setIsWallToggled, isAnimating }) => {
-    const toggleWallType = (toggleText) => {
-      if (isAnimating || needsReset) return;
-      if (toggleText === "Draw Walls") {
-        setToggleText("Draw Weight");
+  const ToggleWallButton = ({ gridState, setGridState }) => {
+    const toggleWallType = (wallTypeText) => {
+      if (gridState.isAnimating || gridState.needsReset) return;
+      if (wallTypeText === "Draw Walls") {
+        setWallTypeText("Draw Weight");
         setWallType("wall-type-weight");
-      } else if (toggleText === "Draw Weight") {
-        setToggleText("Draw Walls");
+      } else if (wallTypeText === "Draw Weight") {
+        setWallTypeText("Draw Walls");
         setWallType("wall-type-wall");
       }
-      setIsWallToggled((prevState) => !prevState);
+      setGridState((prevNodeState) => ({
+        ...prevNodeState,
+        isWallToggled: !gridState.isWallToggled,
+      }));
     };
     return (
       <div className="toggle-wall">
         <button className={wallType} onClick={toggleWallType}>
           <div className="">&#9999;&#65039;</div>
         </button>
-        <div className="toggle-text">{toggleText}</div>
+        <div className="toggle-text">{wallTypeText}</div>
       </div>
     );
   };
 
-  ToggleWall.propTypes = {
-    setIsWallToggled: PropTypes.func.isRequired,
-    isAnimating: PropTypes.bool.isRequired,
+  ToggleWallButton.propTypes = {
+    gridState: PropTypes.shape({
+      isAnimating: PropTypes.bool.isRequired,
+      needsReset: PropTypes.bool.isRequired,
+      isWallToggled: PropTypes.bool.isRequired,
+    }).isRequired,
+    setGridState: PropTypes.func.isRequired,
   };
 
-  const ResetButton = ({ setGrid, isAnimating, initialiseGrid }) => {
+  const ResetButton = ({ initialiseGrid, gridState, setGridState }) => {
     return (
       <button
         className="reset"
         onClick={() => {
-          if (isAnimating) return;
-          setGrid(initialiseGrid());
-          setNeedsReset(false);
+          if (gridState.isAnimating) return;
+          setGridState((prevNodeState) => ({
+            ...prevNodeState,
+            grid: initialiseGrid(),
+            needsReset: false,
+          }));
         }}
       >
         Reset ⭯
@@ -110,36 +123,49 @@ export const useButtons = () => {
   };
 
   ResetButton.propTypes = {
-    setGrid: PropTypes.func.isRequired,
-    isAnimating: PropTypes.bool.isRequired,
     initialiseGrid: PropTypes.func.isRequired,
+    gridState: PropTypes.shape({
+      isAnimating: PropTypes.bool.isRequired,
+      needsReset: PropTypes.bool.isRequired,
+    }).isRequired,
+    setGridState: PropTypes.func.isRequired,
   };
 
   const VisualiseButton = ({
-    fps,
-    grid,
     algorithm,
     algorithmAnimation,
-    isAnimating,
-    setIsAnimating,
     nodeRefs,
+    nodeState,
+    gridState,
+    setGridState,
   }) => {
     const visualiseAlgorithm = () => {
-      if (!isStartNodeSet || !isTargetNodeSet) return;
-      if (isAnimating || needsReset) return;
-      setIsAnimating(true);
-      setNeedsReset(true);
+      if (!nodeState.isStartNodeSet || !nodeState.isTargetNodeSet) return;
+      if (gridState.isAnimating || gridState.needsReset) return;
+
+      setGridState((prevNodeState) => ({
+        ...prevNodeState,
+        isAnimating: true,
+        needsReset: true,
+      }));
+
       setTimeout(() => {
-        const startNode = grid[startNodeRow]?.[startNodeCol];
-        const targetNode = grid[targetNodeRow]?.[targetNodeCol];
-        const visitedNodesInOrder = algorithm(grid, startNode, targetNode);
+        const startNode =
+          gridState.grid[nodeState.startNodeRow]?.[nodeState.startNodeCol];
+        const targetNode =
+          gridState.grid[nodeState.targetNodeRow]?.[nodeState.targetNodeCol];
+        const visitedNodesInOrder = algorithm(
+          gridState.grid,
+          startNode,
+          targetNode
+        );
         const nodesInShortestPathOrder =
           getNodesInShortestPathOrder(targetNode);
         algorithmAnimation(
           visitedNodesInOrder,
           nodesInShortestPathOrder,
-          setIsAnimating,
-          fps,
+          setGridState,
+          gridState.fps,
           nodeRefs
         );
       }, 0);
@@ -152,20 +178,23 @@ export const useButtons = () => {
   };
 
   VisualiseButton.propTypes = {
-    fps: PropTypes.number.isRequired,
-    grid: PropTypes.array.isRequired,
     algorithm: PropTypes.func.isRequired,
     algorithmAnimation: PropTypes.func.isRequired,
-    isAnimating: PropTypes.bool.isRequired,
-    setIsAnimating: PropTypes.func.isRequired,
     nodeRefs: PropTypes.object.isRequired,
+    nodeState: PropTypes.object.isRequired,
+    gridState: PropTypes.shape({
+      isAnimating: PropTypes.bool.isRequired,
+      needsReset: PropTypes.bool.isRequired,
+      grid: PropTypes.array.isRequired,
+      fps: PropTypes.number.isRequired,
+    }).isRequired,
+    setGridState: PropTypes.func.isRequired,
   };
 
   return {
-    ToggleAlgorithm,
-    ToggleWall,
+    ToggleAlgorithmButton,
+    ToggleWallButton,
     ResetButton,
-    needsReset,
     VisualiseButton,
   };
 };

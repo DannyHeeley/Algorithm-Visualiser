@@ -2,7 +2,7 @@ import { Slider, Box } from "@mui/material";
 import PropTypes from "prop-types";
 
 export const useDiscreteSlider = () => {
-  console.log("UseDiscreteSlider");
+  console.log("UseDiscreteSlider mounted");
   const generateMarks = (start, stop, step) => {
     const marks = [];
     for (let i = start; i <= stop; i += step) {
@@ -16,10 +16,13 @@ export const useDiscreteSlider = () => {
 
   const marks = generateMarks(10, 100, 10);
 
-  const DiscreteSlider = ({ isAnimating, needsReset, fps, setFps }) => {
+  const DiscreteSlider = ({ gridState, setGridState }) => {
     const handleSliderChange = (event, newValue) => {
-      if (isAnimating || needsReset) return;
-      setFps(newValue);
+      if (gridState.isAnimating || gridState.needsReset) return;
+      setGridState((prevNodeState) => ({
+        ...prevNodeState,
+        fps: newValue,
+      }));
       event.stopPropagation();
     };
     return (
@@ -27,7 +30,7 @@ export const useDiscreteSlider = () => {
         <Box sx={{ width: 400 }}>
           <Slider
             aria-label="fps"
-            value={fps}
+            value={gridState.fps}
             onChange={handleSliderChange}
             step={10}
             min={10}
@@ -51,10 +54,12 @@ export const useDiscreteSlider = () => {
   };
 
   DiscreteSlider.propTypes = {
-    isAnimating: PropTypes.bool.isRequired,
-    needsReset: PropTypes.bool.isRequired,
-    fps: PropTypes.number.isRequired,
-    setFps: PropTypes.func.isRequired,
+    gridState: PropTypes.shape({
+      isAnimating: PropTypes.bool.isRequired,
+      needsReset: PropTypes.bool.isRequired,
+      fps: PropTypes.number.isRequired,
+    }).isRequired,
+    setGridState: PropTypes.func.isRequired,
   };
 
   return {

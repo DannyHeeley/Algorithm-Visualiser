@@ -1,32 +1,28 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 import PropTypes from "prop-types";
 import { useDiscreteSlider } from "./Components/Slider.jsx";
 import { Legend } from "./Components/Legend.jsx";
 import { useButtons } from "./Components/Buttons.jsx";
-import { useGridComponent } from "./Components/Grid.jsx";
+import { Grid } from "./Components/Grid.jsx";
 import "./PathfinderVisualiser.css";
 
-export default function PathfinderVisualiser({ algorithms }) {
-  console.log("PathfinderVisualiser");
-  const [fps, setFps] = useState(60);
-  const [isAnimating, setIsAnimating] = useState(false);
-  const [isWallToggled, setIsWallToggled] = useState(true);
-  const [algorithmName, setAlgorithmName] = useState("DIJKSTRA'S");
-  const [algorithm, setAlgorithm] = useState(
-    () => algorithms.dijkstra.algorithm
-  );
-  const [algorithmAnimation, setAnimation] = useState(
-    () => algorithms.dijkstra.animation
-  );
+export default function PathfinderVisualiser({
+  algorithms,
+  setAlgorithms,
+  nodeState,
+  setNodeState,
+  gridState,
+  setGridState,
+  initialiseGrid,
+}) {
+  console.log("PathfinderVisualiser Mounted");
+
   const nodeRefs = useRef({});
 
-  const { Grid, grid, setGrid, initialiseGrid } = useGridComponent();
-
   const {
-    ToggleAlgorithm,
-    ToggleWall,
+    ToggleAlgorithmButton,
+    ToggleWallButton,
     ResetButton,
-    needsReset,
     VisualiseButton,
   } = useButtons();
 
@@ -36,46 +32,42 @@ export default function PathfinderVisualiser({ algorithms }) {
     <>
       <div className="pathfinder-container">
         <div className="app-title">ALGORITHM VISUALISER </div>
-        <ToggleAlgorithm
+        <ToggleAlgorithmButton
           algorithms={algorithms}
-          isAnimating={isAnimating}
-          setAnimation={setAnimation}
-          algorithmName={algorithmName}
-          setAlgorithm={setAlgorithm}
-          setAlgorithmName={setAlgorithmName}
-        ></ToggleAlgorithm>
-        <ToggleWall
-          setIsWallToggled={setIsWallToggled}
-          isAnimating={isAnimating}
-        ></ToggleWall>
+          gridState={gridState}
+          setGridState={setGridState}
+          setAnimation={setAlgorithms}
+          setAlgorithms={setAlgorithms}
+        ></ToggleAlgorithmButton>
+        <ToggleWallButton
+          gridState={gridState}
+          setGridState={setGridState}
+        ></ToggleWallButton>
         <Legend></Legend>
         <div className="info">
           <span>Click on a start or target node to change its position</span>
         </div>
         <Grid
-          isWallToggled={isWallToggled}
-          isAnimating={isAnimating}
+          gridState={gridState}
+          setGridState={setGridState}
+          nodeState={nodeState}
+          setNodeState={setNodeState}
           nodeRefs={nodeRefs}
+          initialiseGrid={initialiseGrid}
         ></Grid>
         <ResetButton
-          setGrid={setGrid}
-          isAnimating={isAnimating}
+          gridState={gridState}
+          setGridState={setGridState}
           initialiseGrid={initialiseGrid}
         ></ResetButton>
-        <DiscreteSlider
-          isAnimating={isAnimating}
-          fps={fps}
-          setFps={setFps}
-          needsReset={needsReset}
-        />
+        <DiscreteSlider gridState={gridState} setGridState={setGridState} />
         <VisualiseButton
-          fps={fps}
-          grid={grid}
-          algorithm={algorithm}
-          algorithmAnimation={algorithmAnimation}
-          isAnimating={isAnimating}
-          setIsAnimating={setIsAnimating}
+          gridState={gridState}
+          setGridState={setGridState}
+          algorithm={algorithms.currentAlgorithm}
+          algorithmAnimation={algorithms.currentAnimation}
           nodeRefs={nodeRefs}
+          nodeState={nodeState}
         ></VisualiseButton>
       </div>
     </>
@@ -88,5 +80,22 @@ PathfinderVisualiser.propTypes = {
       algorithm: PropTypes.func.isRequired,
       animation: PropTypes.func.isRequired,
     }).isRequired,
+    aStar: PropTypes.shape({
+      algorithm: PropTypes.func.isRequired,
+      animation: PropTypes.func.isRequired,
+    }).isRequired,
+    currentAlgorithm: PropTypes.func.isRequired,
+    currentAnimation: PropTypes.func.isRequired,
   }).isRequired,
+  setAlgorithms: PropTypes.func.isRequired,
+  nodeState: PropTypes.object.isRequired,
+  setNodeState: PropTypes.func.isRequired,
+  gridState: PropTypes.shape({
+    grid: PropTypes.array.isRequired,
+    gridInitialised: PropTypes.bool.isRequired,
+    isAnimating: PropTypes.bool.isRequired,
+    isWallToggled: PropTypes.bool.isRequired,
+  }).isRequired,
+  setGridState: PropTypes.func.isRequired,
+  initialiseGrid: PropTypes.func.isRequired,
 };
