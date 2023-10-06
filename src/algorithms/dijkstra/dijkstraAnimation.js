@@ -1,7 +1,7 @@
 const animateDijkstra = (
   visitedNodesInOrder,
   nodesInShortestPathOrder,
-  setIsAnimating,
+  setGridState,
   fps,
   nodeRefs
 ) => {
@@ -13,7 +13,11 @@ const animateDijkstra = (
   function frame() {
     if (i >= visitedNodesInOrder.length) {
       animateShortestPath(nodesInShortestPathOrder, nodeRefs);
-      setIsAnimating((prevState) => !prevState);
+            
+      setGridState((prevNodeState) => ({
+        ...prevNodeState,
+        isAnimating: false,
+      }));
       return;
     }
 
@@ -32,7 +36,6 @@ const animateDijkstra = (
   }
   frame();
 }
-
 
 const animateShortestPath = (nodesInShortestPathOrder, nodeRefs) => {
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
