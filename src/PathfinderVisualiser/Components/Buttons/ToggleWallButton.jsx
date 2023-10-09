@@ -5,7 +5,6 @@ export const ToggleWallButton = ({ gridState, setGridState }) => {
   const [wallTypeText, setWallTypeText] = useState("Draw Walls");
   const [wallType, setWallType] = useState("wall-type-wall");
   const toggleWallType = () => {
-    console.log(wallTypeText);
     if (gridState.isAnimating || gridState.needsReset) return;
     if (wallTypeText === "Draw Walls") {
       setWallTypeText("Draw Weight");

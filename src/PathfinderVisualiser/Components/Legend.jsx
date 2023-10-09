@@ -10,20 +10,32 @@ const legendData = [
 ];
 
 export const Legend = ({ data = legendData }) => {
+  const LegendItem = ({ className, text }) => {
+    return (
+      <div className="legend-item">
+        <div className={className}></div>
+        <p className="legend-text">{text}</p>
+      </div>
+    );
+  };
+  LegendItem.propTypes = {
+    className: PropTypes.string,
+    text: PropTypes.string,
+  };
   return (
     <div className="legend">
       {data.map((subArray, index) => {
         return (
-          <div className="legend-item" key={index}>
-            <div className={subArray[0]}></div>
-            <p className="legend-text">{subArray[1]}</p>
-          </div>
+          <LegendItem
+            className={subArray[0]}
+            text={subArray[1]}
+            key={index}
+          ></LegendItem>
         );
       })}
     </div>
   );
 };
-
 Legend.propTypes = {
   data: PropTypes.array,
 };

@@ -38,6 +38,7 @@ const App = () => {
 
   useEffect(() => {
     const newGrid = initialiseGrid(nodeState);
+    console.log(nodeState.isStartNodeSet, nodeState.isTargetNodeSet);
     setGridState((prevGridState) => ({
       ...prevGridState,
       grid: newGrid,
