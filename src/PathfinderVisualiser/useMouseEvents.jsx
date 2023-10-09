@@ -9,19 +9,15 @@ export const useMouseEvents = () => {
   const handleMouseDown = (
     node,
     nodeState,
-    setGrid,
-    setGridState,
-    isWallToggled,
-    isAnimating,
-    setNodeState
+    setNodeState,
+    gridState,
+    setGridState
   ) => {
-    if (isAnimating) return;
-
+    if (gridState.isAnimating) return;
     setNodeState((prevNodeState) => ({
       ...prevNodeState,
       mouseIsPressed: true,
     }));
-
     if (!nodeState.isStartNodeSet && node.isTarget) {
       selectNode(node, NodeType.START, setNodeState, setGridState);
       return;
@@ -34,32 +30,27 @@ export const useMouseEvents = () => {
     } else if (node.isTarget) {
       deselectNode(node, NodeType.TARGET, setNodeState, setGridState);
       return;
-    } else if (isWallToggled) {
+    } else if (gridState.isWallToggled) {
       handleWall(node, NodeType.WALL, setGridState);
       return;
-    } else if (!isWallToggled) {
+    } else if (!gridState.isWallToggled) {
       handleWall(node, NodeType.WEIGHTED, setGridState);
     }
   };
 
-  const handleMouseEnter = (
-    node,
-    nodeState,
-    isWallToggled,
-    isAnimating,
-    setGrid,
-    setGridState
-  ) => {
+  const handleMouseEnter = (node, nodeState, gridState, setGridState) => {
     if (
       nodeState.mouseIsPressed &&
-      !isAnimating &&
+      !gridState.isAnimating &&
       nodeState.isStartNodeSet &&
       nodeState.isTargetNodeSet
     ) {
-      const nodeType = isWallToggled ? NodeType.WALL : NodeType.WEIGHTED;
+      const nodeType = gridState.isWallToggled
+        ? NodeType.WALL
+        : NodeType.WEIGHTED;
       setGridState((prevState) => ({
         ...prevState,
-        grid: getNewGridFor(node, nodeType, prevState.grid),
+        grid: getNewGridFor(node, nodeType, prevState),
       }));
     }
   };
@@ -71,8 +62,8 @@ export const useMouseEvents = () => {
     }));
   };
 
-  const getNewGridFor = (oldNode, nodeType, prevGrid) => {
-    const newGrid = prevGrid.slice();
+  const getNewGridFor = (oldNode, nodeType, prevGridState) => {
+    const newGrid = prevGridState.grid.slice();
     const thisNode = newGrid[oldNode.row][oldNode.col];
     const newNode = {
       ...thisNode,
@@ -82,9 +73,9 @@ export const useMouseEvents = () => {
     return newGrid;
   };
 
-  const selectNode = (node, nodeType, setNodeState, setGrid) => {
-    setGrid((prevGrid) => {
-      const newGrid = getNewGridFor(node, nodeType, prevGrid);
+  const selectNode = (node, nodeType, setNodeState, setGridState) => {
+    setGridState((prevState) => {
+      const newGrid = getNewGridFor(node, nodeType, prevState);
       if (node.isStart) {
         setNodeState((prevNodeState) => ({
           ...prevNodeState,
@@ -101,13 +92,16 @@ export const useMouseEvents = () => {
           isTargetNodeSet: true,
         }));
       }
-      return newGrid;
+      return {
+        ...prevState,
+        grid: newGrid,
+      };
     });
   };
 
-  const deselectNode = (node, nodeType, setNodeState, setGrid) => {
-    setGrid((prevGrid) => {
-      const newGrid = getNewGridFor(node, nodeType, prevGrid);
+  const deselectNode = (node, nodeType, setNodeState, setGridState) => {
+    setGridState((prevState) => {
+      const newGrid = getNewGridFor(node, nodeType, prevState);
       if (node.isStart) {
         setNodeState((prevNodeState) => ({
           ...prevNodeState,
@@ -124,12 +118,15 @@ export const useMouseEvents = () => {
           isTargetNodeSet: false,
         }));
       }
-      return newGrid;
+      return { ...prevState, grid: newGrid };
     });
   };
 
-  const handleWall = (node, nodeType, setGrid) => {
-    setGrid((prevGrid) => getNewGridFor(node, nodeType, prevGrid));
+  const handleWall = (node, nodeType, setGridState) => {
+    setGridState((prevState) => {
+      const newGrid = getNewGridFor(node, nodeType, prevState);
+      return { ...prevState, grid: newGrid };
+    });
   };
 
   return {

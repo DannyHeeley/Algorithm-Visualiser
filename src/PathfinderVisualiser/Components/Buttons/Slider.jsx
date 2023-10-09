@@ -2,7 +2,6 @@ import { Slider, Box } from "@mui/material";
 import PropTypes from "prop-types";
 
 export const useDiscreteSlider = () => {
-  console.log("UseDiscreteSlider mounted");
   const generateMarks = (start, stop, step) => {
     const marks = [];
     for (let i = start; i <= stop; i += step) {

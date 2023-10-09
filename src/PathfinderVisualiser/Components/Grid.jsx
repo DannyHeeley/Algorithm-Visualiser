@@ -1,30 +1,23 @@
-import { useNode } from "./Node/Node";
+import { Node } from "./Node/Node";
 import { useMouseEvents } from "../useMouseEvents";
 import PropTypes from "prop-types";
 
 export const Grid = ({
-  nodeState,
-  setNodeState,
   gridState,
   setGridState,
+  nodeState,
+  setNodeState,
   nodeRefs,
 }) => {
   const { handleMouseDown, handleMouseEnter, handleMouseUp } = useMouseEvents();
-  const { Node } = useNode();
-  const grid = gridState.grid;
 
-  console.log("Grid Mounted");
-
-  if (grid.length === 0) {
+  if (gridState.grid.length === 0) {
     return <div>Loading...</div>;
-  } else {
-    console.log("GridComponent - Grid is rendering");
-    console.log("GridComponent - Grid rendered: ", grid);
   }
 
   return (
     <div className="grid-container">
-      {grid.map((row, rowIdx) => (
+      {gridState.grid.map((row, rowIdx) => (
         <div key={rowIdx}>
           {row.map((node, nodeIdx) => {
             if (!nodeRefs.current[node.row]) nodeRefs.current[node.col] = {};
@@ -45,26 +38,21 @@ export const Grid = ({
                 key={nodeIdx}
                 extraClassName={extraClassName}
                 {...node}
-                onMouseDown={() =>
+                onMouseDown={() => {
                   handleMouseDown(
                     node,
                     nodeState,
-                    setGridState,
-                    gridState.isWallToggled,
-                    gridState.isAnimating,
-                    setNodeState
-                  )
-                }
-                onMouseEnter={() =>
-                  handleMouseEnter(
-                    node,
-                    nodeState,
-                    gridState.isWallToggled,
-                    gridState.isAnimating,
+                    setNodeState,
+                    gridState,
                     setGridState
-                  )
-                }
-                onMouseUp={() => handleMouseUp(setNodeState)}
+                  );
+                }}
+                onMouseEnter={() => {
+                  handleMouseEnter(node, nodeState, gridState, setGridState);
+                }}
+                onMouseUp={() => {
+                  handleMouseUp(setNodeState);
+                }}
               ></Node>
             );
           })}
@@ -84,5 +72,4 @@ Grid.propTypes = {
     grid: PropTypes.array.isRequired,
   }).isRequired,
   setGridState: PropTypes.func.isRequired,
-  initialiseGrid: PropTypes.func.isRequired,
 };

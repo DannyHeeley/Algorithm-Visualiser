@@ -1,8 +1,11 @@
 import { useRef } from "react";
 import PropTypes from "prop-types";
-import { useDiscreteSlider } from "./Components/Slider.jsx";
+import { useDiscreteSlider } from "./Components/Buttons/Slider.jsx";
 import { Legend } from "./Components/Legend.jsx";
-import { useButtons } from "./Components/Buttons.jsx";
+import { ToggleWallButton } from "./Components/Buttons/ToggleWallButton.jsx";
+import { ResetButton } from "./Components/Buttons/ResetButton.jsx";
+import { VisualiseButton } from "./Components/Buttons/VisualiseButton.jsx";
+import { ToggleAlgorithmButton } from "./Components/Buttons/ToggleAlgorithmButton.jsx";
 import { Grid } from "./Components/Grid.jsx";
 import "./PathfinderVisualiser.css";
 
@@ -15,16 +18,7 @@ export default function PathfinderVisualiser({
   setGridState,
   initialiseGrid,
 }) {
-  console.log("PathfinderVisualiser Mounted");
-
   const nodeRefs = useRef({});
-
-  const {
-    ToggleAlgorithmButton,
-    ToggleWallButton,
-    ResetButton,
-    VisualiseButton,
-  } = useButtons();
 
   const { DiscreteSlider } = useDiscreteSlider();
 
@@ -36,7 +30,6 @@ export default function PathfinderVisualiser({
           algorithms={algorithms}
           gridState={gridState}
           setGridState={setGridState}
-          setAnimation={setAlgorithms}
           setAlgorithms={setAlgorithms}
         ></ToggleAlgorithmButton>
         <ToggleWallButton
@@ -53,7 +46,6 @@ export default function PathfinderVisualiser({
           nodeState={nodeState}
           setNodeState={setNodeState}
           nodeRefs={nodeRefs}
-          initialiseGrid={initialiseGrid}
         ></Grid>
         <ResetButton
           gridState={gridState}
