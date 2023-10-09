@@ -8,20 +8,20 @@ export const ToggleAlgorithmButton = ({
 }) => {
   const changeAlgorithm = () => {
     if (gridState.isAnimating || gridState.needsReset) return;
-    if (gridState.algorithmName === "DIJKSTRA'S") {
+    if (gridState.algorithmNameText === "DIJKSTRA'S") {
       setGridState((prevNodeState) => ({
         ...prevNodeState,
-        algorithmAnimation: "A*",
+        algorithmNameText: "A*",
       }));
       setAlgorithms((prevAlgorithmsState) => ({
         ...prevAlgorithmsState,
         currentAlgorithm: algorithms.aStar.algorithm,
         currentAnimation: algorithms.aStar.animation,
       }));
-    } else if (gridState.algorithmName === "A*") {
+    } else if (gridState.algorithmNameText === "A*") {
       setGridState((prevNodeState) => ({
         ...prevNodeState,
-        algorithmAnimation: "DIJKSTRA'S",
+        algorithmNameText: "DIJKSTRA'S",
       }));
       setAlgorithms((prevAlgorithmsState) => ({
         ...prevAlgorithmsState,
@@ -35,7 +35,9 @@ export const ToggleAlgorithmButton = ({
       <button className="toggle-algorithm-button" onClick={changeAlgorithm}>
         &#129518;
       </button>
-      <div className="algorithm-text">Algorithm: {gridState.algorithmName}</div>
+      <div className="algorithm-text">
+        Algorithm: {gridState.algorithmNameText}
+      </div>
     </div>
   );
 };
@@ -55,7 +57,7 @@ ToggleAlgorithmButton.propTypes = {
   gridState: PropTypes.shape({
     isAnimating: PropTypes.bool.isRequired,
     needsReset: PropTypes.bool.isRequired,
-    algorithmName: PropTypes.string.isRequired,
+    algorithmNameText: PropTypes.string.isRequired,
   }).isRequired,
   setGridState: PropTypes.func.isRequired,
 };

@@ -15,7 +15,7 @@ const App = () => {
     fps: 60,
     needsReset: false,
     isWallToggled: true,
-    algorithmName: "DIJKSTRA'S",
+    algorithmNameText: "DIJKSTRA'S",
     gridInitialised: false,
   });
 
