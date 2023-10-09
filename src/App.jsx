@@ -29,23 +29,22 @@ const App = () => {
     mouseIsPressed: false,
   });
 
-  useEffect(() => {
-    const newGrid = initialiseGrid(nodeState);
-    setGridState((prevNodeState) => ({
-      ...prevNodeState,
-      grid: newGrid,
-      gridInitialised: true,
-    }));
-    console.log("UseEffect: Grid is initialised");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const [algorithms, setAlgorithms] = useState({
     dijkstra: { algorithm: dijkstra, animation: animateDijkstra },
     aStar: { algorithm: aStar, animation: animateAStar },
     currentAlgorithm: dijkstra,
     currentAnimation: animateDijkstra,
   });
+
+  useEffect(() => {
+    const newGrid = initialiseGrid(nodeState);
+    setGridState((prevGridState) => ({
+      ...prevGridState,
+      grid: newGrid,
+      gridInitialised: true,
+    }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="app-container">
@@ -63,7 +62,6 @@ const App = () => {
 };
 
 const initialiseGrid = (nodeState) => {
-  console.log("InitialiseGrid: Initialising grid");
   return Array.from({ length: 20 }, (_, row) =>
     Array.from({ length: 50 }, (_, col) => {
       const isStart =

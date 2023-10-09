@@ -1,5 +1,4 @@
 export const Legend = () => {
-  console.log("Legend mounted");
   return (
     <div className="legend">
       <div className="legend-item">
