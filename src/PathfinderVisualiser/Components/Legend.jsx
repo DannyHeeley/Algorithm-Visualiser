@@ -1,30 +1,29 @@
-export const Legend = () => {
+import PropTypes from "prop-types";
+
+const legendData = [
+  ["legend-icon start", "Start Node"],
+  ["legend-icon target", "Target Node"],
+  ["legend-icon visited", "Visited Node"],
+  ["legend-icon shortest", "Shortest Path"],
+  ["legend-icon wall", "Walls"],
+  ["legend-icon weighted", "Weighted Node"],
+];
+
+export const Legend = ({ data = legendData }) => {
   return (
     <div className="legend">
-      <div className="legend-item">
-        <div className="legend-icon start"></div>
-        <p className="legend-text">Start Node</p>
-      </div>
-      <div className="legend-item">
-        <div className="legend-icon target"></div>
-        <p className="legend-text">Target Node</p>
-      </div>
-      <div className="legend-item">
-        <div className="legend-icon visited"></div>
-        <p className="legend-text">Visited Node</p>
-      </div>
-      <div className="legend-item">
-        <div className="legend-icon shortest"></div>
-        <p className="legend-text">Shortest Path</p>
-      </div>
-      <div className="legend-item">
-        <div className="legend-icon wall"></div>
-        <p className="legend-text">Walls</p>
-      </div>
-      <div className="legend-item">
-        <div className="legend-icon weighted"></div>
-        <p className="legend-text">Weighted Node</p>
-      </div>
+      {data.map((subArray, index) => {
+        return (
+          <div className="legend-item" key={index}>
+            <div className={subArray[0]}></div>
+            <p className="legend-text">{subArray[1]}</p>
+          </div>
+        );
+      })}
     </div>
   );
+};
+
+Legend.propTypes = {
+  data: PropTypes.array,
 };
