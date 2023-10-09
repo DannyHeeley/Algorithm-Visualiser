@@ -48,9 +48,10 @@ export default function PathfinderVisualiser({
           nodeRefs={nodeRefs}
         ></Grid>
         <ResetButton
+          initialiseGrid={initialiseGrid}
+          nodeState={nodeState}
           gridState={gridState}
           setGridState={setGridState}
-          initialiseGrid={initialiseGrid}
         ></ResetButton>
         <DiscreteSlider gridState={gridState} setGridState={setGridState} />
         <VisualiseButton
