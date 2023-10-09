@@ -14,27 +14,32 @@ export const useMouseEvents = () => {
     setGridState
   ) => {
     if (gridState.isAnimating) return;
+
     setNodeState((prevNodeState) => ({
       ...prevNodeState,
       mouseIsPressed: true,
     }));
-    if (!nodeState.isStartNodeSet && node.isTarget) {
-      selectNode(node, NodeType.START, setNodeState, setGridState);
-      return;
-    } else if (!nodeState.isTargetNodeSet && node.isStart) {
-      selectNode(node, NodeType.TARGET, setNodeState, setGridState);
-      return;
-    } else if (node.isStart) {
-      deselectNode(node, NodeType.START, setNodeState, setGridState);
-      return;
-    } else if (node.isTarget) {
-      deselectNode(node, NodeType.TARGET, setNodeState, setGridState);
-      return;
-    } else if (gridState.isWallToggled) {
-      handleWall(node, NodeType.WALL, setGridState);
-      return;
-    } else if (!gridState.isWallToggled) {
-      handleWall(node, NodeType.WEIGHTED, setGridState);
+
+    let nodeType =
+      node.isStart || !nodeState.isStartNodeSet
+        ? NodeType.START
+        : node.isTarget || !nodeState.isTargetNodeSet
+        ? NodeType.TARGET
+        : NodeType.WALL;
+
+    if (nodeState.isStartNodeSet && nodeState.isTargetNodeSet) {
+      if (node.isStart || node.isTarget) {
+        deselectNode(node, nodeType, setNodeState, setGridState);
+        console.log(nodeState.isStartNodeSet, nodeState.isTargetNodeSet);
+        return;
+      } else {
+        nodeType = gridState.isWallToggled ? NodeType.WALL : NodeType.WEIGHTED;
+        handleWall(node, nodeType, setGridState);
+        console.log(nodeState.isStartNodeSet, nodeState.isTargetNodeSet);
+      }
+    } else {
+      console.log(nodeType);
+      return selectNode(node, nodeType, setNodeState, setGridState);
     }
   };
 
@@ -76,7 +81,7 @@ export const useMouseEvents = () => {
   const selectNode = (node, nodeType, setNodeState, setGridState) => {
     setGridState((prevState) => {
       const newGrid = getNewGridFor(node, nodeType, prevState);
-      if (node.isStart) {
+      if (nodeType === NodeType.START) {
         setNodeState((prevNodeState) => ({
           ...prevNodeState,
           startNodeCol: node.col,
@@ -84,7 +89,7 @@ export const useMouseEvents = () => {
           isStartNodeSet: true,
         }));
       }
-      if (node.isTarget) {
+      if (nodeType === NodeType.TARGET) {
         setNodeState((prevNodeState) => ({
           ...prevNodeState,
           targetNodeCol: node.col,
@@ -102,7 +107,7 @@ export const useMouseEvents = () => {
   const deselectNode = (node, nodeType, setNodeState, setGridState) => {
     setGridState((prevState) => {
       const newGrid = getNewGridFor(node, nodeType, prevState);
-      if (node.isStart) {
+      if (nodeType === NodeType.START) {
         setNodeState((prevNodeState) => ({
           ...prevNodeState,
           startNodeCol: null,
@@ -110,7 +115,7 @@ export const useMouseEvents = () => {
           isStartNodeSet: false,
         }));
       }
-      if (node.isTarget) {
+      if (nodeType === NodeType.TARGET) {
         setNodeState((prevNodeState) => ({
           ...prevNodeState,
           targetNodeCol: null,
