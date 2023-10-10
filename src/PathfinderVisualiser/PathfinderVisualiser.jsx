@@ -7,7 +7,6 @@ import { ResetButton } from "./Components/Buttons/ResetButton.jsx";
 import { VisualiseButton } from "./Components/Buttons/VisualiseButton.jsx";
 import { ToggleAlgorithmButton } from "./Components/Buttons/ToggleAlgorithmButton.jsx";
 import { Grid } from "./Components/Grid.jsx";
-import "./PathfinderVisualiser.css";
 
 export default function PathfinderVisualiser({
   algorithms,

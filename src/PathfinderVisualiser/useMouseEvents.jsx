@@ -13,61 +13,44 @@ export const useMouseEvents = () => {
     gridState,
     setGridState
   ) => {
-    if (gridState.isAnimating) return;
+    toggleMouseIsPressed(setNodeState);
 
-    setNodeState((prevNodeState) => ({
-      ...prevNodeState,
-      mouseIsPressed: true,
-    }));
-
-    let nodeType =
-      node.isStart || !nodeState.isStartNodeSet
-        ? NodeType.START
-        : node.isTarget || !nodeState.isTargetNodeSet
-        ? NodeType.TARGET
-        : NodeType.WALL;
+    const thisNodeType = typeOfNode(node, nodeState, gridState);
 
     if (nodeState.isStartNodeSet && nodeState.isTargetNodeSet) {
       if (node.isStart || node.isTarget) {
-        deselectNode(node, nodeType, setNodeState, setGridState);
-        console.log(nodeState.isStartNodeSet, nodeState.isTargetNodeSet);
-        return;
+        deselectNode(node, thisNodeType, setNodeState, setGridState);
       } else {
-        nodeType = gridState.isWallToggled ? NodeType.WALL : NodeType.WEIGHTED;
-        handleWall(node, nodeType, setGridState);
-        console.log(nodeState.isStartNodeSet, nodeState.isTargetNodeSet);
+        handleWall(node, thisNodeType, setGridState);
       }
     } else {
-      console.log(nodeType);
-      return selectNode(node, nodeType, setNodeState, setGridState);
+      return selectNode(node, thisNodeType, setNodeState, setGridState);
     }
   };
 
   const handleMouseEnter = (node, nodeState, gridState, setGridState) => {
     if (
       nodeState.mouseIsPressed &&
-      !gridState.isAnimating &&
       nodeState.isStartNodeSet &&
       nodeState.isTargetNodeSet
     ) {
-      const nodeType = gridState.isWallToggled
-        ? NodeType.WALL
-        : NodeType.WEIGHTED;
-      setGridState((prevState) => ({
-        ...prevState,
-        grid: getNewGridFor(node, nodeType, prevState),
-      }));
+      handleWall(
+        node,
+        gridState.isWallToggled ? NodeType.WALL : NodeType.WEIGHTED,
+        setGridState
+      );
     }
   };
 
   const handleMouseUp = (setNodeState) => {
     setNodeState((prevNodeState) => ({
       ...prevNodeState,
-      mouseIsPressed: false,
+      mouseIsPressed: !prevNodeState.mouseIsPressed,
     }));
   };
 
   const getNewGridFor = (oldNode, nodeType, prevGridState) => {
+    if (prevGridState.isAnimating || prevGridState.needsReset) return;
     const newGrid = prevGridState.grid.slice();
     const thisNode = newGrid[oldNode.row][oldNode.col];
     const newNode = {
@@ -132,6 +115,23 @@ export const useMouseEvents = () => {
       const newGrid = getNewGridFor(node, nodeType, prevState);
       return { ...prevState, grid: newGrid };
     });
+  };
+
+  function toggleMouseIsPressed(setNodeState) {
+    setNodeState((prevNodeState) => ({
+      ...prevNodeState,
+      mouseIsPressed: !prevNodeState.mouseIsPressed,
+    }));
+  }
+
+  const typeOfNode = (node, nodeState, gridState) => {
+    return node.isStart || !nodeState.isStartNodeSet
+      ? NodeType.START
+      : node.isTarget || !nodeState.isTargetNodeSet
+      ? NodeType.TARGET
+      : gridState.isWallToggled
+      ? NodeType.WALL
+      : NodeType.WEIGHTED;
   };
 
   return {
