@@ -15,7 +15,7 @@ export const useDiscreteSlider = () => {
 
   const marks = generateMarks(10, 100, 10);
 
-  const DiscreteSlider = ({ gridState, setGridState }) => {
+  const DiscreteSlider = ({ gridState }) => {
     const handleSliderChange = (event, newValue) => {
       if (gridState.isAnimating || gridState.needsReset) return;
       setGridState((prevNodeState) => ({
@@ -58,7 +58,6 @@ export const useDiscreteSlider = () => {
       needsReset: PropTypes.bool.isRequired,
       fps: PropTypes.number.isRequired,
     }).isRequired,
-    setGridState: PropTypes.func.isRequired,
   };
 
   return {

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
 
-export const ToggleWallButton = ({ gridState, setGridState }) => {
+export const ToggleWallButton = ({ gridState }) => {
   const [wallTypeText, setWallTypeText] = useState("Draw Walls");
   const [wallType, setWallType] = useState("wall-type-wall");
   const toggleWallType = () => {
@@ -34,5 +34,4 @@ ToggleWallButton.propTypes = {
     needsReset: PropTypes.bool.isRequired,
     isWallToggled: PropTypes.bool.isRequired,
   }).isRequired,
-  setGridState: PropTypes.func.isRequired,
 };

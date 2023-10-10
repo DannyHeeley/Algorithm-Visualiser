@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useReducer } from "react";
 
 import PathfinderVisualiser from "./PathfinderVisualiser/PathfinderVisualiser";
 import { dijkstra } from "./algorithms/dijkstra/dijkstra";
@@ -13,26 +14,6 @@ import "./PathfinderVisualiser/Components/Buttons/Buttons.css";
 import "./PathfinderVisualiser/Components/Legend.css";
 
 const App = () => {
-  const [gridState, setGridState] = useState({
-    grid: [],
-    isAnimating: false,
-    fps: 60,
-    needsReset: false,
-    isWallToggled: true,
-    algorithmNameText: "DIJKSTRA'S",
-    gridInitialised: false,
-  });
-
-  const [nodeState, setNodeState] = useState({
-    startNodeRow: 10,
-    startNodeCol: 15,
-    isStartNodeSet: true,
-    targetNodeRow: 10,
-    targetNodeCol: 35,
-    isTargetNodeSet: true,
-    mouseIsPressed: false,
-  });
-
   const [algorithms, setAlgorithms] = useState({
     dijkstra: { algorithm: dijkstra, animation: animateDijkstra },
     aStar: { algorithm: aStar, animation: animateAStar },
@@ -40,25 +21,38 @@ const App = () => {
     currentAnimation: animateDijkstra,
   });
 
+  const initialState = {
+    nodeState: {
+      startNodeRow: 10,
+      startNodeCol: 15,
+      isStartNodeSet: true,
+      targetNodeRow: 10,
+      targetNodeCol: 35,
+      isTargetNodeSet: true,
+      mouseIsPressed: false,
+    },
+    gridState: {
+      grid: [],
+      isAnimating: false,
+      fps: 60,
+      needsReset: false,
+      isWallToggled: true,
+      algorithmNameText: "DIJKSTRA'S",
+      gridInitialised: false,
+    },
+  };
+
   useEffect(() => {
-    const newGrid = initialiseGrid(nodeState);
-    setGridState((prevGridState) => ({
-      ...prevGridState,
-      grid: newGrid,
-      gridInitialised: true,
-    }));
+    gridDispatch({ type: ActionType.INITIALISE_GRID, initialiseGrid });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="app-container">
       <PathfinderVisualiser
+        initialState={initialState}
         algorithms={algorithms}
         setAlgorithms={setAlgorithms}
-        nodeState={nodeState}
-        setNodeState={setNodeState}
-        gridState={gridState}
-        setGridState={setGridState}
         initialiseGrid={initialiseGrid}
       ></PathfinderVisualiser>
     </div>
@@ -99,3 +93,10 @@ const initialiseNode = (col, row, isStart, isTarget, gScore) => {
 };
 
 export default App;
+
+const ActionType = {
+  TOGGLE_MOUSE: "TOGGLE_MOUSE",
+  SELECT_NODE: "SELECT_NODE",
+  DESELECT_NODE: "DESELECT_NODE",
+  HANDLE_WALL: "HANDLE_WALL",
+};

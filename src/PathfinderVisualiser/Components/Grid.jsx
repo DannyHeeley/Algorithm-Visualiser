@@ -2,22 +2,16 @@ import { Node } from "./Node/Node";
 import { useMouseEvents } from "../useMouseEvents";
 import PropTypes from "prop-types";
 
-export const Grid = ({
-  gridState,
-  setGridState,
-  nodeState,
-  setNodeState,
-  nodeRefs,
-}) => {
+export const Grid = ({ grid, nodeRefs }) => {
   const { handleMouseDown, handleMouseEnter, handleMouseUp } = useMouseEvents();
 
-  if (gridState.grid.length === 0) {
+  if (grid.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
     <div className="grid-container">
-      {gridState.grid.map((row, rowIdx) => (
+      {grid.map((row, rowIdx) => (
         <div key={rowIdx}>
           {row.map((node, nodeIdx) => {
             if (!nodeRefs.current[node.row]) nodeRefs.current[node.col] = {};
@@ -39,19 +33,13 @@ export const Grid = ({
                 extraClassName={extraClassName}
                 {...node}
                 onMouseDown={() => {
-                  handleMouseDown(
-                    node,
-                    nodeState,
-                    setNodeState,
-                    gridState,
-                    setGridState
-                  );
+                  handleMouseDown(node);
                 }}
                 onMouseEnter={() => {
-                  handleMouseEnter(node, nodeState, gridState, setGridState);
+                  handleMouseEnter(node);
                 }}
                 onMouseUp={() => {
-                  handleMouseUp(setNodeState);
+                  handleMouseUp(node);
                 }}
               ></Node>
             );
@@ -63,13 +51,6 @@ export const Grid = ({
 };
 
 Grid.propTypes = {
-  nodeState: PropTypes.object.isRequired,
-  setNodeState: PropTypes.func.isRequired,
+  grid: PropTypes.array.isRequired,
   nodeRefs: PropTypes.object.isRequired,
-  gridState: PropTypes.shape({
-    isAnimating: PropTypes.bool.isRequired,
-    isWallToggled: PropTypes.bool.isRequired,
-    grid: PropTypes.array.isRequired,
-  }).isRequired,
-  setGridState: PropTypes.func.isRequired,
 };

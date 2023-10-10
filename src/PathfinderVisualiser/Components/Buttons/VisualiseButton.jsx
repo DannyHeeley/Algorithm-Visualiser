@@ -5,9 +5,8 @@ export const VisualiseButton = ({
   algorithm,
   algorithmAnimation,
   nodeRefs,
-  nodeState,
   gridState,
-  setGridState,
+  nodeState,
 }) => {
   const visualiseAlgorithm = () => {
     if (!nodeState.isStartNodeSet || !nodeState.isTargetNodeSet) return;
@@ -33,7 +32,6 @@ export const VisualiseButton = ({
       algorithmAnimation(
         visitedNodesInOrder,
         nodesInShortestPathOrder,
-        setGridState,
         gridState.fps,
         nodeRefs
       );
@@ -50,12 +48,18 @@ VisualiseButton.propTypes = {
   algorithm: PropTypes.func.isRequired,
   algorithmAnimation: PropTypes.func.isRequired,
   nodeRefs: PropTypes.object.isRequired,
-  nodeState: PropTypes.object.isRequired,
   gridState: PropTypes.shape({
     isAnimating: PropTypes.bool.isRequired,
+    fps: PropTypes.number.isRequired,
     needsReset: PropTypes.bool.isRequired,
     grid: PropTypes.array.isRequired,
-    fps: PropTypes.number.isRequired,
   }).isRequired,
-  setGridState: PropTypes.func.isRequired,
+  nodeState: PropTypes.shape({
+    startNodeRow: PropTypes.number.isRequired,
+    startNodeCol: PropTypes.number.isRequired,
+    isStartNodeSet: PropTypes.bool.isRequired,
+    targetNodeRow: PropTypes.number.isRequired,
+    targetNodeCol: PropTypes.number.isRequired,
+    isTargetNodeSet: PropTypes.bool.isRequired,
+  }).isRequired,
 };

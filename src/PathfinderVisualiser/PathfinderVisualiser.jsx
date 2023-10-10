@@ -11,10 +11,7 @@ import { Grid } from "./Components/Grid.jsx";
 export default function PathfinderVisualiser({
   algorithms,
   setAlgorithms,
-  nodeState,
-  setNodeState,
-  gridState,
-  setGridState,
+  initialState,
   initialiseGrid,
 }) {
   const nodeRefs = useRef({});
@@ -27,39 +24,26 @@ export default function PathfinderVisualiser({
         <div className="app-title">ALGORITHM VISUALISER </div>
         <ToggleAlgorithmButton
           algorithms={algorithms}
-          gridState={gridState}
-          setGridState={setGridState}
+          gridState={initialState.gridState}
           setAlgorithms={setAlgorithms}
         ></ToggleAlgorithmButton>
-        <ToggleWallButton
-          gridState={gridState}
-          setGridState={setGridState}
-        ></ToggleWallButton>
+        <ToggleWallButton gridState={initialState.gridState}></ToggleWallButton>
         <Legend></Legend>
         <div className="info">
           <span>Click on a start or target node to change its position</span>
         </div>
-        <Grid
-          gridState={gridState}
-          setGridState={setGridState}
-          nodeState={nodeState}
-          setNodeState={setNodeState}
-          nodeRefs={nodeRefs}
-        ></Grid>
+        <Grid grid={initialState.gridState.grid} nodeRefs={nodeRefs}></Grid>
         <ResetButton
           initialiseGrid={initialiseGrid}
-          nodeState={nodeState}
-          gridState={gridState}
-          setGridState={setGridState}
+          initialState={initialState}
         ></ResetButton>
-        <DiscreteSlider gridState={gridState} setGridState={setGridState} />
+        <DiscreteSlider gridState={initialState.gridState} />
         <VisualiseButton
-          gridState={gridState}
-          setGridState={setGridState}
           algorithm={algorithms.currentAlgorithm}
           algorithmAnimation={algorithms.currentAnimation}
           nodeRefs={nodeRefs}
-          nodeState={nodeState}
+          gridState={initialState.gridState}
+          nodeState={initialState.nodeState}
         ></VisualiseButton>
       </div>
     </>
@@ -80,14 +64,25 @@ PathfinderVisualiser.propTypes = {
     currentAnimation: PropTypes.func.isRequired,
   }).isRequired,
   setAlgorithms: PropTypes.func.isRequired,
-  nodeState: PropTypes.object.isRequired,
-  setNodeState: PropTypes.func.isRequired,
-  gridState: PropTypes.shape({
-    grid: PropTypes.array.isRequired,
-    gridInitialised: PropTypes.bool.isRequired,
-    isAnimating: PropTypes.bool.isRequired,
-    isWallToggled: PropTypes.bool.isRequired,
+  initialState: PropTypes.shape({
+    nodeState: PropTypes.shape({
+      startNodeRow: PropTypes.number.isRequired,
+      startNodeCol: PropTypes.number.isRequired,
+      isStartNodeSet: PropTypes.bool.isRequired,
+      targetNodeRow: PropTypes.number.isRequired,
+      targetNodeCol: PropTypes.number.isRequired,
+      isTargetNodeSet: PropTypes.bool.isRequired,
+      mouseIsPressed: PropTypes.bool.isRequired,
+    }).isRequired,
+    gridState: PropTypes.shape({
+      grid: PropTypes.array.isRequired,
+      isAnimating: PropTypes.bool.isRequired,
+      fps: PropTypes.number.isRequired,
+      needsReset: PropTypes.bool.isRequired,
+      isWallToggled: PropTypes.bool.isRequired,
+      algorithmNameText: PropTypes.string.isRequired,
+      gridInitialised: PropTypes.bool.isRequired,
+    }).isRequired,
   }).isRequired,
-  setGridState: PropTypes.func.isRequired,
   initialiseGrid: PropTypes.func.isRequired,
 };
