@@ -10,7 +10,6 @@ export const VisualiseButton = ({
   setGridState,
 }) => {
   const visualiseAlgorithm = () => {
-    console.log("visualiseAlgorithm");
     if (!nodeState.isStartNodeSet || !nodeState.isTargetNodeSet) return;
     if (gridState.isAnimating || gridState.needsReset) return;
 

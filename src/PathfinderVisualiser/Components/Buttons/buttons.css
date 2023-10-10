@@ -1,0 +1,82 @@
+.visualise, .reset, .toggle-text, .algorithm-text {
+  font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+
+.toggle-algorithm, .algorithm-text, .toggle-text, .toggle-wall {
+  border: 1px solid rgb(102, 18, 18);
+  border-radius: 0px 10px 10px 0px;
+}
+
+
+.visualise, .reset {
+  background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904)); 
+  color: white;
+  margin-top: 1px;
+  height: 5vh;
+  min-height: 40px;
+  width: 16.5vw;
+  min-width: 192px;
+}
+.visualise {
+  grid-row: 8 / 9; 
+  grid-column: 6 / 7; 
+  border-bottom-right-radius: 10px;
+  font-size: clamp(0.8rem, 1vw, 4rem);
+}
+.reset {
+  grid-row: 8/ 9;
+  grid-column: 3 / 4;
+  border-bottom-left-radius: 10px;
+  font-size: 120%;
+}
+
+
+.toggle-wall, .toggle-algorithm {
+  display: flex;
+  align-self: center;
+  margin: 0px 10px 0px 30px;
+}
+.toggle-wall {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+}
+.toggle-algorithm {
+  grid-row: 1 / 2;
+  grid-column: 1 / 2;
+}
+
+
+.toggle-text, .algorithm-text {
+  font-weight: bold;
+  background-color: rgb(246, 255, 240);
+  padding: 12px;
+  font-size: clamp(0.8rem, 0.9vw, 4rem);
+  width: 100%;
+}
+
+
+.toggle-algorithm-button {
+  background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904)); 
+  color: white;
+  width: 2.2vw;
+  min-width: 35px;
+}
+
+.wall-type-wall {
+  background-color: black;
+}
+
+.wall-type-weight {
+  background-color: chocolate;
+}
+
+.slider {
+  display: flex;
+  grid-row: 8 / 9;
+  grid-column: 5 / 6;
+  border-radius: 10px;
+  justify-content: center;
+  padding-right: 40px;
+  margin-bottom: 20px;
+  width: 25vw;
+}

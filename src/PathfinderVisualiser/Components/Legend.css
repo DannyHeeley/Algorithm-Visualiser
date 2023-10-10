@@ -1,0 +1,64 @@
+.legend, .info {
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    width: 9.6vw;
+    min-width: 150px;
+    border-radius: 10px;
+    text-align: center;
+    height: fit-content;
+    margin: 0px 35px 15px 30px;
+    padding: 0.5vw 5px 0.5vw 5px;
+}
+
+.legend-text, .info, .legend-item {
+    display: flex;
+    align-items: center;
+    font-size: clamp(0.8rem, 0.8vw, 4rem);
+    font-weight: 900;
+}
+.info {
+    grid-row: 7 / 9;
+    grid-column: 1 / 2;
+    min-height: 76px;
+    background-color: rgb(205, 250, 231);
+    border: 1px solid rgb(0, 255, 34);
+
+}
+.info span {
+    position: relative;
+    margin: 15px
+}
+.legend {
+    grid-row: 3 / 6;
+    grid-column: 1 / 2;
+    min-height: 241px;
+    background-color: rgb(241, 232, 255);
+    border: 1px solid rgb(102, 18, 18);
+}
+.legend-icon {
+    width: calc(1.6vw - 2px);
+    height: calc(1.6vw - 2px);
+    box-sizing: border-box;
+    border: 2px solid black;
+    margin: 0px 10px 0px 10px;
+}
+
+
+.visited {
+    background-color: rgb(0, 183, 255);
+}
+.target {
+    background-color: red;
+}
+.start {
+    background-color: rgb(165, 0, 180);
+}
+.wall {
+    background-color: black;
+}
+.weighted {
+    background-color: chocolate;
+}
+.shortest {
+    background-color: yellow;
+}
+

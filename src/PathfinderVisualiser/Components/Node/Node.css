@@ -2,32 +2,16 @@
 .node {
     width: calc(1.6vw - 2px);
     height: calc(1.6vw - 2px);
-            min-height: 18.5px;
-        min-width: 18.5px;
+    min-height: 18.5px;
+    min-width: 18.5px;
     box-sizing: border-box;
     border: 1px solid rgba(204, 204, 204, 0.37);
     display: inline-block;
 }
 
-#node-19-49 {
-    border-bottom-right-radius: 5px;
-}
-
-#node-19-0 {
-    border-bottom-left-radius: 5px;
-}
-
-#node-0-0 {
-    border-top-left-radius: 5px;
-}
-
-#node-0-49 {
-    border-top-right-radius: 5px;
-}
-
 .node-target {
     background-color: red;
-        border: 2px solid black;
+    border: 2px solid black;
 }
 
 .node-start {
@@ -45,17 +29,13 @@
 
 .node-visited {
     animation-name: visitedAnimation;
-    animation-duration: 1.5s;
-    animation-timing-function: ease-in-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
 }
 
 .node-shortest-path {
     animation-name: shortestPath;
+}
+
+.node-visited, .node-shortest-path {
     animation-duration: 1.5s;
     animation-timing-function: ease-in-out;
     animation-delay: 0;
@@ -96,4 +76,20 @@
         transform: scale(1);
         background-color: yellow;
     }
+}
+
+#node-19-49 {
+    border-bottom-right-radius: 5px;
+}
+
+#node-19-0 {
+    border-bottom-left-radius: 5px;
+}
+
+#node-0-0 {
+    border-top-left-radius: 5px;
+}
+
+#node-0-49 {
+    border-top-right-radius: 5px;
 }

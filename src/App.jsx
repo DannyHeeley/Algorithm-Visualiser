@@ -7,6 +7,10 @@ import { animateAStar } from "./algorithms/aStar/aStarAnimation";
 import { animateDijkstra } from "./algorithms/dijkstra/dijkstraAnimation";
 
 import "./App.css";
+import "./PathfinderVisualiser/Components/Node/Node.css";
+import "./PathfinderVisualiser/PathfinderVisualiser.css";
+import "./PathfinderVisualiser/Components/Buttons/Buttons.css";
+import "./PathfinderVisualiser/Components/Legend.css";
 
 const App = () => {
   const [gridState, setGridState] = useState({
@@ -38,7 +42,6 @@ const App = () => {
 
   useEffect(() => {
     const newGrid = initialiseGrid(nodeState);
-    console.log(nodeState.isStartNodeSet, nodeState.isTargetNodeSet);
     setGridState((prevGridState) => ({
       ...prevGridState,
       grid: newGrid,
