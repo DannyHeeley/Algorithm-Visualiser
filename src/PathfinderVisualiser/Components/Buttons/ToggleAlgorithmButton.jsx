@@ -8,28 +8,24 @@ export const ToggleAlgorithmButton = ({
 }) => {
   const changeAlgorithm = () => {
     if (gridState.isAnimating || gridState.needsReset) return;
-    if (gridState.algorithmNameText === "DIJKSTRA'S") {
-      setGridState((prevNodeState) => ({
-        ...prevNodeState,
-        algorithmNameText: "A*",
-      }));
-      setAlgorithms((prevAlgorithmsState) => ({
-        ...prevAlgorithmsState,
-        currentAlgorithm: algorithms.aStar.algorithm,
-        currentAnimation: algorithms.aStar.animation,
-      }));
-    } else if (gridState.algorithmNameText === "A*") {
-      setGridState((prevNodeState) => ({
-        ...prevNodeState,
-        algorithmNameText: "DIJKSTRA'S",
-      }));
-      setAlgorithms((prevAlgorithmsState) => ({
-        ...prevAlgorithmsState,
-        currentAlgorithm: algorithms.dijkstra.algorithm,
-        currentAnimation: algorithms.dijkstra.animation,
-      }));
-    }
+    setGridState((prevGridState) => ({
+      ...prevGridState,
+      algorithmNameText:
+        gridState.algorithmNameText === "A*" ? "DIJKSTRA'S" : "A*",
+    }));
+    setAlgorithms((prevAlgorithmsState) => ({
+      ...prevAlgorithmsState,
+      currentAlgorithm:
+        gridState.algorithmNameText === "DIJKSTRA'S"
+          ? algorithms.aStar.algorithm
+          : algorithms.dijkstra.algorithm,
+      currentAnimation:
+        gridState.algorithmNameText === "DIJKSTRA'S"
+          ? algorithms.aStar.animation
+          : algorithms.dijkstra.animation,
+    }));
   };
+
   return (
     <div className="toggle-algorithm">
       <button className="toggle-algorithm-button" onClick={changeAlgorithm}>
