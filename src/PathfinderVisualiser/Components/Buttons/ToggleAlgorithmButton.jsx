@@ -2,14 +2,17 @@ import PropTypes from "prop-types";
 
 export const ToggleAlgorithmButton = ({
   algorithms,
-  setAlgorithms,
   gridState,
-  gridDispatch,
+  setGridState,
+  setAlgorithms,
 }) => {
   const changeAlgorithm = () => {
     if (gridState.isAnimating || gridState.needsReset) return;
-    gridDispatch({ type: ActionType.TOGGLE_ALGORITHM });
-
+    setGridState((prevGridState) => ({
+      ...prevGridState,
+      algorithmNameText:
+        gridState.algorithmNameText === "A*" ? "DIJKSTRA'S" : "A*",
+    }));
     setAlgorithms((prevAlgorithmsState) => ({
       ...prevAlgorithmsState,
       currentAlgorithm:
@@ -52,4 +55,5 @@ ToggleAlgorithmButton.propTypes = {
     needsReset: PropTypes.bool.isRequired,
     algorithmNameText: PropTypes.string.isRequired,
   }).isRequired,
+  setGridState: PropTypes.func.isRequired,
 };
