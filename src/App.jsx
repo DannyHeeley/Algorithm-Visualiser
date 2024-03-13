@@ -1,73 +1,75 @@
 import { useEffect, useState } from "react";
-import { useReducer } from "react";
-
 import PathfinderVisualiser from "./PathfinderVisualiser/PathfinderVisualiser";
-import { dijkstra } from "./algorithms/dijkstra/dijkstra";
-import { aStar } from "./algorithms/aStar/aStar.js";
-import { animateAStar } from "./algorithms/aStar/aStarAnimation";
-import { animateDijkstra } from "./algorithms/dijkstra/dijkstraAnimation";
+import { dijkstra } from "./PathfinderVisualiser/algorithms/dijkstra.js";
+import { aStar4Way } from "./PathfinderVisualiser/algorithms/aStar_4Way.js";
+import { aStar8Way } from "./PathfinderVisualiser/algorithms/aStar_8Way.js";
+import { algorithmAnimation } from "./PathfinderVisualiser/algorithms/algorithmAnimation";
+import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelper";
 
 import "./App.css";
 import "./PathfinderVisualiser/Components/Node/Node.css";
 import "./PathfinderVisualiser/PathfinderVisualiser.css";
 import "./PathfinderVisualiser/Components/Buttons/Buttons.css";
 import "./PathfinderVisualiser/Components/Legend.css";
+import "./PathfinderVisualiser/Components/Grid.css"
 
 const App = () => {
-  const [algorithms, setAlgorithms] = useState({
-    dijkstra: { algorithm: dijkstra, animation: animateDijkstra },
-    aStar: { algorithm: aStar, animation: animateAStar },
-    currentAlgorithm: dijkstra,
-    currentAnimation: animateDijkstra,
+  const [gridState, setGridState] = useState({
+    grid: [],
+    gridInitialised: false,
+    isStartNodeSet: true,
+    isTargetNodeSet: true,
+    startNodeRow: 10,
+    startNodeCol: 15,
+    targetNodeRow: 10,
+    targetNodeCol: 35,
+    mouseIsPressed: false,
+    isAnimating: false,
+    needsReset: false,
+    animationSpeed: 60,
+    isWallToggled: true,
+    algorithmNameText: "DIJKSTRA'S",
   });
 
-  const initialState = {
-    nodeState: {
-      startNodeRow: 10,
-      startNodeCol: 15,
-      isStartNodeSet: true,
-      targetNodeRow: 10,
-      targetNodeCol: 35,
-      isTargetNodeSet: true,
-      mouseIsPressed: false,
-    },
-    gridState: {
-      grid: [],
-      isAnimating: false,
-      fps: 60,
-      needsReset: false,
-      isWallToggled: true,
-      algorithmNameText: "DIJKSTRA'S",
-      gridInitialised: false,
-    },
-  };
+  const [algorithmState, setAlgorithmState] = useState({
+    dijkstra: dijkstra,
+    aStar4Way: aStar4Way,
+    aStar8Way: aStar8Way,
+    currentAlgorithm: dijkstra,
+    animation: algorithmAnimation,
+  });
 
   useEffect(() => {
-    gridDispatch({ type: ActionType.INITIALISE_GRID, initialiseGrid });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const newGrid = initialiseGrid(gridState);
+    setGridState((prevGridState) => ({
+      ...prevGridState,
+      grid: newGrid,
+      gridInitialised: true,
+    }));
   }, []);
 
   return (
     <div className="app-container">
       <PathfinderVisualiser
-        initialState={initialState}
-        algorithms={algorithms}
-        setAlgorithms={setAlgorithms}
+        algorithmState={algorithmState}
+        setAlgorithmState={setAlgorithmState}
+        gridState={gridState}
+        setGridState={setGridState}
         initialiseGrid={initialiseGrid}
       ></PathfinderVisualiser>
     </div>
   );
 };
 
-const initialiseGrid = (nodeState) => {
+const initialiseGrid = (gridState) => {
   return Array.from({ length: 20 }, (_, row) =>
     Array.from({ length: 50 }, (_, col) => {
       const isStart =
-        row === nodeState.startNodeRow && col === nodeState.startNodeCol;
+        row === gridState.startNodeRow && col === gridState.startNodeCol;
       const isTarget =
-        row === nodeState.targetNodeRow && col === nodeState.targetNodeCol;
+        row === gridState.targetNodeRow && col === gridState.targetNodeCol;
       const gScore =
-        row == nodeState.startNodeRow && col === nodeState.startNodeCol
+        row == gridState.startNodeRow && col === gridState.startNodeCol
           ? 0
           : Infinity;
       return initialiseNode(col, row, isStart, isTarget, gScore);
@@ -75,28 +77,4 @@ const initialiseGrid = (nodeState) => {
   );
 };
 
-const initialiseNode = (col, row, isStart, isTarget, gScore) => {
-  return {
-    col,
-    row,
-    isStart,
-    isTarget,
-    isWall: false,
-    isWeighted: false,
-    isVisited: false,
-    distance: Infinity,
-    previousNode: null,
-    gScore,
-    fScore: Infinity,
-    cameFrom: null,
-  };
-};
-
 export default App;
-
-const ActionType = {
-  TOGGLE_MOUSE: "TOGGLE_MOUSE",
-  SELECT_NODE: "SELECT_NODE",
-  DESELECT_NODE: "DESELECT_NODE",
-  HANDLE_WALL: "HANDLE_WALL",
-};

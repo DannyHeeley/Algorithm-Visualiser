@@ -1,24 +1,18 @@
-import PropTypes from "prop-types";
-
-export const ResetButton = ({ initialiseGrid, initialState }) => {
+export const ResetButton = ({ initialiseGrid, setGridState }) => {
   return (
     <button
       className="reset"
       onClick={() => {
-        if (initialState.gridState.isAnimating) return;
-        setGridState((prevState) => ({
-          ...prevState,
-          grid: initialiseGrid(initialState.nodeState),
-          needsReset: false,
-        }));
+        // TODO: Make reset button actually reset the visited nodes after animation
+        setGridState((prevState) => {
+          return {
+            ...prevState,
+            grid: initialiseGrid(prevState),
+            needsReset: false,
+          };  
+        });
+        console.log('reset button clicked')
       }}
-    >
-      Reset ⭯
-    </button>
+    >Reset ⭯</button>
   );
-};
-
-ResetButton.propTypes = {
-  initialiseGrid: PropTypes.func.isRequired,
-  initialState: PropTypes.object.isRequired,
 };

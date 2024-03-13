@@ -1,41 +1,28 @@
-import PropTypes from "prop-types";
-import { getNodesInShortestPathOrder } from "../../../algorithms/dijkstra/dijkstra.js";
+import { startAndTargetNodesSet } from "../Node/NodeHelper.js";
 
 export const VisualiseButton = ({
   algorithm,
   algorithmAnimation,
   nodeRefs,
   gridState,
-  nodeState,
+  setGridState,
 }) => {
   const visualiseAlgorithm = () => {
-    if (!nodeState.isStartNodeSet || !nodeState.isTargetNodeSet) return;
-    if (gridState.isAnimating || gridState.needsReset) return;
-
-    setGridState((prevNodeState) => ({
-      ...prevNodeState,
-      isAnimating: true,
-      needsReset: true,
-    }));
-
+    if (gridState.isAnimating || gridState.needsReset || !startAndTargetNodesSet(gridState)) return;
+    toggleIsAnimating(setGridState);
+    toggleNeedsReset(setGridState);
     setTimeout(() => {
-      const startNode =
-        gridState.grid[nodeState.startNodeRow]?.[nodeState.startNodeCol];
-      const targetNode =
-        gridState.grid[nodeState.targetNodeRow]?.[nodeState.targetNodeCol];
-      const visitedNodesInOrder = algorithm(
-        gridState.grid,
-        startNode,
-        targetNode
-      );
-      const nodesInShortestPathOrder = getNodesInShortestPathOrder(targetNode);
+      const startNode = gridState.grid[gridState.startNodeRow]?.[gridState.startNodeCol];
+      const targetNode = gridState.grid[gridState.targetNodeRow]?.[gridState.targetNodeCol];
+      const [visitedNodesInOrder, shortestPathNodesInOrder] = algorithm(gridState.grid, startNode, targetNode);
       algorithmAnimation(
         visitedNodesInOrder,
-        nodesInShortestPathOrder,
-        gridState.fps,
+        shortestPathNodesInOrder,
+        gridState.animationSpeed,
         nodeRefs
       );
     }, 0);
+    toggleIsAnimating(setGridState);
   };
   return (
     <button className="visualise" onClick={visualiseAlgorithm}>
@@ -44,22 +31,17 @@ export const VisualiseButton = ({
   );
 };
 
-VisualiseButton.propTypes = {
-  algorithm: PropTypes.func.isRequired,
-  algorithmAnimation: PropTypes.func.isRequired,
-  nodeRefs: PropTypes.object.isRequired,
-  gridState: PropTypes.shape({
-    isAnimating: PropTypes.bool.isRequired,
-    fps: PropTypes.number.isRequired,
-    needsReset: PropTypes.bool.isRequired,
-    grid: PropTypes.array.isRequired,
-  }).isRequired,
-  nodeState: PropTypes.shape({
-    startNodeRow: PropTypes.number.isRequired,
-    startNodeCol: PropTypes.number.isRequired,
-    isStartNodeSet: PropTypes.bool.isRequired,
-    targetNodeRow: PropTypes.number.isRequired,
-    targetNodeCol: PropTypes.number.isRequired,
-    isTargetNodeSet: PropTypes.bool.isRequired,
-  }).isRequired,
-};
+function toggleNeedsReset(setGridState) {
+  setGridState((prevGridState) => ({
+    ...prevGridState,
+    needsReset: !prevGridState.needsReset,
+  }));
+}
+
+function toggleIsAnimating(setGridState) {
+  setGridState((prevGridState) => ({
+    ...prevGridState,
+    isAnimating: !prevGridState.isAnimating,
+  }));
+}
+

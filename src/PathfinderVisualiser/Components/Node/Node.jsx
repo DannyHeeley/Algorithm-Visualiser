@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { forwardRef, memo } from "react";
 
 export const Node = memo(

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
 
-export const ToggleWallButton = ({ gridState }) => {
+export const ToggleWallButton = ({ gridState, setGridState }) => {
   const [wallTypeText, setWallTypeText] = useState("Draw Walls");
   const [wallType, setWallType] = useState("wall-type-wall");
   const toggleWallType = () => {
@@ -13,9 +12,9 @@ export const ToggleWallButton = ({ gridState }) => {
       setWallTypeText("Draw Walls");
       setWallType("wall-type-wall");
     }
-    setGridState((prevNodeState) => ({
-      ...prevNodeState,
-      isWallToggled: !gridState.isWallToggled,
+    setGridState((prevGridState) => ({
+      ...prevGridState,
+      isWallToggled: !prevGridState.isWallToggled,
     }));
   };
   return (
@@ -26,12 +25,4 @@ export const ToggleWallButton = ({ gridState }) => {
       <div className="toggle-text">{wallTypeText}</div>
     </div>
   );
-};
-
-ToggleWallButton.propTypes = {
-  gridState: PropTypes.shape({
-    isAnimating: PropTypes.bool.isRequired,
-    needsReset: PropTypes.bool.isRequired,
-    isWallToggled: PropTypes.bool.isRequired,
-  }).isRequired,
 };

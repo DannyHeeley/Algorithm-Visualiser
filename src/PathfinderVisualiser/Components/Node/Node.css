@@ -35,6 +35,11 @@
     animation-name: shortestPath;
 }
 
+.node-weighted-shortest-path {
+    background-color: chocolate;
+    box-shadow: inset 0 0 15px yellow;
+}
+
 .node-visited, .node-shortest-path {
     animation-duration: 1.5s;
     animation-timing-function: ease-in-out;

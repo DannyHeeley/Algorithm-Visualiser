@@ -2,17 +2,18 @@ export function dijkstra(grid, startNode, targetNode) {
     const visitedNodesInOrder = [];
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
-    while (!!unvisitedNodes.length) {
+    while (unvisitedNodes.length) {
         unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
         const closestNode = unvisitedNodes.shift();
         if (closestNode.isWall) continue;
-        if (closestNode.distance === Infinity) return visitedNodesInOrder;
+        if (closestNode.distance === Infinity) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)];
         closestNode.isVisited = true;
         visitedNodesInOrder.push(closestNode);
-        if (closestNode === targetNode) return visitedNodesInOrder;
+        if (closestNode === targetNode) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)]
         updateUnvisitedNeighbors(closestNode, grid);
-        }
     }
+
+}
 
 function updateUnvisitedNeighbors(node, grid) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
@@ -45,14 +46,12 @@ function getAllNodes(grid) {
     return nodes;
 }
 
-// Backtracks from the target node to find the shortest path.
-// Only works when called after the dijksta method above. 
-export function getNodesInShortestPathOrder(targetNode) {
-    const getNodesInShortestPathOrder = [];
-    let currentNode = targetNode;
-    while (currentNode !== null) {
-        getNodesInShortestPathOrder.unshift(currentNode);
-        currentNode = currentNode.previousNode;
-    }
-    return getNodesInShortestPathOrder;
+function reconstructPathDjikstra(targetNode) {
+  const shortestPathNodesInOrder = [];
+  let currentNode = targetNode;
+  while (currentNode !== null) {
+    shortestPathNodesInOrder.unshift(currentNode);
+    currentNode = currentNode.previousNode;
+  }
+  return shortestPathNodesInOrder;
 }

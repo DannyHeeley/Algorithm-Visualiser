@@ -6,7 +6,7 @@
     text-align: center;
     height: fit-content;
     margin: 0px 35px 15px 30px;
-    padding: 0.5vw 5px 0.5vw 5px;
+    padding: 0.5vw 5px 0vw 5px;
 }
 
 .legend-text, .info, .legend-item {
@@ -33,6 +33,7 @@
     min-height: 241px;
     background-color: rgb(241, 232, 255);
     border: 1px solid rgb(102, 18, 18);
+    padding: 0.5vw 5px 0.5vw 5px;
 }
 .legend-icon {
     width: calc(1.6vw - 2px);

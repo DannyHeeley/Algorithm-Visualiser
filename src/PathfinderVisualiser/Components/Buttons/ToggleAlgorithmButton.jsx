@@ -1,59 +1,44 @@
-import PropTypes from "prop-types";
-
 export const ToggleAlgorithmButton = ({
-  algorithms,
   gridState,
   setGridState,
-  setAlgorithms,
+  algorithmState,
+  setAlgorithmState,
 }) => {
   const changeAlgorithm = () => {
     if (gridState.isAnimating || gridState.needsReset) return;
-    setGridState((prevGridState) => ({
-      ...prevGridState,
-      algorithmNameText:
-        gridState.algorithmNameText === "A*" ? "DIJKSTRA'S" : "A*",
-    }));
-    setAlgorithms((prevAlgorithmsState) => ({
-      ...prevAlgorithmsState,
-      currentAlgorithm:
-        gridState.algorithmNameText === "DIJKSTRA'S"
-          ? algorithms.aStar.algorithm
-          : algorithms.dijkstra.algorithm,
-      currentAnimation:
-        gridState.algorithmNameText === "DIJKSTRA'S"
-          ? algorithms.aStar.animation
-          : algorithms.dijkstra.animation,
-    }));
+    handleChangeText(setGridState, gridState);
+    handleChangeAlgorithm(setAlgorithmState, gridState, algorithmState);
   };
-
   return (
     <div className="toggle-algorithm">
       <button className="toggle-algorithm-button" onClick={changeAlgorithm}>
         &#129518;
       </button>
       <div className="algorithm-text">
-        Algorithm: {gridState.algorithmNameText}
+        Algorithm: <div className="text-value">{gridState.algorithmNameText}</div>
       </div>
     </div>
   );
 };
 
-ToggleAlgorithmButton.propTypes = {
-  algorithms: PropTypes.shape({
-    dijkstra: PropTypes.shape({
-      algorithm: PropTypes.func.isRequired,
-      animation: PropTypes.func.isRequired,
-    }).isRequired,
-    aStar: PropTypes.shape({
-      algorithm: PropTypes.func.isRequired,
-      animation: PropTypes.func.isRequired,
-    }).isRequired,
-  }).isRequired,
-  setAlgorithms: PropTypes.func.isRequired,
-  gridState: PropTypes.shape({
-    isAnimating: PropTypes.bool.isRequired,
-    needsReset: PropTypes.bool.isRequired,
-    algorithmNameText: PropTypes.string.isRequired,
-  }).isRequired,
-  setGridState: PropTypes.func.isRequired,
-};
+function handleChangeAlgorithm(setAlgorithmState, gridState, algorithmState) {
+  setAlgorithmState((prevAlgorithmsState) => ({
+    ...prevAlgorithmsState,
+    currentAlgorithm: gridState.algorithmNameText === "DIJKSTRA'S"
+      ? algorithmState.aStar4Way
+      : gridState.algorithmNameText === "A* 4-WAY"
+      ? algorithmState.aStar8Way
+      : algorithmState.djikstra,
+  }));
+}
+
+function handleChangeText(setGridState, gridState) {
+  setGridState((prevGridState) => ({
+    ...prevGridState,
+    algorithmNameText: gridState.algorithmNameText === "DIJKSTRA'S"
+      ? "A* 4-WAY"
+      : gridState.algorithmNameText === "A* 4-WAY" 
+        ? "A* 8-WAY"
+        : "DIJKSTRA'S",
+  }));
+}

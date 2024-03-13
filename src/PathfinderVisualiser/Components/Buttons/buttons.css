@@ -1,4 +1,4 @@
-.visualise, .reset, .toggle-text, .algorithm-text {
+.visualise, .reset, .toggle-text, .algorithm-text, .slider-label {
   font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 }
 
@@ -35,7 +35,10 @@
   display: flex;
   align-self: center;
   margin: 0px 10px 0px 30px;
+  max-width: 200px;
+  margin: 0px 35px 0px 30px;
 }
+
 .toggle-wall {
   grid-row: 2 / 3;
   grid-column: 1 / 2;
@@ -48,10 +51,14 @@
 
 .toggle-text, .algorithm-text {
   font-weight: bold;
+  text-align: center;
   background-color: rgb(246, 255, 240);
   padding: 12px;
   font-size: clamp(0.8rem, 0.9vw, 4rem);
   width: 100%;
+}
+.text-value {
+  color: limegreen;
 }
 
 
@@ -60,6 +67,7 @@
   color: white;
   width: 2.2vw;
   min-width: 35px;
+  max-width: 200px;
 }
 
 .wall-type-wall {
@@ -77,6 +85,20 @@
   border-radius: 10px;
   justify-content: center;
   padding-right: 40px;
+  padding-left: 40px;
   margin-bottom: 20px;
+  margin-top: 10px;
   width: 25vw;
+  min-width: 450px
+}
+
+.slider-label {
+  color: white;
+  font-size: clamp(0.8rem, 0.8vw, 4rem);
+  white-space: nowrap;
+  margin-top: 8px;
+}
+
+.MuiBox-root {
+  margin-left: 10px;
 }

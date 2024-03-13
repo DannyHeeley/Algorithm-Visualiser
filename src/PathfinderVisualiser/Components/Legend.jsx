@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 const legendData = [
   ["legend-icon start", "Start Node"],
   ["legend-icon target", "Target Node"],
@@ -18,10 +16,7 @@ export const Legend = ({ data = legendData }) => {
       </div>
     );
   };
-  LegendItem.propTypes = {
-    className: PropTypes.string,
-    text: PropTypes.string,
-  };
+
   return (
     <div className="legend">
       {data.map((subArray, index) => {
@@ -35,7 +30,4 @@ export const Legend = ({ data = legendData }) => {
       })}
     </div>
   );
-};
-Legend.propTypes = {
-  data: PropTypes.array,
 };

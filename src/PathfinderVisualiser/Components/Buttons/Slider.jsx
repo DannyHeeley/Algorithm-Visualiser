@@ -1,66 +1,28 @@
 import { Slider, Box } from "@mui/material";
-import PropTypes from "prop-types";
 
-export const useDiscreteSlider = () => {
-  const generateMarks = (start, stop, step) => {
-    const marks = [];
-    for (let i = start; i <= stop; i += step) {
-      marks.push({
-        value: i,
-        label: `${i}fps`,
-      });
-    }
-    return marks;
+export const DiscreteSlider = ({ gridState, setGridState }) => {
+  const handleSliderChange = (event, newValue) => {
+    setGridState((prevGridState) => ({
+      ...prevGridState,
+      animationSpeed: newValue,
+    }));
+    event.stopPropagation();
   };
-
-  const marks = generateMarks(10, 100, 10);
-
-  const DiscreteSlider = ({ gridState }) => {
-    const handleSliderChange = (event, newValue) => {
-      if (gridState.isAnimating || gridState.needsReset) return;
-      setGridState((prevNodeState) => ({
-        ...prevNodeState,
-        fps: newValue,
-      }));
-      event.stopPropagation();
-    };
     return (
       <div className="slider">
+        <div className="slider-label">Animation Speed:</div>
         <Box sx={{ width: 400 }}>
           <Slider
-            aria-label="fps"
-            value={gridState.fps}
+            aria-label="animationSpeed"
+            value={gridState.animationSpeed}
             onChange={handleSliderChange}
             step={10}
             min={10}
-            max={60}
-            valueLabelDisplay="auto"
-            marks={marks}
+            max={120}
             color="secondary"
-            sx={{
-              "& .MuiSlider-valueLabel": {
-                color: "white",
-                font: "Courier New, courier, Lucida Sans Typewriter, Lucida Typewriter, monospace",
-              },
-              "& .MuiSlider-markLabel": {
-                color: "white",
-              },
-            }}
           />
         </Box>
       </div>
     );
   };
 
-  DiscreteSlider.propTypes = {
-    gridState: PropTypes.shape({
-      isAnimating: PropTypes.bool.isRequired,
-      needsReset: PropTypes.bool.isRequired,
-      fps: PropTypes.number.isRequired,
-    }).isRequired,
-  };
-
-  return {
-    DiscreteSlider,
-  };
-};
