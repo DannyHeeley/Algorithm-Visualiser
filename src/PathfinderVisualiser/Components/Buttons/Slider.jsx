@@ -15,7 +15,10 @@ export const DiscreteSlider = ({ gridState, setGridState }) => {
           <Slider
             aria-label="animationSpeed"
             value={gridState.animationSpeed}
-            onChange={handleSliderChange}
+            onChange={() => { 
+              if (gridState.isAnimating) return;
+              handleSliderChange;
+            }}
             step={10}
             min={10}
             max={120}

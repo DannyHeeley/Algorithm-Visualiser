@@ -6,7 +6,8 @@
     min-width: 18.5px;
     box-sizing: border-box;
     border: 1px solid rgba(204, 204, 204, 0.37);
-    display: inline-block;
+    display: inline-flex;
+    position: relative;
 }
 
 .node-target {
@@ -48,6 +49,13 @@
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
     animation-play-state: running;
+}
+
+.djisktras-map-value {
+    font-size: 10px;
+    align-self: center;
+    position: absolute;
+    margin-left: calc(0.6vw - 1px);;
 }
 
 @keyframes visitedAnimation {

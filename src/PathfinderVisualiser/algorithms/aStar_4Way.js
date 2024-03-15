@@ -1,5 +1,4 @@
 //TODO: Merge both A* Algorithms into one, i.e DRY, and just use the different getUnvisitedNeighbour and cost functions
-//TODO: Update the A* algorithm to take into account weighted nodes
 
 export function aStar4Way(grid, startNode, targetNode) {
     startNode.costOfPathFromStartNode = 0; // The cost to reach the neighbouring node from the startNode
@@ -20,7 +19,7 @@ export function aStar4Way(grid, startNode, targetNode) {
         for (let neighbor of getUnvisitedNeighbors4Way(currentNode, grid)) {
             if (visitedNodesList.includes(neighbor)) continue;
             // Distance from startNode to the neighbor through the currentNode
-            let potentialCostOfPathFromStartNode = currentNode.costOfPathFromStartNode + estimatedDistance(currentNode, neighbor); 
+            let potentialCostOfPathFromStartNode = currentNode.costOfPathFromStartNode + (estimatedDistance(currentNode, neighbor) * neighbor.isWeighted ? 1.3 : 0);
             // If the neighbor is not in the discoveredNodesList, add it
             if (!discoveredNodesList.includes(neighbor) && !neighbor.isWall) {
                 discoveredNodesList.push(neighbor);

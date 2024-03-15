@@ -1,5 +1,4 @@
 import { Node } from "./Node/Node";
-import { extraClassNameFor } from "./Node/NodeHelper.js";
 import { useMouseEvents } from "../useMouseEvents";
 
 export const Grid = ({ gridState, setGridState }) => {
@@ -13,6 +12,7 @@ export const Grid = ({ gridState, setGridState }) => {
               return (
                 <Node
                   key={nodeId}
+                  node={{ ...node }}
                   {...node}
                   onMouseDown={() => {
                     if (gridState.isAnimating || gridState.needsReset) return;
@@ -26,7 +26,6 @@ export const Grid = ({ gridState, setGridState }) => {
                     if (gridState.isAnimating || gridState.needsReset) return;
                     handleMouseUp(setGridState);
                   }}
-                  extraClassName={extraClassNameFor(node)}
                 ></Node>
               );
             })}

@@ -33,9 +33,10 @@ export const initialiseNode = (col, row, gridState) => {
     isWeighted: false,
     isVisited: false,
     previousNode: null,
-    distance: Infinity, // Cost so far
-    gScore: row == gridState.startNodeRow && col === gridState.startNodeCol ? 0 : Infinity,
-    cameFrom: null, // Flow Field
+    distance: Infinity, 
+    costOfPathFromStartNode: row == gridState.startNodeRow && col === gridState.startNodeCol ? 0 : Infinity,
+    cameFrom: null,
+    arrow: null,
   };
 };
 
