@@ -64,15 +64,7 @@ const App = () => {
 const initialiseGrid = (gridState) => {
   return Array.from({ length: 20 }, (_, row) =>
     Array.from({ length: 50 }, (_, col) => {
-      const isStart =
-        row === gridState.startNodeRow && col === gridState.startNodeCol;
-      const isTarget =
-        row === gridState.targetNodeRow && col === gridState.targetNodeCol;
-      const gScore =
-        row == gridState.startNodeRow && col === gridState.startNodeCol
-          ? 0
-          : Infinity;
-      return initialiseNode(col, row, isStart, isTarget, gScore);
+      return initialiseNode(col, row, gridState);
     })
   );
 };

@@ -23,20 +23,19 @@ export const startAndTargetNodesSet = (gridState) => {
   return gridState.isStartNodeSet && gridState.isTargetNodeSet;
 }
 
-export const initialiseNode = (col, row, isStart, isTarget, gScore) => {
+export const initialiseNode = (col, row, gridState) => {
   return {
     col,
     row,
-    isStart,
-    isTarget,
+    isStart: row === gridState.startNodeRow && col === gridState.startNodeCol,
+    isTarget: row === gridState.targetNodeRow && col === gridState.targetNodeCol,
     isWall: false,
     isWeighted: false,
     isVisited: false,
-    distance: Infinity,
     previousNode: null,
-    gScore,
-    fScore: Infinity,
-    cameFrom: null,
+    distance: Infinity, // Cost so far
+    gScore: row == gridState.startNodeRow && col === gridState.startNodeCol ? 0 : Infinity,
+    cameFrom: null, // Flow Field
   };
 };
 

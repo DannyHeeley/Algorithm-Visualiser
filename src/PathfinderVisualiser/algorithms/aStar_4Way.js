@@ -1,14 +1,17 @@
+//TODO: Merge both A* Algorithms into one, i.e DRY, and just use the different getUnvisitedNeighbour and cost functions
+//TODO: Update the A* algorithm to take into account weighted nodes
+
 export function aStar4Way(grid, startNode, targetNode) {
-    startNode.gScore = 0; // The cost to reach the neighbouring node from the startNode
-    startNode.fScore = cost4Way(startNode, targetNode); // The total cost to reach the targetNode through this particular node calculated as f = g + h
-    
+    startNode.costOfPathFromStartNode = 0; // The cost to reach the neighbouring node from the startNode
+    startNode.distance = estimatedDistance(startNode, targetNode); // The total cost to reach the targetNode through this particular node calculated as f = g + h
+
     let discoveredNodesList = [startNode]; // Open List
     let visitedNodesList = []; // Closed List
     let visualiseNodesList = []; // List of all nodes that have been evaluated, included the discarded nodes - for the animation
     let prevNode;
 
     while (discoveredNodesList.length > 0) {
-        let currentNode = getNodeWithLowestFScore(discoveredNodesList);
+        let currentNode = getNodeWithLowestDistance(discoveredNodesList);
         if (currentNode === targetNode) return result(targetNode, prevNode, currentNode, visualiseNodesList);
         
         moveCurrentNodeFromDiscoveredToVisited(grid, currentNode, discoveredNodesList, visitedNodesList, visualiseNodesList);
@@ -17,16 +20,16 @@ export function aStar4Way(grid, startNode, targetNode) {
         for (let neighbor of getUnvisitedNeighbors4Way(currentNode, grid)) {
             if (visitedNodesList.includes(neighbor)) continue;
             // Distance from startNode to the neighbor through the currentNode
-            let tentativeGScore = currentNode.gScore + cost4Way(currentNode, neighbor); 
+            let potentialCostOfPathFromStartNode = currentNode.costOfPathFromStartNode + estimatedDistance(currentNode, neighbor); 
             // If the neighbor is not in the discoveredNodesList, add it
             if (!discoveredNodesList.includes(neighbor) && !neighbor.isWall) {
                 discoveredNodesList.push(neighbor);
-            } else if (tentativeGScore >= neighbor.gScore) {
+            } else if (potentialCostOfPathFromStartNode >= neighbor.costOfPathFromStartNode) {
                 continue;
             }
 
             // If we get here, we have found the neighbouring node with the lowest cost
-            updateNodeWithLowestCost(neighbor, currentNode, tentativeGScore, targetNode);
+            updateNodeWithLowestCost(neighbor, currentNode, potentialCostOfPathFromStartNode, targetNode);
             // This line is to link the target node to the previous neighbour so it can be returned with the result
             prevNode = currentNode;
         }
@@ -35,10 +38,10 @@ export function aStar4Way(grid, startNode, targetNode) {
     return null;
 }
 
-function updateNodeWithLowestCost(neighbor, currentNode, tentativeGScore, targetNode) {
+function updateNodeWithLowestCost(neighbor, currentNode, potentialCostOfPathFromStartNode, targetNode) {
     neighbor.cameFrom = currentNode;
-    neighbor.gScore = tentativeGScore; // The cost to reach the neighbouring node from the startNode
-    neighbor.fScore = neighbor.gScore + cost4Way(neighbor, targetNode); // The total cost to reach the targetNode through this particular node
+    neighbor.costOfPathFromStartNode = potentialCostOfPathFromStartNode; // The cost to reach the neighbouring node from the startNode
+    neighbor.distance = neighbor.costOfPathFromStartNode + estimatedDistance(neighbor, targetNode); // The total cost to reach the targetNode through this particular node
 }
 
 function moveCurrentNodeFromDiscoveredToVisited(grid, currentNode, discoveredNodesList, visitedNodesList, visualiseNodesList) {
@@ -51,11 +54,11 @@ function moveCurrentNodeFromDiscoveredToVisited(grid, currentNode, discoveredNod
     }
 }
 
-function getNodeWithLowestFScore(discoveredNodesList) {
+function getNodeWithLowestDistance(discoveredNodesList) {
     let currentNode = discoveredNodesList[0];
     for (let i = 1; i < discoveredNodesList.length; i++) {
-        // Check if the fScore is lower than currentNode
-        if (discoveredNodesList[i].fScore < currentNode.fScore) {
+        // Check if the distance is lower than currentNode
+        if (discoveredNodesList[i].distance < currentNode.distance) {
             // Set the currentNode to the the node at this index
             currentNode = discoveredNodesList[i];
         }
@@ -63,7 +66,7 @@ function getNodeWithLowestFScore(discoveredNodesList) {
     return currentNode;
 }
 
-function cost4Way(node1, node2) {
+function estimatedDistance(node1, node2) {
     if (node2.isWall || node1.isWall) return;
     // Calculate the Manhattan distance between two nodes
     let distance_x = Math.abs(node1.col - node2.col);
