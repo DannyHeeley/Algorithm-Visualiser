@@ -14,6 +14,8 @@ export default function PathfinderVisualiser({
   setGridState,
   initialiseGrid,
 }) {
+  // nodeRefs here is used for animation purposes.
+  // This is passed from the node (child) back to the parent (This component) with forwardsRef
   const nodeRefs = useRef({});
   return (
     <>
@@ -42,6 +44,7 @@ export default function PathfinderVisualiser({
           initialiseGrid={initialiseGrid}
           gridState={gridState}
           setGridState={setGridState}
+          nodeRefs={nodeRefs}
         ></ResetButton>
         <DiscreteSlider gridState={gridState} setGridState={setGridState} />
         <VisualiseButton
@@ -55,3 +58,5 @@ export default function PathfinderVisualiser({
     </>
   );
 }
+
+

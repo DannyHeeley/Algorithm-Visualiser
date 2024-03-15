@@ -3,3 +3,4 @@ import App from "./App.jsx";
 import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+// TODO: enabling Strict Mode and configuring React’s ESLint plugin.

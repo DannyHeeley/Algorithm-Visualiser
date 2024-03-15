@@ -1,7 +1,9 @@
+import { useEffect } from "react";
 import { nodeIsAStartOrTarget } from '../Components/Node/NodeHelper.js';
+import { gsap } from "gsap";
 
 // BAD PRACTICE TO DO THIS IN REACT,
-// TODO: NEED TO REWRITE TO USE REACT VIRTUAL DOM 
+// TODO: NEED TO REWRITE TO USE GSAP. Can then use gsap.context(), revert for reset, and kill for pause.
 // THIS IS ALSO STOPPING THE ABILITY TO RESET THE ANIMATION PROPERLY
 
 export const algorithmAnimation = (
@@ -10,6 +12,21 @@ export const algorithmAnimation = (
   animationSpeed,
   nodeRefs
 ) => {
+
+  // TODO: Implement GSAP animation here
+  
+  // const nodeRefRoot = useEffect(() => {
+  //   let ctx = gsap.context(() => {
+  //     gsap.to(".node", {
+
+  //             }
+  //     )
+  //   }, nodeRefRoot)
+    
+  //   return () => ctx.revert();
+
+  // }, [])
+
   let intervalID;
   let i = 0;
   function animate() {

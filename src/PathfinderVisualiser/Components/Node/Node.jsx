@@ -8,6 +8,7 @@ export const Node = memo(
     ) => {
       return (
         <div
+          // This ref is passed back to the parent (Grid component)
           ref={nodeRef}
           id={`node-${row}-${col}`}
           className={`node ${extraClassName}`}
