@@ -3,6 +3,7 @@ export function dijkstra(grid, startNode, targetNode) {
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
     while (unvisitedNodes.length) {
+        // TODO: using a priority queue and optimizing the neighbor update process can achieve better performance
         unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
         const closestNode = unvisitedNodes.shift();
         if (closestNode.isWall) continue;
@@ -17,8 +18,8 @@ export function dijkstra(grid, startNode, targetNode) {
 function updateUnvisitedNeighbors(node, grid) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
     for (const neighbor of unvisitedNeighbors) {
-        let potentialCostOfPathFromStartNode = node.distance * (neighbor.isWeighted ? 1.5 : 1);
-        if (potentialCostOfPathFromStartNode < neighbor.distance) {
+        let potentialCostOfPathFromStartNode = node.distance + (neighbor.isWeighted ? 1.3: 1);
+        if (potentialCostOfPathFromStartNode < neighbor.distance && !neighbor.isVisited) {
             neighbor.distance = potentialCostOfPathFromStartNode;
             neighbor.previousNode = node;
         }

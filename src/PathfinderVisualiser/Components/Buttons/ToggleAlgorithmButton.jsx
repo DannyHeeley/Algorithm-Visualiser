@@ -24,20 +24,26 @@ export const ToggleAlgorithmButton = ({
 function handleChangeAlgorithm(setAlgorithmState, gridState, algorithmState) {
   setAlgorithmState((prevAlgorithmsState) => ({
     ...prevAlgorithmsState,
-    currentAlgorithm: gridState.algorithmNameText === "DIJKSTRA'S"
-      ? algorithmState.aStar4Way
-      : gridState.algorithmNameText === "A* 4-WAY"
-      ? algorithmState.aStar8Way
-      : algorithmState.djikstra,
+    currentAlgorithm:
+      gridState.algorithmNameText === "DIJKSTRA'S"
+        ? algorithmState.greedyBestFirst
+        : gridState.algorithmNameText === "GreedyBestFirstSearch"
+        ? algorithmState.aStar4Way
+        : gridState.algorithmNameText === "A* 4-WAY"
+        ? algorithmState.aStar8Way
+        : algorithmState.djikstra,
   }));
 }
 
 function handleChangeText(setGridState, gridState) {
   setGridState((prevGridState) => ({
     ...prevGridState,
-    algorithmNameText: gridState.algorithmNameText === "DIJKSTRA'S"
-      ? "A* 4-WAY"
-      : gridState.algorithmNameText === "A* 4-WAY" 
+    algorithmNameText:
+      gridState.algorithmNameText === "DIJKSTRA'S"
+        ? "GreedyBestFirstSearch"
+        : gridState.algorithmNameText === "GreedyBestFirstSearch"
+        ? "A* 4-WAY"
+        : gridState.algorithmNameText === "A* 4-WAY"
         ? "A* 8-WAY"
         : "DIJKSTRA'S",
   }));

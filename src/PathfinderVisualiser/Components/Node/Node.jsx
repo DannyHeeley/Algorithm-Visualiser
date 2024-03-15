@@ -12,7 +12,8 @@ export const Node = memo(({ node, onMouseDown, onMouseEnter, onMouseUp }) => {
         >
           {
             // JSX Conditional rendering
-            node.distance !== Infinity && (<div className="djisktras-map-value">{`${node.distance}`}</div>)
+            //node.distance !== Infinity && (<div className="djisktras-map-value">{`${node.distance}`}</div>)
+            // TODO: This is for a cost value displayed on the map but is not correctly implemented 
           }
         </div>
       );
