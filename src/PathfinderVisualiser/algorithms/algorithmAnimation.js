@@ -1,32 +1,11 @@
-import { useEffect } from "react";
 import { nodeIsAStartOrTarget } from '../Components/Node/NodeHelper.js';
-import { gsap } from "gsap";
-
-// BAD PRACTICE TO DO THIS IN REACT,
-// TODO: NEED TO REWRITE TO USE GSAP. Can then use gsap.context(), revert for reset, and kill for pause.
-// THIS IS ALSO STOPPING THE ABILITY TO RESET THE ANIMATION PROPERLY
+//import { gsap } from "gsap";
 
 export const algorithmAnimation = (
   visitedNodesInOrder,
   shortestPathNodesInOrder,
   animationSpeed,
-  nodeRefs
 ) => {
-
-  // TODO: Implement GSAP animation here
-  
-  // const nodeRefRoot = useEffect(() => {
-  //   let ctx = gsap.context(() => {
-  //     gsap.to(".node", {
-
-  //             }
-  //     )
-  //   }, nodeRefRoot)
-    
-  //   return () => ctx.revert();
-
-  // }, [])
-
   let intervalID;
   let i = 0;
   function animate() {
@@ -35,11 +14,11 @@ export const algorithmAnimation = (
       // Cancel the animation
       clearInterval(intervalID)
       // Animate the shortest path
-      animateShortestPath(shortestPathNodesInOrder, nodeRefs);
+      animateShortestPath(shortestPathNodesInOrder);
       return;
     }
     const node = visitedNodesInOrder[i];
-    updateCurrentNode(node, nodeRefs);
+    updateCurrentNode(node);
     i++;
   }
   const animationInterval = 1000 / animationSpeed;
@@ -47,22 +26,25 @@ export const algorithmAnimation = (
   intervalID = setInterval(animate, animationInterval)
 }
 
-const animateShortestPath = (nodesInShortestPathOrder, nodeRefs) => {
+// BAD PRACTICE TO DO THIS IN REACT,
+// TODO: NEED TO REWRITE TO USE GSAP. Can then use gsap.context(), revert for reset, and kill for pause.
+// THIS IS ALSO STOPPING THE ABILITY TO RESET THE ANIMATION PROPERLY
+const animateShortestPath = (nodesInShortestPathOrder) => {
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     const node = nodesInShortestPathOrder[i];
     setTimeout(() => {
       if (nodeIsAStartOrTarget(node)) return;
       if (node.isWeighted) {
-        nodeRefs.current[node.row][node.col].className = "node node-weighted-shortest-path";
+        document.getElementById(`node-${node.row}-${node.col}`).className = "node node-weighted-shortest-path";
       } else {
-        nodeRefs.current[node.row][node.col].className = "node node-shortest-path";
+        document.getElementById(`node-${node.row}-${node.col}`).className = "node node-shortest-path";
       }
     }, 50 * i);
   }
 };
 
-function updateCurrentNode(node, nodeRefs) {
+function updateCurrentNode(node) {
   if (!nodeIsAStartOrTarget(node) && !node.isWeighted) {
-    nodeRefs.current[node.row][node.col].className = "node node-visited";
+    document.getElementById(`node-${node.row}-${node.col}`).className = "node node-visited";
   }
 }

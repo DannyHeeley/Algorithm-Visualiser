@@ -3,7 +3,6 @@ import { startAndTargetNodesSet } from "../Node/NodeHelper.js";
 export const VisualiseButton = ({
   algorithm,
   algorithmAnimation,
-  nodeRefs,
   gridState,
   setGridState,
 }) => {
@@ -19,7 +18,6 @@ export const VisualiseButton = ({
         visitedNodesInOrder,
         shortestPathNodesInOrder,
         gridState.animationSpeed,
-        nodeRefs
       );
     }, 0);
     toggleIsAnimating(setGridState);

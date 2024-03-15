@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { DiscreteSlider } from "./Components/Buttons/Slider.jsx";
 import { Legend } from "./Components/Legend.jsx";
 import { ToggleWallButton } from "./Components/Buttons/ToggleWallButton.jsx";
@@ -14,9 +13,6 @@ export default function PathfinderVisualiser({
   setGridState,
   initialiseGrid,
 }) {
-  // nodeRefs here is used for animation purposes.
-  // This is passed from the node (child) back to the parent (This component) with forwardsRef
-  const nodeRefs = useRef({});
   return (
     <>
       <div className="pathfinder-container">
@@ -38,13 +34,11 @@ export default function PathfinderVisualiser({
         <Grid
           gridState={gridState}
           setGridState={setGridState}
-          nodeRefs={nodeRefs}
         ></Grid>
         <ResetButton
           initialiseGrid={initialiseGrid}
           gridState={gridState}
           setGridState={setGridState}
-          nodeRefs={nodeRefs}
         ></ResetButton>
         <DiscreteSlider gridState={gridState} setGridState={setGridState} />
         <VisualiseButton
@@ -52,7 +46,6 @@ export default function PathfinderVisualiser({
           setGridState={setGridState}
           algorithm={algorithmState.currentAlgorithm}
           algorithmAnimation={algorithmState.animation}
-          nodeRefs={nodeRefs}
         ></VisualiseButton>
       </div>
     </>

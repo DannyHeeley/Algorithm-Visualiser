@@ -12,7 +12,6 @@ export function dijkstra(grid, startNode, targetNode) {
         if (closestNode === targetNode) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)]
         updateUnvisitedNeighbors(closestNode, grid);
     }
-
 }
 
 function updateUnvisitedNeighbors(node, grid) {
