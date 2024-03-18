@@ -2,10 +2,11 @@ import { memo } from "react";
 import { extraClassNameFor } from "./NodeHelper.js";
 
 export const Node = memo(({ node, onMouseDown, onMouseEnter, onMouseUp }) => {
+      node.extraClassNameForAnimation = extraClassNameFor(node);
       return (
         <div
           id={`node-${node.row}-${node.col}`}
-          className={`node ${extraClassNameFor(node)}`}
+          className={`node ${node.extraClassNameForAnimation}`}
           onMouseDown={onMouseDown}
           onMouseEnter={onMouseEnter}
           onMouseUp={onMouseUp}
@@ -20,14 +21,3 @@ export const Node = memo(({ node, onMouseDown, onMouseEnter, onMouseUp }) => {
   }
 );
 
-// TODO: Implement the below bad attempt at flow-map
-
-// const arrow = (node) => {
-//   return node.col > node.cameFrom.col
-//     ? "&rarr;"
-//     : node.col < node.cameFrom.col
-//       ? "	&larr;"
-//       : node.row < node.cameFrom.row
-//         ? "&uarr;"
-//         : "&darr;";
-// };

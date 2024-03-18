@@ -13,7 +13,6 @@ export const Grid = ({ gridState, setGridState }) => {
                 <Node
                   key={nodeId}
                   node={{ ...node }}
-                  {...node}
                   onMouseDown={() => {
                     if (gridState.isAnimating || gridState.needsReset) return;
                     handleMouseDown(node, gridState, setGridState);
