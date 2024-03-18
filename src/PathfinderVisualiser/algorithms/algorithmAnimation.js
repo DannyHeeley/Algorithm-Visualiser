@@ -1,19 +1,17 @@
 import { nodeIsAStartOrTarget } from '../Components/Node/NodeHelper.js';
-//import { gsap } from "gsap";
 
 export const algorithmAnimation = (
   visitedNodesInOrder,
   shortestPathNodesInOrder,
-  animationSpeed,
+  gridState
 ) => {
-  let intervalID;
   let i = 0;
+  let intervalID;
   function animate() {
     //If we have been through all the nodes
     if (i >= visitedNodesInOrder.length) {
-      // Cancel the animation
-      clearInterval(intervalID)
       // Animate the shortest path
+      clearInterval(intervalID);
       animateShortestPath(shortestPathNodesInOrder);
       return;
     }
@@ -21,14 +19,13 @@ export const algorithmAnimation = (
     updateCurrentNode(node);
     i++;
   }
-  const animationInterval = 1000 / animationSpeed;
+  const animationInterval = 1000 / gridState.animationSpeed;
   // Start the animation loop and return the ID (to be used in clearInterval when cancelling the animation)
-  intervalID = setInterval(animate, animationInterval)
-}
+  intervalID = setInterval(animate, animationInterval);
+};
 
 // BAD PRACTICE TO DO THIS IN REACT,
-// TODO: NEED TO REWRITE TO USE GSAP. Can then use gsap.context(), revert for reset, and kill for pause.
-// THIS IS ALSO STOPPING THE ABILITY TO RESET THE ANIMATION PROPERLY
+// TODO: NEED TO REWRITE TO USE SOMETHING OTHER THAN DIRECT DOM MANIPULATION.
 const animateShortestPath = (nodesInShortestPathOrder) => {
   for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
     const node = nodesInShortestPathOrder[i];
@@ -43,8 +40,8 @@ const animateShortestPath = (nodesInShortestPathOrder) => {
   }
 };
 
-function updateCurrentNode(node) {
+const updateCurrentNode = (node) => {
   if (!nodeIsAStartOrTarget(node) && !node.isWeighted) {
     document.getElementById(`node-${node.row}-${node.col}`).className = "node node-visited";
   }
-}
+};

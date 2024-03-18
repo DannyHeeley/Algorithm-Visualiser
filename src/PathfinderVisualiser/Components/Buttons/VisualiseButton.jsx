@@ -17,7 +17,7 @@ export const VisualiseButton = ({
       algorithmAnimation(
         visitedNodesInOrder,
         shortestPathNodesInOrder,
-        gridState.animationSpeed,
+        gridState
       );
     }, 0);
     toggleIsAnimating(setGridState);

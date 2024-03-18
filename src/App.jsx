@@ -30,7 +30,8 @@ const App = () => {
     animationSpeed: 60,
     isWallToggled: true,
     algorithmNameText: "DIJKSTRA'S",
-  });
+  }
+  );
 
   const [algorithmState, setAlgorithmState] = useState({
     dijkstra: dijkstra,

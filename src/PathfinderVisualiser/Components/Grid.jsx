@@ -9,24 +9,24 @@ export const Grid = ({ gridState, setGridState }) => {
         gridState.grid.map((row, rowId) => (
           <div key={rowId}>
             {row.map((node, nodeId) => {
-              return (
-                <Node
-                  key={nodeId}
-                  node={{ ...node }}
-                  onMouseDown={() => {
-                    if (gridState.isAnimating || gridState.needsReset) return;
-                    handleMouseDown(node, gridState, setGridState);
-                  }}
-                  onMouseEnter={() => {
-                    if (gridState.isAnimating || gridState.needsReset) return;
-                    handleMouseEnter(node, gridState, setGridState);
-                  }}
-                  onMouseUp={() => {
-                    if (gridState.isAnimating || gridState.needsReset) return;
-                    handleMouseUp(setGridState);
-                  }}
-                ></Node>
-              );
+                return (
+                  <Node
+                    key={nodeId}
+                    node={{ ...node }}
+                    onMouseDown={() => {
+                      if (gridState.isAnimating || gridState.needsReset) return;
+                      handleMouseDown(node, gridState, setGridState);
+                    }}
+                    onMouseEnter={() => {
+                      if (gridState.isAnimating || gridState.needsReset) return;
+                      handleMouseEnter(node, gridState, setGridState);
+                    }}
+                    onMouseUp={() => {
+                      if (gridState.isAnimating || gridState.needsReset) return;
+                      handleMouseUp(setGridState);
+                    }}
+                  ></Node>
+                );
             })}
           </div>
         ))
@@ -34,4 +34,5 @@ export const Grid = ({ gridState, setGridState }) => {
     </div>
   );
 };
+
 

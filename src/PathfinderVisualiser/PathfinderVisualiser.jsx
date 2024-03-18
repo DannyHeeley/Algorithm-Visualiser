@@ -1,4 +1,4 @@
-import { DiscreteSlider } from "./Components/Buttons/Slider.jsx";
+import { AnimationSpeedSlider } from "./Components/Buttons/Slider.jsx";
 import { Legend } from "./Components/Legend.jsx";
 import { ToggleWallButton } from "./Components/Buttons/ToggleWallButton.jsx";
 import { ResetButton } from "./Components/Buttons/ResetButton.jsx";
@@ -33,14 +33,16 @@ export default function PathfinderVisualiser({
         </div>
         <Grid
           gridState={gridState}
-          setGridState={setGridState}
-        ></Grid>
+          setGridState={setGridState}></Grid>
         <ResetButton
           initialiseGrid={initialiseGrid}
           gridState={gridState}
           setGridState={setGridState}
         ></ResetButton>
-        <DiscreteSlider gridState={gridState} setGridState={setGridState} />
+        <AnimationSpeedSlider
+          gridState={gridState}
+          setGridState={setGridState}
+        />
         <VisualiseButton
           gridState={gridState}
           setGridState={setGridState}

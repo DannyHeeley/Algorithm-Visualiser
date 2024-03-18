@@ -1,13 +1,7 @@
 import { Slider, Box } from "@mui/material";
 
-export const DiscreteSlider = ({ gridState, setGridState }) => {
-  const handleSliderChange = (event, newValue) => {
-    setGridState((prevGridState) => ({
-      ...prevGridState,
-      animationSpeed: newValue,
-    }));
-    event.stopPropagation();
-  };
+export const AnimationSpeedSlider = ({ gridState, setGridState }) => {
+
     return (
       <div className="slider">
         <div className="slider-label">Animation Speed:</div>
@@ -15,9 +9,13 @@ export const DiscreteSlider = ({ gridState, setGridState }) => {
           <Slider
             aria-label="animationSpeed"
             value={gridState.animationSpeed}
-            onChange={() => { 
-              if (gridState.isAnimating) return;
-              handleSliderChange;
+            onChange={(event, value) => { 
+              //if (gridState.isAnimating) return;
+              setGridState((prevGridState) => ({
+                ...prevGridState,
+                animationSpeed: value,
+              }));
+              event.stopPropagation();
             }}
             step={10}
             min={10}
