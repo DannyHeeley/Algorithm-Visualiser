@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import PathfinderVisualiser from "./PathfinderVisualiser/PathfinderVisualiser";
+import { AlgorithmVisualiser }  from "./PathfinderVisualiser/AlgorithmVisualiser";
 import { dijkstra } from "./PathfinderVisualiser/algorithms/dijkstra.js";
 import { aStar4Way } from "./PathfinderVisualiser/algorithms/aStar_4Way.js";
 import { aStar8Way } from "./PathfinderVisualiser/algorithms/aStar_8Way.js";
@@ -9,10 +9,10 @@ import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelpe
 
 import "./App.css";
 import "./PathfinderVisualiser/Components/Node/Node.css";
-import "./PathfinderVisualiser/PathfinderVisualiser.css";
+import "./PathfinderVisualiser/AlgorithmVisualiser.css";
 import "./PathfinderVisualiser/Components/Buttons/Buttons.css";
 import "./PathfinderVisualiser/Components/Legend.css";
-import "./PathfinderVisualiser/Components/Grid.css"
+import "./PathfinderVisualiser/Components/Grid.css";
 
 const App = () => {
   const [gridState, setGridState] = useState({
@@ -29,9 +29,9 @@ const App = () => {
     needsReset: false,
     animationSpeed: 60,
     isWallToggled: true,
+    weightedNodeIsVisible: true,
     algorithmNameText: "DIJKSTRA'S",
-  }
-  );
+  });
 
   const [algorithmState, setAlgorithmState] = useState({
     dijkstra: dijkstra,
@@ -53,13 +53,13 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <PathfinderVisualiser
+      <AlgorithmVisualiser
         algorithmState={algorithmState}
         setAlgorithmState={setAlgorithmState}
         gridState={gridState}
         setGridState={setGridState}
         initialiseGrid={initialiseGrid}
-      ></PathfinderVisualiser>
+      ></AlgorithmVisualiser>
     </div>
   );
 };

@@ -4,11 +4,13 @@ export const ToggleAlgorithmButton = ({
   algorithmState,
   setAlgorithmState,
 }) => {
+
   const changeAlgorithm = () => {
     if (gridState.isAnimating || gridState.needsReset) return;
     handleChangeText(setGridState, gridState);
     handleChangeAlgorithm(setAlgorithmState, gridState, algorithmState);
   };
+  
   return (
     <div className="toggle-algorithm">
       <button className="toggle-algorithm-button" onClick={changeAlgorithm}>

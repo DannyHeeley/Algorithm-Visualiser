@@ -11,23 +11,22 @@
 .visualise, .reset {
   background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904)); 
   color: white;
-  margin-top: 1px;
+  margin-top: 15px;
   height: 5vh;
   min-height: 40px;
   width: 16.5vw;
   min-width: 192px;
+  position: relative;
 }
 .visualise {
-  grid-row: 8 / 9; 
   grid-column: 6 / 7; 
-  border-bottom-right-radius: 10px;
   font-size: clamp(0.8rem, 1vw, 4rem);
+  border-bottom-right-radius: 10px;
 }
 .reset {
-  grid-row: 8/ 9;
   grid-column: 3 / 4;
-  border-bottom-left-radius: 10px;
   font-size: 120%;
+  border-bottom-left-radius: 10px;
 }
 
 
@@ -37,15 +36,14 @@
   margin: 0px 10px 0px 30px;
   max-width: 200px;
   margin: 0px 35px 0px 30px;
+  grid-column: 1 / 2;
 }
-
 .toggle-wall {
   grid-row: 2 / 3;
-  grid-column: 1 / 2;
+  margin-top: -15px;
 }
 .toggle-algorithm {
   grid-row: 1 / 2;
-  grid-column: 1 / 2;
 }
 
 
@@ -87,8 +85,8 @@
   padding-right: 40px;
   padding-left: 40px;
   margin-bottom: 20px;
-  margin-top: 10px;
-  width: 25vw;
+  margin-top: 20px;
+  width: 24.5vw;
   min-width: 450px
 }
 
@@ -96,9 +94,26 @@
   color: white;
   font-size: clamp(0.8rem, 0.8vw, 4rem);
   white-space: nowrap;
-  margin-top: 8px;
+  margin-top: 13px;
 }
 
 .MuiBox-root {
   margin-left: 10px;
+}
+
+@media only screen and (max-width: 1450px) {
+  .visualise, .reset, .slider {
+      grid-row: 6 / 7;
+      margin-top: 0px;
+  }
+  .toggle-wall {
+    margin-top: -33px;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .visualise, .reset, .slider {
+      grid-row: 5 / 6;
+      margin-top: 45px;
+  }
 }

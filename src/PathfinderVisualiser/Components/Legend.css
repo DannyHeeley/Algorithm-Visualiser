@@ -18,10 +18,10 @@
 .info {
     grid-row: 7 / 9;
     grid-column: 1 / 2;
-    min-height: 76px;
+    min-height: 40px;
     background-color: rgb(205, 250, 231);
     border: 1px solid rgb(0, 255, 34);
-
+    margin-top: -70px
 }
 .info span {
     position: relative;
@@ -34,6 +34,8 @@
     background-color: rgb(241, 232, 255);
     border: 1px solid rgb(102, 18, 18);
     padding: 0.5vw 5px 0.5vw 5px;
+    margin-bottom: 85px;
+    margin-top: -10px;
 }
 .legend-icon {
     width: calc(1.6vw - 2px);
@@ -62,4 +64,24 @@
 .shortest {
     background-color: yellow;
 }
+
+@media only screen and (max-width: 1450px) {
+  .info {
+    grid-row: 6 / 7;
+  }
+  .legend {
+    margin-top: -25px
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .info {
+    font-size: 65%;
+    margin-top: -100px;
+  }
+  .legend {
+    margin-top: -35px
+  }
+}
+
 

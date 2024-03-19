@@ -6,13 +6,13 @@ import { VisualiseButton } from "./Components/Buttons/VisualiseButton.jsx";
 import { ToggleAlgorithmButton } from "./Components/Buttons/ToggleAlgorithmButton.jsx";
 import { Grid } from "./Components/Grid.jsx";
 
-export default function PathfinderVisualiser({
+export const AlgorithmVisualiser = ({
   algorithmState,
   setAlgorithmState,
   gridState,
   setGridState,
   initialiseGrid,
-}) {
+}) => {
   return (
     <>
       <div className="pathfinder-container">
@@ -27,13 +27,11 @@ export default function PathfinderVisualiser({
           gridState={gridState}
           setGridState={setGridState}
         ></ToggleWallButton>
-        <Legend></Legend>
+        <Legend gridState={gridState}></Legend>
         <div className="info">
           <span>Click on a start or target node to change its position</span>
         </div>
-        <Grid
-          gridState={gridState}
-          setGridState={setGridState}></Grid>
+        <Grid gridState={gridState} setGridState={setGridState}></Grid>
         <ResetButton
           initialiseGrid={initialiseGrid}
           gridState={gridState}
