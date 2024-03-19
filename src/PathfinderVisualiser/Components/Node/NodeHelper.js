@@ -36,6 +36,7 @@ export const initialiseNode = (col, row, gridState) => {
     distance: Infinity, 
     costOfPathFromStartNode: row == gridState.startNodeRow && col === gridState.startNodeCol ? 0 : Infinity,
     cameFrom: null,
+    isAlive: false,
   };
 };
 

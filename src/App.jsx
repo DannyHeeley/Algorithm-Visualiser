@@ -4,6 +4,7 @@ import { dijkstra } from "./PathfinderVisualiser/algorithms/dijkstra.js";
 import { aStar4Way } from "./PathfinderVisualiser/algorithms/aStar_4Way.js";
 import { aStar8Way } from "./PathfinderVisualiser/algorithms/aStar_8Way.js";
 import { greedyBestFirstSearch } from "./PathfinderVisualiser/algorithms/greedyBestFirstSearch.js";
+import { gameOfLife } from "./gameOfLife.js"
 import { algorithmAnimation } from "./PathfinderVisualiser/algorithms/algorithmAnimation";
 import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelper";
 
@@ -31,6 +32,7 @@ const App = () => {
     isWallToggled: true,
     weightedNodeIsVisible: true,
     algorithmNameText: "DIJKSTRA'S",
+    mode: "pathfinding",
   });
 
   const [algorithmState, setAlgorithmState] = useState({
@@ -38,6 +40,7 @@ const App = () => {
     greedyBestFirst: greedyBestFirstSearch,
     aStar4Way: aStar4Way,
     aStar8Way: aStar8Way,
+    gameOfLife: gameOfLife,
     currentAlgorithm: dijkstra,
     animation: algorithmAnimation,
   });

@@ -1,3 +1,4 @@
+import { gameOfLife } from "../../../gameOfLife.js";
 import { startAndTargetNodesSet } from "../Node/NodeHelper.js";
 
 export const VisualiseButton = ({
@@ -5,7 +6,9 @@ export const VisualiseButton = ({
   algorithmAnimation,
   gridState,
   setGridState,
+  initialiseGrid,
 }) => {
+  let visitedNodesInOrder, shortestPathNodesInOrder
   const visualiseAlgorithm = () => {
     if (gridState.isAnimating || gridState.needsReset || !startAndTargetNodesSet(gridState)) return;
     toggleIsAnimating(setGridState);
@@ -13,14 +16,31 @@ export const VisualiseButton = ({
     setTimeout(() => {
       const startNode = gridState.grid[gridState.startNodeRow]?.[gridState.startNodeCol];
       const targetNode = gridState.grid[gridState.targetNodeRow]?.[gridState.targetNodeCol];
-      const [visitedNodesInOrder, shortestPathNodesInOrder] = algorithm(gridState.grid, startNode, targetNode);
-      algorithmAnimation(
-        visitedNodesInOrder,
-        shortestPathNodesInOrder,
-        gridState
-      );
+      if (algorithm !== gameOfLife) {
+        // Current pathfinder algorithm
+        [visitedNodesInOrder, shortestPathNodesInOrder] = algorithm(
+          gridState.grid,
+          startNode,
+          targetNode
+        );
+        algorithmAnimation(
+          visitedNodesInOrder,
+          shortestPathNodesInOrder,
+          gridState
+        );
+      } else {
+        const nextGenerationGrid = algorithm(gridState.grid);
+        // gameOflife algorithm
+        algorithmAnimation(
+          visitedNodesInOrder,
+          shortestPathNodesInOrder,
+          gridState,
+        );
+      }
+
     }, 0);
     toggleIsAnimating(setGridState);
+    console.log(algorithm)
   };
   return (
     <button className="visualise" onClick={visualiseAlgorithm}>
