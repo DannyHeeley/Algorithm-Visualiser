@@ -1,19 +1,23 @@
 export const gameOfLife = (gridState) => {
     const calculateNextGen = () => {
         // Create a copy of the grid
-        const grid = gridState.grid.map(row => row.map(node => ({...node})));
+        const newGrid = [];
         // Loop through all cells
-        for (let rowId = 0; rowId < grid.length; rowId++) {
-            for (let nodeId = 0; nodeId < grid[rowId].length; nodeId++) {
-                let node = grid[rowId][nodeId];
+        for (let rowId = 0; rowId < gridState.grid.length; rowId++) {
+            const newRow = [];
+            for (let nodeId = 0; nodeId < gridState.grid[rowId].length; nodeId++) {
+                const node = gridState.grid[rowId][nodeId];
                 // Count the number of alive neighbours for each node
-                let numberOfAliveNeighbours = countAliveNeighbours(rowId, nodeId, grid);
+                const numberOfAliveNeighbours = countAliveNeighbours(rowId, nodeId, gridState.grid);
                 // Set the state of the node based on the number of alive neighbours (Apply the rules of life)
-                node.isWall = nodeIsAlive(node, numberOfAliveNeighbours); // Returns true of false
-                console.log(node.isWall)
+                newRow.push({
+                    ...node,
+                    isWall: nodeIsAlive(node, numberOfAliveNeighbours) // Returns true or false
+                });
             }
+            newGrid.push(newRow);
         }
-        return grid;
+        return newGrid;
     }
     return calculateNextGen ;
 }
@@ -27,17 +31,14 @@ const nodeIsAlive = (node, numberOfAliveNeighbours) => {
     switch (numberOfAliveNeighbours) {
         case 0:
         case 1:
-            node.isWall = false;
-            break;
+            return false;
         case 2:
             break;
         case 3:
-            node.isWall = true;
-            break;
+            return true;
         default:
-            node.isWall = false;
+            return false;
     }
-    return node.isWall;
 }
 
 const neighbourIsAliveAndWithinGrid = (neighbourRow, neighbourNode, grid) => {

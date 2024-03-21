@@ -1,37 +1,37 @@
 import { startAndTargetNodesSet } from "../Node/NodeHelper.js";
 
 export const VisualiseButton = ({
-  algorithm,
-  animation,
   gridState,
-  setGridState
+  setGridState,
+  algorithmState
 }) => {
+  if (gridState.isAnimating || gridState.needsReset || !startAndTargetNodesSet(gridState)) return;
   let visitedNodesInOrder, shortestPathNodesInOrder
+  const algorithm = algorithmState.currentAlgorithm;
   const visualiseAlgorithm = () => {
-    if (gridState.isAnimating || gridState.needsReset || !startAndTargetNodesSet(gridState)) return;
     toggleIsAnimating(setGridState);
     toggleNeedsReset(setGridState);
     setTimeout(() => {
       const startNode = gridState.grid[gridState.startNodeRow]?.[gridState.startNodeCol];
       const targetNode = gridState.grid[gridState.targetNodeRow]?.[gridState.targetNodeCol];
-      if (algorithm.name !== 'gameOfLife') {
+      if (algorithm.name === 'gameOfLife') {
+        algorithmState.animation(
+          algorithmState.gameOfLife,
+          gridState,
+          setGridState
+        );
+      } else {
         [visitedNodesInOrder, shortestPathNodesInOrder] = algorithm(
           gridState.grid,
           startNode,
           targetNode
         );
-        animation(
+        algorithmState.animation(
           visitedNodesInOrder,
           shortestPathNodesInOrder,
           gridState
         );
-      } else {
-        animation(
-          gridState,
-          setGridState
-        );
       }
-
     }, 0);
     toggleIsAnimating(setGridState);
   };

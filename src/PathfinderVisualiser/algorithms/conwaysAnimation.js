@@ -1,6 +1,5 @@
-import { gameOfLife } from "../../gameOfLife";
-
 export const animateConways = (
+    gameOfLife,
     gridState,
     setGridState,
 ) => {

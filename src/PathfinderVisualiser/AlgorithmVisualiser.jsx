@@ -6,7 +6,6 @@ import { VisualiseButton } from "./Components/Buttons/VisualiseButton.jsx";
 import { ToggleAlgorithmButton } from "./Components/Buttons/ToggleAlgorithmButton.jsx";
 import { Grid } from "./Components/Grid.jsx";
 import { DropdownSelector } from "./Components/Buttons/DropdownSelector.jsx";
-import { gameOfLife } from "../gameOfLife.js";
 
 export const AlgorithmVisualiser = ({
   algorithmState,
@@ -60,8 +59,7 @@ export const AlgorithmVisualiser = ({
           initialiseGrid={initialiseGrid}
           gridState={gridState}
           setGridState={setGridState}
-          algorithm={algorithmState.currentAlgorithm}
-          animation={algorithmState.animation}
+          algorithmState={algorithmState}
         ></VisualiseButton>
       </div>
     </>

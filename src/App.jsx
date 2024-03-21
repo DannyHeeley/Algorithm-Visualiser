@@ -4,7 +4,7 @@ import { dijkstra } from "./PathfinderVisualiser/algorithms/dijkstra.js";
 import { aStar4Way } from "./PathfinderVisualiser/algorithms/aStar_4Way.js";
 import { aStar8Way } from "./PathfinderVisualiser/algorithms/aStar_8Way.js";
 import { greedyBestFirstSearch } from "./PathfinderVisualiser/algorithms/greedyBestFirstSearch.js";
-import { gameOfLife } from "./gameOfLife.js"
+import { gameOfLife } from "./PathfinderVisualiser/algorithms/gameOfLife.js";
 import { animatePathfinding } from "./PathfinderVisualiser/algorithms/pathfindingAnimation.js";
 import { animateConways } from "./PathfinderVisualiser/algorithms/conwaysAnimation.js";
 import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelper";

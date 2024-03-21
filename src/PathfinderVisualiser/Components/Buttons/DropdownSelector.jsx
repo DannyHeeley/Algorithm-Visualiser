@@ -9,9 +9,9 @@ import { animatePathfinding } from "../../algorithms/pathfindingAnimation";
 
 
 export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgorithmState }) => {
-
   const handleChange = (event) => {
     if (event.target.value === "conways") {
+
       setGridState((prevGridState) => ({
         ...prevGridState,
         mode: "conways",
