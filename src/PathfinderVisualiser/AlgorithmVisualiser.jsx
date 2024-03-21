@@ -61,7 +61,7 @@ export const AlgorithmVisualiser = ({
           gridState={gridState}
           setGridState={setGridState}
           algorithm={algorithmState.currentAlgorithm}
-          algorithmAnimation={algorithmState.animation}
+          animation={algorithmState.animation}
         ></VisualiseButton>
       </div>
     </>

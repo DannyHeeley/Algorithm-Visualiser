@@ -1,6 +1,6 @@
 //TODO: Merge both A* Algorithms into one, i.e DRY, and just use the different getUnvisitedNeighbour and cost functions
 
-export function aStar4Way(grid, startNode, targetNode) {
+export const aStar4Way =(grid, startNode, targetNode) => {
     startNode.costOfPathFromStartNode = 0; // The cost to reach the neighbouring node from the startNode
     startNode.distance = estimatedDistance(startNode, targetNode); // The total cost to reach the targetNode through this particular node calculated as f = g + h
 
@@ -37,13 +37,13 @@ export function aStar4Way(grid, startNode, targetNode) {
     return null;
 }
 
-function updateNodeWithLowestCost(neighbor, currentNode, potentialCostOfPathFromStartNode, targetNode) {
+const updateNodeWithLowestCost = (neighbor, currentNode, potentialCostOfPathFromStartNode, targetNode) => {
     neighbor.cameFrom = currentNode;
     neighbor.costOfPathFromStartNode = potentialCostOfPathFromStartNode; // The cost to reach the neighbouring node from the startNode
     neighbor.distance = neighbor.costOfPathFromStartNode + estimatedDistance(neighbor, targetNode); // The total cost to reach the targetNode through this particular node
 }
 
-function moveCurrentNodeFromDiscoveredToVisited(grid, currentNode, discoveredNodesList, visitedNodesList, visualiseNodesList) {
+const moveCurrentNodeFromDiscoveredToVisited = (grid, currentNode, discoveredNodesList, visitedNodesList, visualiseNodesList) => {
     if (currentNode.isWall) return;
     discoveredNodesList.splice(discoveredNodesList.indexOf(currentNode), 1);
     visitedNodesList.push(currentNode);
@@ -53,7 +53,7 @@ function moveCurrentNodeFromDiscoveredToVisited(grid, currentNode, discoveredNod
     }
 }
 
-function getNodeWithLowestDistance(discoveredNodesList) {
+const getNodeWithLowestDistance = (discoveredNodesList) => {
     let currentNode = discoveredNodesList[0];
     for (let i = 1; i < discoveredNodesList.length; i++) {
         // Check if the distance is lower than currentNode
@@ -65,7 +65,7 @@ function getNodeWithLowestDistance(discoveredNodesList) {
     return currentNode;
 }
 
-function estimatedDistance(node1, node2) {
+const estimatedDistance = (node1, node2) => {
     if (node2.isWall || node1.isWall) return;
     // Calculate the Manhattan distance between two nodes
     let distance_x = Math.abs(node1.col - node2.col);
@@ -73,7 +73,7 @@ function estimatedDistance(node1, node2) {
     return distance_x + distance_y;
 }
 
-function getUnvisitedNeighbors4Way(node, grid) {
+const getUnvisitedNeighbors4Way = (node, grid) => {
     const neighbors = [];
     const { row, col } = node;
     if (row > 0 && !grid[row - 1][col].isWall) neighbors.push(grid[row - 1][col]);
@@ -83,7 +83,7 @@ function getUnvisitedNeighbors4Way(node, grid) {
     return neighbors.filter(neighbor => !neighbor.isVisited);
 }
 
-function reconstructPath(node) {
+const reconstructPath = (node) => {
     let path = [node];
     while (node.cameFrom) {
         node = node.cameFrom;
@@ -92,7 +92,7 @@ function reconstructPath(node) {
     return path;
 }
 
-function result(targetNode, prevNode, currentNode, visualiseNodesList) {
+const result = (targetNode, prevNode, currentNode, visualiseNodesList) => {
     targetNode.cameFrom = prevNode;
     const shortestPathNodesInOrder = reconstructPath(currentNode);
     const visitedNodesInOrder = visualiseNodesList;

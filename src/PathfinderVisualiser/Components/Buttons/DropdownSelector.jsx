@@ -4,6 +4,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { animateConways } from "../../algorithms/conwaysAnimation";
+import { animatePathfinding } from "../../algorithms/pathfindingAnimation";
 
 
 export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgorithmState }) => {
@@ -17,6 +19,7 @@ export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgori
       setAlgorithmState((prevAlgorithmState) => ({
         ...prevAlgorithmState,
         currentAlgorithm: algorithmState.gameOfLife,
+        animation: animateConways,
       }));
       return;
     }
@@ -28,6 +31,7 @@ export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgori
       setAlgorithmState((prevAlgorithmState) => ({
         ...prevAlgorithmState,
         currentAlgorithm: algorithmState.dijkstra,
+        animation: animatePathfinding,
       }));
     } 
     if (event.target.value === "sorting") {

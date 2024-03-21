@@ -5,7 +5,8 @@ import { aStar4Way } from "./PathfinderVisualiser/algorithms/aStar_4Way.js";
 import { aStar8Way } from "./PathfinderVisualiser/algorithms/aStar_8Way.js";
 import { greedyBestFirstSearch } from "./PathfinderVisualiser/algorithms/greedyBestFirstSearch.js";
 import { gameOfLife } from "./gameOfLife.js"
-import { algorithmAnimation } from "./PathfinderVisualiser/algorithms/algorithmAnimation";
+import { animatePathfinding } from "./PathfinderVisualiser/algorithms/pathfindingAnimation.js";
+import { animateConways } from "./PathfinderVisualiser/algorithms/conwaysAnimation.js";
 import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelper";
 
 import "./App.css";
@@ -33,6 +34,7 @@ const App = () => {
     weightedNodeIsVisible: true,
     algorithmNameText: "DIJKSTRA'S",
     mode: "pathfinding",
+    maxGenerations: 50,
   });
 
   const [algorithmState, setAlgorithmState] = useState({
@@ -42,7 +44,9 @@ const App = () => {
     aStar8Way: aStar8Way,
     gameOfLife: gameOfLife,
     currentAlgorithm: dijkstra,
-    animation: algorithmAnimation,
+    animatePathfinding: animatePathfinding,
+    animateConways: animateConways,
+    animation: animatePathfinding,
   });
 
   useEffect(() => {
