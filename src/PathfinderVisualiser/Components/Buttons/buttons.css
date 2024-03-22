@@ -20,10 +20,12 @@
 }
 .visualise {
   grid-column: 6 / 7; 
+  grid-row: 7 / 8;
   font-size: clamp(0.8rem, 1vw, 4rem);
   border-bottom-right-radius: 10px;
 }
 .reset {
+  grid-row: 7 / 8;
   grid-column: 3 / 4;
   font-size: 120%;
   border-bottom-left-radius: 10px;
@@ -33,17 +35,15 @@
 .toggle-wall, .toggle-algorithm {
   display: flex;
   align-self: center;
-  margin: 0px 10px 0px 30px;
-  max-width: 200px;
-  margin: 0px 35px 0px 30px;
+  margin: 0px 35px 10px 30px;  /* top, right, bottom, left */
   grid-column: 1 / 2;
 }
 .toggle-wall {
-  grid-row: 2 / 3;
-  margin-top: -15px;
+  grid-row: 3 / 4;
 }
 .toggle-algorithm {
-  grid-row: 1 / 2;
+  grid-row: 2 / 3;
+  margin-top: -10px;
 }
 
 
@@ -78,7 +78,7 @@
 
 .slider {
   display: flex;
-  grid-row: 8 / 9;
+  grid-row: 7 / 8;
   grid-column: 5 / 6;
   border-radius: 10px;
   justify-content: center;
@@ -101,19 +101,64 @@
   margin-left: 10px;
 }
 
-@media only screen and (max-width: 1450px) {
+
+@media only screen and (max-width: 1680px) {
   .visualise, .reset, .slider {
-      grid-row: 6 / 7;
+      grid-row: 7 / 8;
+      margin-top: -3px;
+  }
+}
+
+@media only screen and (max-width: 1680px) {
+  .visualise, .reset, .slider {
+      grid-row: 7 / 8;
+      margin-top: -3px;
+  }
+}
+
+@media only screen and (max-width: 1575px) {
+  .visualise, .reset, .slider {
+      grid-row: 7 / 8;
+      margin-top: -22px;
+  }
+}
+
+@media only screen and (max-width: 1530px) {
+  .visualise, .reset, .slider {
+      grid-row: 7 / 8;
       margin-top: 0px;
+      width: calc((0.08vw - 2px));
   }
   .toggle-wall {
     margin-top: -33px;
   }
 }
 
+@media only screen and (max-width: 1450px) {
+  .visualise, .reset, .slider {
+      grid-row: 6 / 7;
+      margin-top: 75px;
+
+  }
+}
+
+@media only screen and (max-width: 1400px) {
+  .visualise, .reset, .slider {
+      grid-row: 6 / 7;
+      margin-top: 55px;
+  }
+}
+
 @media only screen and (max-width: 1300px) {
   .visualise, .reset, .slider {
-      grid-row: 5 / 6;
-      margin-top: 55px;
+      grid-row: 6 / 7;
+      margin-top: 28px;
+  }
+}
+
+@media only screen and (max-width: 1275px) {
+  .visualise, .reset, .slider {
+      grid-row: 6 / 7;
+      margin-top: 23px;
   }
 }

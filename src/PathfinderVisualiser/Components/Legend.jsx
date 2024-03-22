@@ -7,12 +7,12 @@ const legendData = [
   ["legend-icon weighted", "Weighted Node"],
 ];
 
-export const Legend = ({ data = legendData, gridState }) => {
+export const Legend = ({ data = legendData }) => {
   const LegendItem = ({ className, text }) => {
     return (
-        <div className="legend-item">
-          <div className={className}></div>
-          <p className="legend-text">{text}</p>
+      <div className="legend-item">
+        <div className={className}></div>
+        <p className="legend-text">{text}</p>
       </div>
     );
   };

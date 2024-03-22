@@ -1,5 +1,6 @@
 import { AnimationSpeedSlider } from "./Components/Buttons/Slider.jsx";
 import { Legend } from "./Components/Legend.jsx";
+import { Rules } from "./Components/Rules.jsx";
 import { ToggleWallButton } from "./Components/Buttons/ToggleWallButton.jsx";
 import { ResetButton } from "./Components/Buttons/ResetButton.jsx";
 import { VisualiseButton } from "./Components/Buttons/VisualiseButton.jsx";
@@ -17,34 +18,35 @@ export const AlgorithmVisualiser = ({
   return (
     <>
       <div className="pathfinder-container">
-        <div className="app-title">
-          <DropdownSelector
-            className="dropdown-selector"
-            mode={gridState.mode}
-            setGridState={setGridState}
-            algorithmState={algorithmState}
-            setAlgorithmState={setAlgorithmState}
-          ></DropdownSelector>
-          ALGORITHM VISUALISER
-        </div>
-        <ToggleAlgorithmButton
-          gridState={gridState}
+        <div className="app-title">ALGORITHM VISUALISER</div>
+        <DropdownSelector
+          className="dropdown-selector"
+          mode={gridState.mode}
           setGridState={setGridState}
           algorithmState={algorithmState}
           setAlgorithmState={setAlgorithmState}
-        ></ToggleAlgorithmButton>
-        <ToggleWallButton
-          gridState={gridState}
-          setGridState={setGridState}
-        ></ToggleWallButton>
-        {gridState.mode !== "conways" && (
-          <Legend gridState={gridState}></Legend>
+        ></DropdownSelector>
+        {gridState.mode === "pathfinding" && (
+          <>
+            <ToggleAlgorithmButton
+              gridState={gridState}
+              setGridState={setGridState}
+              algorithmState={algorithmState}
+              setAlgorithmState={setAlgorithmState}
+            ></ToggleAlgorithmButton>
+            <ToggleWallButton
+              gridState={gridState}
+              setGridState={setGridState}
+            ></ToggleWallButton>
+            <Legend></Legend>
+            <div className="info">
+              <span>
+                Click on a start or target node to change its position
+              </span>
+            </div>
+          </>
         )}
-        {gridState.mode !== "conways" && (
-          <div className="info">
-            <span>Click on a start or target node to change its position</span>
-          </div>
-        )}
+        {gridState.mode === "gameoflife" && <Rules></Rules>}
         <Grid gridState={gridState} setGridState={setGridState}></Grid>
         <ResetButton
           initialiseGrid={initialiseGrid}

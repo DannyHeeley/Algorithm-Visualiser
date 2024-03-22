@@ -1,0 +1,26 @@
+.rules {
+    grid-row: 2 / 6;
+    grid-column: 1 / 2;
+    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+    width: 9.6vw;
+    min-width: 150px;
+    min-height: 241px;
+    background-color: rgb(241, 232, 255);
+    border: 1px solid rgb(102, 18, 18);
+    border-radius: 10px;
+    text-align: center;
+    height: fit-content;
+    margin: 10px 35px 0px 30px;
+    padding: 0.5vw 5px 0.5vw 5px;
+}
+
+.rule, .rule_2 {
+    display: flex;
+    align-items: center;
+    font-size: clamp(0.8rem, 0.8vw, 4rem);
+    font-weight: 900;
+}
+
+.rule_2 {
+
+}

@@ -1,17 +1,19 @@
-export const gameOfLife = (gridState) => {
-    const calculateNextGen = () => {
+export const gameOfLife = (gridState, setGridState) => {
+    let currentGrid = gridState.grid;
+    const nextGen = () => {
         // Create a copy of the grid
         const newGrid = [];
         // Loop through all cells
-        for (let rowId = 0; rowId < gridState.grid.length; rowId++) {
+        for (let rowId = 0; rowId < currentGrid.length; rowId++) {
             const newRow = [];
-            for (let nodeId = 0; nodeId < gridState.grid[rowId].length; nodeId++) {
-                const node = gridState.grid[rowId][nodeId];
+            for (let colId = 0; colId < currentGrid[rowId].length; colId++) {
+                const node = currentGrid[rowId][colId];
                 // Count the number of alive neighbours for each node
-                const numberOfAliveNeighbours = countAliveNeighbours(rowId, nodeId, gridState.grid);
-                // Set the state of the node based on the number of alive neighbours (Apply the rules of life)
+                const numberOfAliveNeighbours = countAliveNeighbours(rowId, colId, currentGrid);
+                // Add the node's next generation to the next generation of the grid with alive or dead state
                 newRow.push({
                     ...node,
+                    // Set the state of the node based on the number of alive neighbours (Apply the rules of life)
                     isWall: nodeIsAlive(node, numberOfAliveNeighbours) // Returns true or false
                 });
             }
@@ -19,7 +21,15 @@ export const gameOfLife = (gridState) => {
         }
         return newGrid;
     }
-    return calculateNextGen ;
+    
+    const step = () => {
+        // Get the next iteration of the grid
+        const nextGenerationGrid = nextGen();
+        // Update the gridState (and as a sideEffect, the currentGrid) to the next generation
+        setGridState(prevState => ({ ...prevState, grid: nextGenerationGrid }));
+        return nextGenerationGrid;
+    }
+    return step;
 }
 
 const nodeIsAlive = (node, numberOfAliveNeighbours) => {
@@ -28,34 +38,41 @@ const nodeIsAlive = (node, numberOfAliveNeighbours) => {
         // - Any live node with two or three live neighbors lives on to the next generation. (if alive neightbours is 2 or 3, c = 1 (alive))
         // - Any live node with more than three live neighbors dies, as if by overpopulation. (if alive neighbours is more than 3, c = 0 (dead))
         // - Any dead node with exactly three live neighbors becomes a live node, as if by reproduction. (if alive neighbours is exactly 3, alive neighbours become live cells)
-    switch (numberOfAliveNeighbours) {
-        case 0:
-        case 1:
-            return false;
-        case 2:
-            break;
-        case 3:
-            return true;
-        default:
-            return false;
+    if (node.isWall) {
+        return numberOfAliveNeighbours === 2 || numberOfAliveNeighbours === 3;
+    } else {
+        return numberOfAliveNeighbours === 3;
     }
 }
 
-const neighbourIsAliveAndWithinGrid = (neighbourRow, neighbourNode, grid) => {
+const neighbourIsAliveAndWithinGrid = (neighbourRow, neighbourCol, grid) => {
     return neighbourRow >= 0 && neighbourRow < grid.length &&
-        neighbourNode >= 0 && neighbourNode < grid[neighbourRow].length &&
-        grid[neighbourRow][neighbourNode].isWall;
+        neighbourCol >= 0 && neighbourCol < grid[neighbourRow].length &&
+        grid[neighbourRow][neighbourCol].isWall;
 }
 
-const countAliveNeighbours = (rowId, nodeId, grid) => {
+const countAliveNeighbours = (rowId, colId, grid) => {
     let numberOfAliveNeighbours = 0;
     for (let distanceX = -1; distanceX <= 1; distanceX++) {
         for (let distanceY = -1; distanceY <= 1; distanceY++) {
-            if (distanceX == 0 && distanceY == 0) continue; // Skip the current node
+            if (distanceX == 0 && distanceY == 0) continue; // Skip the current node if it's the current node
             const neighbourRow = rowId + distanceX;
-            const neighbourNode = nodeId + distanceY;
-            if (neighbourIsAliveAndWithinGrid(neighbourRow, neighbourNode, grid)) numberOfAliveNeighbours++;
+            const neighbourCol = colId + distanceY;
+            if (neighbourIsAliveAndWithinGrid(neighbourRow, neighbourCol, grid)) numberOfAliveNeighbours++;
         }
     }
     return numberOfAliveNeighbours;
 }
+
+// const updateNodeVisually = (node) => {
+//     document.getElementById(`node-${node.row}-${node.col}`).className = node.isWall ? "node node-wall" : "node";
+// }
+
+// const updateAllNodesVisually = (newGrid) => {
+//     newGrid.forEach((row) => {
+//         row.forEach((node) => {
+//             if (node.isWall) updateNodeVisually(node, "node node-wall");
+//             else updateNodeVisually(node, "node");
+//         });
+//     });
+// }

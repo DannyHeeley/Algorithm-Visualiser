@@ -6,7 +6,7 @@ import { aStar8Way } from "./PathfinderVisualiser/algorithms/aStar_8Way.js";
 import { greedyBestFirstSearch } from "./PathfinderVisualiser/algorithms/greedyBestFirstSearch.js";
 import { gameOfLife } from "./PathfinderVisualiser/algorithms/gameOfLife.js";
 import { animatePathfinding } from "./PathfinderVisualiser/algorithms/pathfindingAnimation.js";
-import { animateConways } from "./PathfinderVisualiser/algorithms/conwaysAnimation.js";
+import { startGameOfLife } from "./PathfinderVisualiser/algorithms/gameOfLifeAnimation.js";
 import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelper";
 
 import "./App.css";
@@ -15,26 +15,26 @@ import "./PathfinderVisualiser/AlgorithmVisualiser.css";
 import "./PathfinderVisualiser/Components/Buttons/Buttons.css";
 import "./PathfinderVisualiser/Components/Legend.css";
 import "./PathfinderVisualiser/Components/Grid.css";
+import "./PathfinderVisualiser/Components/Rules.css"
 
 const App = () => {
   const [gridState, setGridState] = useState({
+    mode: "pathfinding",
+    algorithmNameText: "DIJKSTRA'S",
     grid: [],
     gridInitialised: false,
+    mouseIsPressed: false,
     isStartNodeSet: true,
     isTargetNodeSet: true,
     startNodeRow: 10,
     startNodeCol: 15,
     targetNodeRow: 10,
     targetNodeCol: 35,
-    mouseIsPressed: false,
+    animationSpeed: 60,
+    maxGenerations: 50,
     isAnimating: false,
     needsReset: false,
-    animationSpeed: 60,
     isWallToggled: true,
-    weightedNodeIsVisible: true,
-    algorithmNameText: "DIJKSTRA'S",
-    mode: "pathfinding",
-    maxGenerations: 50,
   });
 
   const [algorithmState, setAlgorithmState] = useState({
@@ -42,10 +42,10 @@ const App = () => {
     greedyBestFirst: greedyBestFirstSearch,
     aStar4Way: aStar4Way,
     aStar8Way: aStar8Way,
-    gameOfLife: gameOfLife,
-    currentAlgorithm: dijkstra,
     animatePathfinding: animatePathfinding,
-    animateConways: animateConways,
+    gameOfLife: gameOfLife,
+    startGameOfLife: startGameOfLife,
+    currentAlgorithm: dijkstra,
     animation: animatePathfinding,
   });
 
