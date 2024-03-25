@@ -66,10 +66,10 @@
 @media only screen and (max-width: 1300px) {
   .info {
     font-size: 65%;
-    margin-top: 0px;
+    margin-top: -10px;
   }
   .legend {
-    margin-top: 0px
+    margin-top: -5px
   }
 }
 

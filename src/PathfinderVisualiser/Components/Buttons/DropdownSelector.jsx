@@ -67,7 +67,8 @@ export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgori
           labelId="select-label"
           id="simple-select"
           sx={{
-            fontSize: "13px",
+            fontSize: "10px",
+            minWidth: "160px",
           }}
           value={mode}
           label="Mode"

@@ -53,10 +53,12 @@ export const AlgorithmVisualiser = ({
           gridState={gridState}
           setGridState={setGridState}
         ></ResetButton>
-        <AnimationSpeedSlider
-          gridState={gridState}
-          setGridState={setGridState}
-        />
+        {gridState.mode === "pathfinding" && (
+          <AnimationSpeedSlider
+            gridState={gridState}
+            setGridState={setGridState}
+          />
+        )}
         <VisualiseButton
           initialiseGrid={initialiseGrid}
           gridState={gridState}

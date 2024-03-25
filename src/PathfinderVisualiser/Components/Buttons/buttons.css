@@ -35,15 +35,16 @@
 .toggle-wall, .toggle-algorithm {
   display: flex;
   align-self: center;
-  margin: 0px 35px 10px 30px;  /* top, right, bottom, left */
+  margin: -20px 35px 0px 30px;  /* top, right, bottom, left */
   grid-column: 1 / 2;
 }
 .toggle-wall {
   grid-row: 3 / 4;
+  margin-top: -5px
 }
 .toggle-algorithm {
   grid-row: 2 / 3;
-  margin-top: -10px;
+
 }
 
 
@@ -129,9 +130,9 @@
       margin-top: 0px;
       width: calc((0.08vw - 2px));
   }
-  .toggle-wall {
+  /* .toggle-wall {
     margin-top: -33px;
-  }
+  } */
 }
 
 @media only screen and (max-width: 1450px) {

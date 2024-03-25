@@ -1,8 +1,10 @@
+import { NodeType } from "../Components/Node/NodeHelper";
+
 export const gameOfLife = (gridState, setGridState) => {
     let currentGrid = gridState.grid;
     const nextGen = () => {
         // Create a copy of the grid
-        const newGrid = [];
+        const nextGenerationGrid = [];
         // Loop through all cells
         for (let rowId = 0; rowId < currentGrid.length; rowId++) {
             const newRow = [];
@@ -11,22 +13,23 @@ export const gameOfLife = (gridState, setGridState) => {
                 // Count the number of alive neighbours for each node
                 const numberOfAliveNeighbours = countAliveNeighbours(rowId, colId, currentGrid);
                 // Add the node's next generation to the next generation of the grid with alive or dead state
-                newRow.push({
-                    ...node,
+                if (nodeIsAlive(node, numberOfAliveNeighbours)) {
+                    newRow.push({
+                        ...node,
                     // Set the state of the node based on the number of alive neighbours (Apply the rules of life)
-                    isWall: nodeIsAlive(node, numberOfAliveNeighbours) // Returns true or false
-                });
+                    });
+                    handleIsAliveClassNameChange(node, setGridState, currentGrid);
+                } 
             }
-            newGrid.push(newRow);
+            nextGenerationGrid.push(newRow);
         }
-        return newGrid;
+        return nextGenerationGrid;
     }
-    
     const step = () => {
         // Get the next iteration of the grid
         const nextGenerationGrid = nextGen();
         // Update the gridState (and as a sideEffect, the currentGrid) to the next generation
-        setGridState(prevState => ({ ...prevState, grid: nextGenerationGrid }));
+        currentGrid = nextGenerationGrid;
         return nextGenerationGrid;
     }
     return step;
@@ -34,22 +37,22 @@ export const gameOfLife = (gridState, setGridState) => {
 
 const nodeIsAlive = (node, numberOfAliveNeighbours) => {
     // Assign a value for isWall (Implementing the rules of life)
-        // - Any live node with fewer than two live neighbors dies, as if by underpopulation. (if alive neighbours is less than 2, c = 0 (dead))
-        // - Any live node with two or three live neighbors lives on to the next generation. (if alive neightbours is 2 or 3, c = 1 (alive))
-        // - Any live node with more than three live neighbors dies, as if by overpopulation. (if alive neighbours is more than 3, c = 0 (dead))
-        // - Any dead node with exactly three live neighbors becomes a live node, as if by reproduction. (if alive neighbours is exactly 3, alive neighbours become live cells)
+    // - Any live node with fewer than two live neighbors dies, as if by underpopulation. (if alive neighbours is less than 2, c = 0 (dead))
+    // - Any live node with two or three live neighbors lives on to the next generation. (if alive neightbours is 2 or 3, c = 1 (alive))
+    // - Any live node with more than three live neighbors dies, as if by overpopulation. (if alive neighbours is more than 3, c = 0 (dead))
+    // - Any dead node with exactly three live neighbors becomes a live node, as if by reproduction. (if alive neighbours is exactly 3, alive neighbours become live cells)
     if (node.isWall) {
         return numberOfAliveNeighbours === 2 || numberOfAliveNeighbours === 3;
     } else {
         return numberOfAliveNeighbours === 3;
     }
-}
+};
 
 const neighbourIsAliveAndWithinGrid = (neighbourRow, neighbourCol, grid) => {
     return neighbourRow >= 0 && neighbourRow < grid.length &&
         neighbourCol >= 0 && neighbourCol < grid[neighbourRow].length &&
         grid[neighbourRow][neighbourCol].isWall;
-}
+};
 
 const countAliveNeighbours = (rowId, colId, grid) => {
     let numberOfAliveNeighbours = 0;
@@ -62,17 +65,22 @@ const countAliveNeighbours = (rowId, colId, grid) => {
         }
     }
     return numberOfAliveNeighbours;
-}
+};
 
-// const updateNodeVisually = (node) => {
-//     document.getElementById(`node-${node.row}-${node.col}`).className = node.isWall ? "node node-wall" : "node";
-// }
+const handleIsAliveClassNameChange = (node, setGridState, prevGenerationGrid) => {
+    setGridState((prevState) => {
+      const newGrid = getNewGridFor(node, NodeType.WALL, prevGenerationGrid);
+      return { ...prevState, grid: newGrid };
+    });
+};
 
-// const updateAllNodesVisually = (newGrid) => {
-//     newGrid.forEach((row) => {
-//         row.forEach((node) => {
-//             if (node.isWall) updateNodeVisually(node, "node node-wall");
-//             else updateNodeVisually(node, "node");
-//         });
-//     });
-// }
+const getNewGridFor = (oldNode, nodeType, prevGenerationGrid) => {
+    const newGrid = prevGenerationGrid.slice();
+    const thisNode = newGrid[oldNode.row][oldNode.col];
+    const newNode = {
+        ...thisNode,
+        [nodeType]: !thisNode[nodeType],
+    };
+    newGrid[oldNode.row][oldNode.col] = newNode;
+    return newGrid;
+};

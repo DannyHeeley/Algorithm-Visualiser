@@ -3,6 +3,7 @@ export const NodeType = {
   TARGET: "isTarget",
   WALL: "isWall",
   WEIGHTED: "isWeighted",
+  NODE: "node",
 };
 
 export const typeOfNode = (node, gridState) => {
@@ -50,5 +51,5 @@ export const handleExtraClassNameFor = (node) => {
     ? "node-weighted"
     : node.isVisited
     ? "node-visited"
-    : "";
+    : "node";
 }

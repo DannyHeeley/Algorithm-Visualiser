@@ -13,7 +13,7 @@ export function dijkstra(grid, startNode, targetNode) {
         if (closestNode === targetNode) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)]
         updateUnvisitedNeighbors(closestNode, grid);
     }
-}
+};
 
 function updateUnvisitedNeighbors(node, grid) {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
@@ -24,7 +24,7 @@ function updateUnvisitedNeighbors(node, grid) {
             neighbor.previousNode = node;
         }
     }
-}
+};
 
 function getUnvisitedNeighbors(node, grid) {
     const neighbors = [];
@@ -34,7 +34,7 @@ function getUnvisitedNeighbors(node, grid) {
     if (col > 0) neighbors.push(grid[row][col - 1]);
     if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
     return neighbors.filter(neighbor => !neighbor.isVisited);
-}
+};
 
 function getAllNodes(grid) {
     const nodes = [];
@@ -44,7 +44,7 @@ function getAllNodes(grid) {
         }
     }
     return nodes;
-}
+};
 
 function reconstructPathDjikstra(targetNode) {
   const shortestPathNodesInOrder = [];
@@ -54,4 +54,4 @@ function reconstructPathDjikstra(targetNode) {
     currentNode = currentNode.previousNode;
   }
   return shortestPathNodesInOrder;
-}
+};
