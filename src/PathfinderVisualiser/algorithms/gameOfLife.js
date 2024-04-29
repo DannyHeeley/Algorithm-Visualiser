@@ -16,10 +16,9 @@ export const gameOfLife = (gridState, setGridState) => {
                 if (nodeIsAlive(node, numberOfAliveNeighbours)) {
                     newRow.push({
                         ...node,
-                    // Set the state of the node based on the number of alive neighbours (Apply the rules of life)
                     });
-                    handleIsAliveClassNameChange(node, setGridState, currentGrid);
-                } 
+                    handleGridUpdateClassChange(node, setGridState, currentGrid);
+                }
             }
             nextGenerationGrid.push(newRow);
         }
@@ -33,7 +32,7 @@ export const gameOfLife = (gridState, setGridState) => {
         return nextGenerationGrid;
     }
     return step;
-}
+};
 
 const nodeIsAlive = (node, numberOfAliveNeighbours) => {
     // Assign a value for isWall (Implementing the rules of life)
@@ -67,7 +66,7 @@ const countAliveNeighbours = (rowId, colId, grid) => {
     return numberOfAliveNeighbours;
 };
 
-const handleIsAliveClassNameChange = (node, setGridState, prevGenerationGrid) => {
+const handleGridUpdateClassChange = (node, setGridState, prevGenerationGrid) => {
     setGridState((prevState) => {
       const newGrid = getNewGridFor(node, NodeType.WALL, prevGenerationGrid);
       return { ...prevState, grid: newGrid };

@@ -6,12 +6,15 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { startGameOfLife } from "../../algorithms/gameOfLifeAnimation";
 import { animatePathfinding } from "../../algorithms/pathfindingAnimation";
+import { initialiseGrid } from "../../../App";
 
-export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgorithmState }) => {
+export const DropdownSelector = ({ gridState, setGridState, algorithmState, setAlgorithmState }) => {
   const handleChange = (event) => {
+    const newGrid = initialiseGrid(gridState);
     if (event.target.value === "gameoflife") {
       setGridState((prevGridState) => ({
         ...prevGridState,
+        grid: newGrid,
         mode: "gameoflife",
       }));
       setAlgorithmState((prevAlgorithmState) => ({
@@ -24,6 +27,7 @@ export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgori
     if (event.target.value === "pathfinding") {
       setGridState((prevGridState) => ({
         ...prevGridState,
+        grid: newGrid,
         mode: "pathfinding",
       }));
       setAlgorithmState((prevAlgorithmState) => ({
@@ -31,8 +35,19 @@ export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgori
         currentAlgorithm: algorithmState.dijkstra,
         animation: animatePathfinding,
       }));
+      return
     } 
     if (event.target.value === "sorting") {
+      setGridState((prevGridState) => ({
+        ...prevGridState,
+        grid: newGrid,
+        mode: "sorting",
+      }));
+      setAlgorithmState((prevAlgorithmState) => ({
+        ...prevAlgorithmState,
+        currentAlgorithm: null, //TODO: Set this correctly once algorithms implemented
+        animation: null, //TODO: Set this correctly once algorithms implemented
+      }));
       return;
     }
   };
@@ -67,10 +82,10 @@ export const DropdownSelector = ({ mode, setGridState, algorithmState, setAlgori
           labelId="select-label"
           id="simple-select"
           sx={{
-            fontSize: "10px",
+            fontSize: "clamp(0.6rem, 0.65vw, 1vw)",
             minWidth: "160px",
           }}
-          value={mode}
+          value={gridState.mode}
           label="Mode"
           onChange={handleChange}
         >

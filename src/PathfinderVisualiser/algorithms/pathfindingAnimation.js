@@ -35,7 +35,7 @@ const animateShortestPath = (nodesInShortestPathOrder) => {
       if (nodeIsAStartOrTarget(node)) return;
       if (node.isWeighted) {
         document.getElementById(`node-${node.row}-${node.col}`).className = "node node-weighted-shortest-path";
-      } else {
+      } else {      
         document.getElementById(`node-${node.row}-${node.col}`).className = "node node-shortest-path";
       }
     }, 50 * i);
@@ -44,6 +44,7 @@ const animateShortestPath = (nodesInShortestPathOrder) => {
 
 const updateCurrentNode = (node) => {
   if (!nodeIsAStartOrTarget(node) && !node.isWeighted) {
-    document.getElementById(`node-${node.row}-${node.col}`).className = "node node-visited";
+    //node.isVisited = !node.isVisited;
+    document.getElementById(`node-${node.row}-${node.col}`).className = "node isVisited";
   }
 };

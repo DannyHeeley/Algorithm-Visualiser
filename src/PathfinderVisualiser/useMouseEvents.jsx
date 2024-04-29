@@ -1,12 +1,12 @@
 import {
   NodeType,
   typeOfNode,
-  startAndTargetNodesSet,
   nodeIsAStartOrTarget,
+  startAndTargetNodesSet,
 } from "./Components/Node/NodeHelper";
 
+
 export const useMouseEvents = () => {
-  
   const handleMouseDown = (node, gridState, setGridState) => {
     toggleMouseIsPressed(setGridState);
     const thisNodeType = typeOfNode(node, gridState);

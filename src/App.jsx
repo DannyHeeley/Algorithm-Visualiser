@@ -8,21 +8,22 @@ import { gameOfLife } from "./PathfinderVisualiser/algorithms/gameOfLife.js";
 import { animatePathfinding } from "./PathfinderVisualiser/algorithms/pathfindingAnimation.js";
 import { startGameOfLife } from "./PathfinderVisualiser/algorithms/gameOfLifeAnimation.js";
 import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelper";
+import { generateRandomUnsortedValues } from "./PathfinderVisualiser/Components/Node/NodeHelper";
 
 import "./App.css";
 import "./PathfinderVisualiser/Components/Node/Node.css";
 import "./PathfinderVisualiser/AlgorithmVisualiser.css";
 import "./PathfinderVisualiser/Components/Buttons/Buttons.css";
 import "./PathfinderVisualiser/Components/Legend.css";
-import "./PathfinderVisualiser/Components/Grid.css";
+import "./PathfinderVisualiser/Components/Grid/Grid.css";
 import "./PathfinderVisualiser/Components/Rules.css"
 
 const App = () => {
+
   const [gridState, setGridState] = useState({
-    mode: "pathfinding",
+    mode: GridMode.PATHFINDING,
     algorithmNameText: "DIJKSTRA'S",
     grid: [],
-    gridInitialised: false,
     mouseIsPressed: false,
     isStartNodeSet: true,
     isTargetNodeSet: true,
@@ -35,7 +36,9 @@ const App = () => {
     isAnimating: false,
     needsReset: false,
     isWallToggled: true,
+    randomUnsortedValues: generateRandomUnsortedValues(),
   });
+
 
   const [algorithmState, setAlgorithmState] = useState({
     dijkstra: dijkstra,
@@ -54,7 +57,6 @@ const App = () => {
     setGridState((prevGridState) => ({
       ...prevGridState,
       grid: newGrid,
-      gridInitialised: true,
     }));
   }, []);
 
@@ -71,12 +73,18 @@ const App = () => {
   );
 };
 
-const initialiseGrid = (gridState) => {
+export const initialiseGrid = (gridState) => {
   return Array.from({ length: 20 }, (_, row) =>
     Array.from({ length: 50 }, (_, col) => {
       return initialiseNode(col, row, gridState);
     })
   );
+};
+
+export const GridMode = {
+  PATHFINDING: "pathfinding",
+  SORTING: "sorting",
+  GAMEOFLIFE: "gameoflife"
 };
 
 export default App;

@@ -29,7 +29,7 @@ function handleChangeAlgorithm(setAlgorithmState, gridState, algorithmState) {
     currentAlgorithm:
       gridState.algorithmNameText === "DIJKSTRA'S"
         ? algorithmState.greedyBestFirst
-        : gridState.algorithmNameText === "GreedyBestFirstSearch"
+        : gridState.algorithmNameText === "GreedyBestFirst"
         ? algorithmState.aStar4Way
         : gridState.algorithmNameText === "A* 4-WAY"
         ? algorithmState.aStar8Way
@@ -42,8 +42,8 @@ function handleChangeText(setGridState, gridState) {
     ...prevGridState,
     algorithmNameText:
       gridState.algorithmNameText === "DIJKSTRA'S"
-        ? "GreedyBestFirstSearch"
-        : gridState.algorithmNameText === "GreedyBestFirstSearch"
+        ? "GreedyBestFirst"
+        : gridState.algorithmNameText === "GreedyBestFirst"
         ? "A* 4-WAY"
         : gridState.algorithmNameText === "A* 4-WAY"
         ? "A* 8-WAY"

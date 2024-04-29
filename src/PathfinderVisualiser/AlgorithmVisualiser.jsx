@@ -5,8 +5,9 @@ import { ToggleWallButton } from "./Components/Buttons/ToggleWallButton.jsx";
 import { ResetButton } from "./Components/Buttons/ResetButton.jsx";
 import { VisualiseButton } from "./Components/Buttons/VisualiseButton.jsx";
 import { ToggleAlgorithmButton } from "./Components/Buttons/ToggleAlgorithmButton.jsx";
-import { Grid } from "./Components/Grid.jsx";
+import { Grid } from "./Components/Grid/Grid.jsx";
 import { DropdownSelector } from "./Components/Buttons/DropdownSelector.jsx";
+import { GridMode } from "../App.jsx";
 
 export const AlgorithmVisualiser = ({
   algorithmState,
@@ -21,12 +22,12 @@ export const AlgorithmVisualiser = ({
         <div className="app-title">ALGORITHM VISUALISER</div>
         <DropdownSelector
           className="dropdown-selector"
-          mode={gridState.mode}
+          gridState={gridState}
           setGridState={setGridState}
           algorithmState={algorithmState}
           setAlgorithmState={setAlgorithmState}
         ></DropdownSelector>
-        {gridState.mode === "pathfinding" && (
+        {gridState.mode === GridMode.PATHFINDING && (
           <>
             <ToggleAlgorithmButton
               gridState={gridState}
@@ -46,14 +47,14 @@ export const AlgorithmVisualiser = ({
             </div>
           </>
         )}
-        {gridState.mode === "gameoflife" && <Rules></Rules>}
+        {gridState.mode === GridMode.GAMEOFLIFE && <Rules></Rules>}
         <Grid gridState={gridState} setGridState={setGridState}></Grid>
         <ResetButton
           initialiseGrid={initialiseGrid}
           gridState={gridState}
           setGridState={setGridState}
         ></ResetButton>
-        {gridState.mode === "pathfinding" && (
+        {gridState.mode === GridMode.PATHFINDING && (
           <AnimationSpeedSlider
             gridState={gridState}
             setGridState={setGridState}
