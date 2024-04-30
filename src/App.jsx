@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { AlgorithmVisualiser }  from "./PathfinderVisualiser/AlgorithmVisualiser";
-import { dijkstra } from "./PathfinderVisualiser/algorithms/dijkstra.js";
-import { aStar4Way } from "./PathfinderVisualiser/algorithms/aStar_4Way.js";
-import { aStar8Way } from "./PathfinderVisualiser/algorithms/aStar_8Way.js";
-import { greedyBestFirstSearch } from "./PathfinderVisualiser/algorithms/greedyBestFirstSearch.js";
-import { gameOfLife } from "./PathfinderVisualiser/algorithms/gameOfLife.js";
-import { animatePathfinding } from "./PathfinderVisualiser/algorithms/pathfindingAnimation.js";
-import { startGameOfLife } from "./PathfinderVisualiser/algorithms/gameOfLifeAnimation.js";
+import { dijkstra } from "./PathfinderVisualiser/algorithms/Pathfinding/dijkstra.js";
+import { aStar4Way } from "./PathfinderVisualiser/algorithms/Pathfinding/aStar_4Way.js";
+import { aStar8Way } from "./PathfinderVisualiser/algorithms/Pathfinding/aStar_8Way.js";
+import { greedyBestFirstSearch } from "./PathfinderVisualiser/algorithms/Pathfinding/greedyBestFirstSearch.js";
+import { gameOfLife } from "./PathfinderVisualiser/algorithms/GameOfLife/gameOfLife.js";
+import { animatePathfinding } from "./PathfinderVisualiser/algorithms/Pathfinding/pathfindingAnimation.js";
+import { startGameOfLife } from "./PathfinderVisualiser/algorithms/GameOfLife/gameOfLifeAnimation.js";
 import { initialiseNode } from "./PathfinderVisualiser/Components/Node/NodeHelper";
-import { generateRandomUnsortedValues } from "./PathfinderVisualiser/Components/Node/NodeHelper";
+import { generateRandomUnsortedValues } from "./PathfinderVisualiser/algorithms/Sorting/sortHelper.js";
 
 import "./App.css";
 import "./PathfinderVisualiser/Components/Node/Node.css";
@@ -17,6 +17,7 @@ import "./PathfinderVisualiser/Components/Buttons/Buttons.css";
 import "./PathfinderVisualiser/Components/Legend.css";
 import "./PathfinderVisualiser/Components/Grid/Grid.css";
 import "./PathfinderVisualiser/Components/Rules.css"
+import "./PathfinderVisualiser/Components/TickCounter.css"
 
 const App = () => {
 
@@ -33,6 +34,8 @@ const App = () => {
     targetNodeCol: 35,
     animationSpeed: 60,
     maxGenerations: 50,
+    currentTick: 0,
+    intervalId: null,
     isAnimating: false,
     needsReset: false,
     isWallToggled: true,

@@ -5,27 +5,34 @@ import {
   startAndTargetNodesSet,
 } from "./Components/Node/NodeHelper";
 
+import { GridMode } from "../App";
+
 
 export const useMouseEvents = () => {
   const handleMouseDown = (node, gridState, setGridState) => {
     toggleMouseIsPressed(setGridState);
     const thisNodeType = typeOfNode(node, gridState);
-    if (startAndTargetNodesSet(gridState)) {
+    if (startAndTargetNodesSet(gridState) || gridState.mode === GridMode.GAMEOFLIFE) {
       if (nodeIsAStartOrTarget(node)) {
-        deselectNode(node, thisNodeType, setGridState);
+        handleStartOrTargetDeselect(node, thisNodeType, setGridState);
       } else {
-        handleWall(node, thisNodeType, setGridState);
+        handleNodeClick(node, thisNodeType, setGridState);
       }
     } else {
-      selectNode(node, thisNodeType, setGridState);
+      handleStartOrTargetSelect(node, thisNodeType, setGridState);
     }
   };
 
   const handleMouseEnter = (node, gridState, setGridState) => {
     if (gridState.mouseIsPressed && startAndTargetNodesSet(gridState)) {
-      handleWall(
+      const nodeTypePathfinding = gridState.isWallToggled ? NodeType.WALL : NodeType.WEIGHTED;
+      const thisNodeType =
+        gridState.mode === GridMode.GAMEOFLIFE
+          ? NodeType.CELL
+          : nodeTypePathfinding;
+      handleNodeClick(
         node,
-        gridState.isWallToggled ? NodeType.WALL : NodeType.WEIGHTED,
+        thisNodeType,
         setGridState
       );
     }
@@ -46,7 +53,7 @@ export const useMouseEvents = () => {
     return newGrid;
   };
 
-  const selectNode = (node, nodeType, setGridState) => {
+  const handleStartOrTargetSelect = (node, nodeType, setGridState) => {
     setGridState((prevState) => {
       const newGrid = getNewGridFor(node, nodeType, prevState);
       if (nodeType === NodeType.START) {
@@ -72,7 +79,7 @@ export const useMouseEvents = () => {
     });
   };
 
-  const deselectNode = (node, nodeType, setGridState) => {
+  const handleStartOrTargetDeselect = (node, nodeType, setGridState) => {
     setGridState((prevState) => {
       const newGrid = getNewGridFor(node, nodeType, prevState);
       if (nodeType === NodeType.START) {
@@ -95,7 +102,7 @@ export const useMouseEvents = () => {
     });
   };
 
-  const handleWall = (node, nodeType, setGridState) => {
+  const handleNodeClick = (node, nodeType, setGridState) => {
     setGridState((prevState) => {
       const newGrid = getNewGridFor(node, nodeType, prevState);
       return { ...prevState, grid: newGrid };

@@ -4,8 +4,8 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { startGameOfLife } from "../../algorithms/gameOfLifeAnimation";
-import { animatePathfinding } from "../../algorithms/pathfindingAnimation";
+import { startGameOfLife } from "../../algorithms/GameOfLife/gameOfLifeAnimation";
+import { animatePathfinding } from "../../algorithms/Pathfinding/pathfindingAnimation";
 import { initialiseGrid } from "../../../App";
 
 export const DropdownSelector = ({ gridState, setGridState, algorithmState, setAlgorithmState }) => {
@@ -61,7 +61,9 @@ export const DropdownSelector = ({ gridState, setGridState, algorithmState, setA
           gridColumn: "1/2",
           backgroundColor: "#f6fff0",
           position: "absolute",
+          placeSelf: "center",
           marginLeft: "20px",
+          marginTop: "10px",
           width: "10.2%",
           minWidth: "160px",
           borderRadius: "5px",

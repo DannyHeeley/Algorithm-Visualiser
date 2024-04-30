@@ -12,6 +12,7 @@
     height: fit-content;
     margin: 10px 35px 0px 30px;
     padding: 0.5vw 5px 0.5vw 5px;
+    place-self: center;
 }
 
 .rule, .rule_2 {
@@ -19,8 +20,4 @@
     align-items: center;
     font-size: clamp(0.8rem, 0.8vw, 4rem);
     font-weight: 900;
-}
-
-.rule_2 {
-
 }

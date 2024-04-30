@@ -1,12 +1,16 @@
+
+
+
 .legend, .info {
     font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
-    width: 9.6vw;
+    width: 9.7vw;
     min-width: 150px;
     border-radius: 10px;
     text-align: center;
     height: fit-content;
-    margin: 0px 35px 0px 30px; /* top, right, bottom, left */
-    padding: 0.5vw 5px 0vw 5px;
+    margin: 0vw 35px 15px 30px; /* top, right, bottom, left */
+    padding: 0vw 5px 0vw 5px;
+    place-self: center;
 }
 
 .legend-text, .info, .legend-item {
@@ -18,13 +22,12 @@
 .info {
     grid-row: 6 / 7;
     grid-column: 1 / 2;
-    min-height: 40px;
+    height: 5vw;
     background-color: rgb(205, 250, 231);
     border: 1px solid rgb(0, 255, 34);
 }
 .info span {
     position: relative;
-    margin: 15px
 }
 .legend {
     grid-row: 4 / 6;
@@ -32,8 +35,8 @@
     min-height: 241px;
     background-color: rgb(241, 232, 255);
     border: 1px solid rgb(102, 18, 18);
-    padding: 0.5vw 5px 0.5vw 5px;
-    margin-bottom: 15px;
+    padding-top: 0.5vw;
+    padding-bottom: 0.5vw;
 }
 .legend-icon {
     width: calc(1.6vw - 2px);

@@ -8,6 +8,7 @@ import { ToggleAlgorithmButton } from "./Components/Buttons/ToggleAlgorithmButto
 import { Grid } from "./Components/Grid/Grid.jsx";
 import { DropdownSelector } from "./Components/Buttons/DropdownSelector.jsx";
 import { GridMode } from "../App.jsx";
+import { TickCounter } from "./Components/TickCounter.jsx"
 
 export const AlgorithmVisualiser = ({
   algorithmState,
@@ -47,7 +48,12 @@ export const AlgorithmVisualiser = ({
             </div>
           </>
         )}
-        {gridState.mode === GridMode.GAMEOFLIFE && <Rules></Rules>}
+        {gridState.mode === GridMode.GAMEOFLIFE && (
+          <>
+            <Rules></Rules>
+            <TickCounter gridState={gridState}></TickCounter>
+          </>
+        )}
         <Grid gridState={gridState} setGridState={setGridState}></Grid>
         <ResetButton
           initialiseGrid={initialiseGrid}

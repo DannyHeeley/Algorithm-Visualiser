@@ -1,4 +1,4 @@
-import { nodeIsAStartOrTarget } from '../Components/Node/NodeHelper.js';
+import { nodeIsAStartOrTarget } from '../../Components/Node/NodeHelper.js';
 
 export const animatePathfinding = (
   visitedNodesInOrder,

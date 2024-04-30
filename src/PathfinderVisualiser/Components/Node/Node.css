@@ -32,6 +32,10 @@
     background-color:blueviolet;
 }
 
+.isCell {
+    background-color: blue;
+}
+
 .isVisited {
     animation-name: visitedAnimation;
 }
