@@ -6,9 +6,10 @@ import { ResetButton } from "./Components/Buttons/ResetButton.jsx";
 import { VisualiseButton } from "./Components/Buttons/VisualiseButton.jsx";
 import { ToggleAlgorithmButton } from "./Components/Buttons/ToggleAlgorithmButton.jsx";
 import { Grid } from "./Components/Grid/Grid.jsx";
-import { DropdownSelector } from "./Components/Buttons/DropdownSelector.jsx";
+import { ModeSelector } from "./Components/Buttons/ModeSelector.jsx";
 import { GridMode } from "../App.jsx";
 import { TickCounter } from "./Components/TickCounter.jsx"
+import { PatternSelector } from "./Components/Buttons/PatternSelector.jsx";
 
 export const AlgorithmVisualiser = ({
   algorithmState,
@@ -21,13 +22,13 @@ export const AlgorithmVisualiser = ({
     <>
       <div className="pathfinder-container">
         <div className="app-title">ALGORITHM VISUALISER</div>
-        <DropdownSelector
+        <ModeSelector
           className="dropdown-selector"
           gridState={gridState}
           setGridState={setGridState}
           algorithmState={algorithmState}
           setAlgorithmState={setAlgorithmState}
-        ></DropdownSelector>
+        ></ModeSelector>
         {gridState.mode === GridMode.PATHFINDING && (
           <>
             <ToggleAlgorithmButton
@@ -50,6 +51,7 @@ export const AlgorithmVisualiser = ({
         )}
         {gridState.mode === GridMode.GAMEOFLIFE && (
           <>
+            <PatternSelector gridState={gridState}></PatternSelector>
             <Rules></Rules>
             <TickCounter gridState={gridState}></TickCounter>
           </>

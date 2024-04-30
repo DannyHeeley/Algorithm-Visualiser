@@ -33,7 +33,7 @@ const App = () => {
     targetNodeRow: 10,
     targetNodeCol: 35,
     animationSpeed: 60,
-    maxGenerations: 50,
+    maxGenerations: 500,
     currentTick: 0,
     intervalId: null,
     isAnimating: false,

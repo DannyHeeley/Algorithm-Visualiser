@@ -7,14 +7,19 @@ import Select from "@mui/material/Select";
 import { startGameOfLife } from "../../algorithms/GameOfLife/gameOfLifeAnimation";
 import { animatePathfinding } from "../../algorithms/Pathfinding/pathfindingAnimation";
 import { initialiseGrid } from "../../../App";
+import { initialiseGridWithPattern } from "../../algorithms/GameOfLife/parseRle";
+import { gameOfLifePatterns } from "../../algorithms/GameOfLife/patterns";
 
-export const DropdownSelector = ({ gridState, setGridState, algorithmState, setAlgorithmState }) => {
+export const ModeSelector = ({ gridState, setGridState, algorithmState, setAlgorithmState }) => {
   const handleChange = (event) => {
     const newGrid = initialiseGrid(gridState);
     if (event.target.value === "gameoflife") {
       setGridState((prevGridState) => ({
         ...prevGridState,
-        grid: newGrid,
+        grid: initialiseGridWithPattern(
+          newGrid,
+          gameOfLifePatterns.GLIDER
+        ),
         mode: "gameoflife",
       }));
       setAlgorithmState((prevAlgorithmState) => ({
@@ -55,6 +60,7 @@ export const DropdownSelector = ({ gridState, setGridState, algorithmState, setA
   return (
     <Box>
       <FormControl
+        id="mode-selector"
         sx={{
           display: "grid",
           gridRow: "1/2",
@@ -71,7 +77,6 @@ export const DropdownSelector = ({ gridState, setGridState, algorithmState, setA
         }}
       >
         <InputLabel
-          id="dropdown-selector"
           sx={{
             color: "white",
             backgroundColor: "rgba(66, 0, 75, 0.904)",

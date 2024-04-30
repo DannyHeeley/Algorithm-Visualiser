@@ -1,9 +1,10 @@
+
 export const startGameOfLife = (
     gameOfLife,
     gridState,
     setGridState,
 ) => {
-    const timeDelay = 500;
+    const timeDelay = 250;
     let generationsRemaining = gridState.maxGenerations;
     const intervalId = setInterval(() => {
         gameOfLife(gridState, setGridState)();

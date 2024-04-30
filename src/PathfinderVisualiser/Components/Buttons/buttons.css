@@ -113,10 +113,6 @@
   margin-left: 10px;
 }
 
-
-
-
-
 @media only screen and (max-width: 1575px) {
   .visualise, .reset, .slider {
       grid-row: 7 / 8;
