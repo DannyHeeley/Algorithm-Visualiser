@@ -79,7 +79,7 @@ const App = () => {
 };
 
 export const initialiseGrid = (gridState) => {
-	return Array.from({ length: 20 }, (_, row) =>
+	return Array.from({ length: 25 }, (_, row) =>
 		Array.from({ length: 50 }, (_, col) => {
 			return initialiseNode(col, row, gridState);
 		})

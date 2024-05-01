@@ -1,30 +1,30 @@
 const parsePattern = (pattern) => {
-    const patternData = pattern.split("");
-    let currentRow = [];
-    let rleAsGridPattern = [];
-    let runLengthStr = '';
-    for (let i = 0; i < patternData.length; i++) {
-        const char = patternData[i];
-        if (/\d/.test(char)) {
-            runLengthStr += char;
-        } else if (runLengthStr !== '') {
-            const runLength = parseInt(runLengthStr);
-            const nextChar = patternData[i];
-            for (let j = 0; j < runLength; j++) {
-                currentRow.push(nextChar === "b" ? false : true);
-            }
-            runLengthStr = '';
-        } else if (char === "$") {
-            rleAsGridPattern.push(currentRow);
-            currentRow = [];
-        } else if (char === "!") {
-            rleAsGridPattern.push(currentRow);
-            break;
-        } else {
-            currentRow.push(char === "b" ? false : true);
-        }
-    }
-    return rleAsGridPattern;
+	const patternData = pattern.split('');
+	let currentRow = [];
+	let patternDataAsGridPattern = [];
+	let runLengthStr = '';
+	for (let i = 0; i < patternData.length; i++) {
+		const char = patternData[i];
+		if (/\d/.test(char)) {
+			runLengthStr += char;
+		} else if (runLengthStr !== '') {
+			const runLength = parseInt(runLengthStr);
+			const nextChar = patternData[i];
+			for (let j = 0; j < runLength; j++) {
+				currentRow.push(nextChar === 'b' ? false : true);
+			}
+			runLengthStr = '';
+		} else if (char === '$') {
+			patternDataAsGridPattern.push(currentRow);
+			currentRow = [];
+		} else if (char === '!') {
+			patternDataAsGridPattern.push(currentRow);
+			break;
+		} else {
+			currentRow.push(char === 'b' ? false : true);
+		}
+	}
+	return patternDataAsGridPattern;
 }
 
 export const initialiseGridWithPattern = (grid, patternObject, xOffset = 0, yOffset = 0) => {

@@ -10,7 +10,6 @@ import { GameOfLifePatterns } from "../../algorithms/GameOfLife/patterns";
 export const PatternSelector = ({ gridState, setGridState }) => {
 	const { handlePatternChange } = useSelector(gridState); 
 	const patterns = Object.values(GameOfLifePatterns)
-	console.log(patterns)
     return (
 		<Box>
 			<FormControl

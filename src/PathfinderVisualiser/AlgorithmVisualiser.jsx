@@ -14,7 +14,8 @@ import { PatternSelector } from './Components/Buttons/PatternSelector.jsx';
 export const AlgorithmVisualiser = ({ algorithmState, setAlgorithmState, gridState, setGridState, initialiseGrid }) => {
 	return (
 		<>
-			<div className='pathfinder-container'>
+			<div
+				className='pathfinder-container'>
 				<div className='app-title'>ALGORITHM VISUALISER</div>
 				<ModeSelector
 					gridState={gridState}

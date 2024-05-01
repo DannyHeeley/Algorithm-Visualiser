@@ -11,18 +11,14 @@ export const Node = memo(
     onMouseUp,
   }) => {
     return (
-      <div
-        id={`node-${node.row}-${node.col}`}
-        className={`node ${handleExtraClassNameFor(
-          node,
-          gridMode,
-          randomUnsortedValues
-        )}`}
-        onMouseDown={onMouseDown}
-        onMouseEnter={onMouseEnter}
-        onMouseUp={onMouseUp}
-      ></div>
-    );
+		<div
+			id={`node-${node.row}-${node.col}`}
+			className={`node ${handleExtraClassNameFor(node, gridMode, randomUnsortedValues)}`}
+			onMouseDown={onMouseDown}
+			onMouseEnter={onMouseEnter}
+			onMouseUp={onMouseUp}
+		></div>
+	);
   }
 );
 
