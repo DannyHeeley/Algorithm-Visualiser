@@ -23,7 +23,7 @@ export const ToggleAlgorithmButton = ({
   );
 };
 
-function handleChangeAlgorithm(setAlgorithmState, gridState, algorithmState) {
+const handleChangeAlgorithm = (setAlgorithmState, gridState, algorithmState) => {
   setAlgorithmState((prevAlgorithmsState) => ({
     ...prevAlgorithmsState,
     currentAlgorithm:
@@ -37,7 +37,7 @@ function handleChangeAlgorithm(setAlgorithmState, gridState, algorithmState) {
   }));
 }
 
-function handleChangeText(setGridState, gridState) {
+const handleChangeText = (setGridState, gridState) => {
   setGridState((prevGridState) => ({
     ...prevGridState,
     algorithmNameText:

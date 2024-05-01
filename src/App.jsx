@@ -43,28 +43,6 @@ const App = () => {
 		randomUnsortedValues: generateRandomUnsortedValues(),
 	});
 
-<<<<<<< Updated upstream
-  const [gridState, setGridState] = useState({
-    mode: GridMode.PATHFINDING,
-    algorithmNameText: "DIJKSTRA'S",
-    grid: [],
-    mouseIsPressed: false,
-    isStartNodeSet: true,
-    isTargetNodeSet: true,
-    startNodeRow: 10,
-    startNodeCol: 15,
-    targetNodeRow: 10,
-    targetNodeCol: 35,
-    animationSpeed: 60,
-    maxGenerations: 50,
-    currentTick: 0,
-    intervalId: null,
-    isAnimating: false,
-    needsReset: false,
-    isWallToggled: true,
-    randomUnsortedValues: generateRandomUnsortedValues(),
-  });
-=======
 	const [algorithmState, setAlgorithmState] = useState({
 		dijkstra: dijkstra,
 		greedyBestFirst: greedyBestFirstSearch,
@@ -78,7 +56,6 @@ const App = () => {
 		currentAlgorithm: dijkstra,
 		currentAnimation: animatePathfinding,
 	});
->>>>>>> Stashed changes
 
 	useEffect(() => {
 		const newGrid = initialiseGrid(gridState);
