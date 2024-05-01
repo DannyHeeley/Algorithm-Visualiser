@@ -1,5 +1,4 @@
-import { generateRandomUnsortedValues } from "../../algorithms/Sorting/sortHelper";
-import { GridMode } from "../../../App";
+import { useReset } from './hooks/useReset';
 
 export const ResetButton = ({ initialiseGrid, gridState, setGridState }) => {
 	const { handleReset } = useReset();
@@ -13,6 +12,3 @@ export const ResetButton = ({ initialiseGrid, gridState, setGridState }) => {
 		</button>
 	);
 };
-
-
-
