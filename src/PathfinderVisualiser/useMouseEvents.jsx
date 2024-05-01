@@ -7,7 +7,6 @@ import {
 
 import { GridMode } from "../App";
 
-
 export const useMouseEvents = () => {
   const handleMouseDown = (node, gridState, setGridState) => {
     toggleMouseIsPressed(setGridState);
@@ -109,7 +108,7 @@ export const useMouseEvents = () => {
     });
   };
 
-  function toggleMouseIsPressed(setGridState) {
+  const toggleMouseIsPressed = (setGridState) => {
     setGridState((prevgridState) => ({
       ...prevgridState,
       mouseIsPressed: !prevgridState.mouseIsPressed,

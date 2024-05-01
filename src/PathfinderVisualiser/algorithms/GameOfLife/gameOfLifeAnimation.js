@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 export const startGameOfLife = (
+=======
+
+export const animateGameOfLife = (
+>>>>>>> Stashed changes
     gameOfLife,
     gridState,
     setGridState,
