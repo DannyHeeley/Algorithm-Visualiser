@@ -2,7 +2,7 @@ import { generateRandomUnsortedValues } from '../../../algorithms/Sorting/sortHe
 import { GridMode } from '../../../../App';
 
 export const useReset = () => {
-	const handleReset = () => {
+	const handleReset = (initialiseGrid, gridState, setGridState) => {
 		if (gridState.isAnimating) return;
 		if (gridState.mode === GridMode.SORTING) {
 			setGridState((prevState) => {
@@ -15,7 +15,7 @@ export const useReset = () => {
 				};
 			});
 		} else if (gridState.mode === GridMode.PATHFINDING) {
-			resetAllNodes();
+			resetAllNodes(gridState);
 			return setGridState((prevState) => {
 				return {
 					...prevState,
@@ -40,7 +40,7 @@ export const useReset = () => {
 			});
 		}
 	};
-	const resetAllNodes = () => {
+	const resetAllNodes = (gridState) => {
 		gridState.grid.forEach((row) => {
 			row.forEach((node) => {
 				if (!node.isTarget && !node.isStart) {

@@ -2,9 +2,10 @@ import { initialiseGrid } from '../../../../App';
 import { initialiseGridWithPattern } from '../../../algorithms/GameOfLife/parsePattern';
 import { GameOfLifePatterns } from '../../../algorithms/GameOfLife/patterns';
 import { GridMode } from '../../../../App';
+import { AccordionSummary } from '@mui/material';
 
 export const useSelector = (gridState) => {
-	const { COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP } = GameOfLifePatterns;
+	const { COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP, ACHIMSP11} = GameOfLifePatterns;
 	const { GAMEOFLIFE, PATHFINDING, SORTING } = GridMode;
 
 	let newGrid = initialiseGrid(gridState);
@@ -58,6 +59,8 @@ export const useSelector = (gridState) => {
 				return changePattern(SIRROBIN, newGrid, setGridState);
 			case SNARKLOOP:
 				return changePattern(SNARKLOOP, newGrid, setGridState);
+			case ACHIMSP11: 
+				return changePattern(ACHIMSP11, newGrid, setGridState);
 		}
 	};
 
@@ -74,10 +77,10 @@ export const useSelector = (gridState) => {
 		}));
 	};
 
-	const changePattern = (newPattern, newGrid, setGridState) => {
+	const changePattern = (newPattern, newGrid, setGridState, xOffset=0, yOffset=0) => {
 		return setGridState((prevGridState) => ({
 			...prevGridState,
-			grid: initialiseGridWithPattern(newGrid, newPattern),
+			grid: initialiseGridWithPattern(newGrid, newPattern, xOffset, yOffset),
 			pattern: newPattern,
 		}));
 	};

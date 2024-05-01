@@ -9,9 +9,8 @@ import { GameOfLifePatterns } from "../../algorithms/GameOfLife/patterns";
 
 export const PatternSelector = ({ gridState, setGridState }) => {
 	const { handlePatternChange } = useSelector(gridState); 
-
-	const { COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP, ACHIMSP11 } = GameOfLifePatterns;
-	const patterns = [COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP, ACHIMSP11];
+	const patterns = Object.values(GameOfLifePatterns)
+	console.log(patterns)
     return (
 		<Box>
 			<FormControl
@@ -45,8 +44,9 @@ export const PatternSelector = ({ gridState, setGridState }) => {
 					value={gridState.pattern}
 					label='Mode'
 					onChange={(event) => handlePatternChange(event, setGridState)}>
-					{patterns.map((pattern) => {
+					{patterns.map((pattern, index) => {
 						return <MenuItem
+							key={index}
 							value={pattern}
 							sx={{
 								fontSize: '13px',

@@ -36,6 +36,6 @@ export const GameOfLifePatterns = {
 	ACHIMSP11: {
 		name: 'ACHIMSP11',
 		pattern: '10b2o10b$10b2o10b$5bo10bo5b$4bobo8bobo4b$3bobo3bo2bo3bobo3b$2bobo4bo2bo4bobo2b$3bo5bo2bo5bo3b3$4b3o8b3o4b$2o18b2o$2o18b2o$4b3o8b3o4b3$3bo5bo2bo5bo3b$2bobo4bo2bo4bobo2b$3bobo3bo2bo3bobo3b$4bobo8bobo4b$5bo10bo5b$10b2o10b$10b2o!',
-		offset: { x: 16, y: 7 },
+		offset: { x: 20, y: 2 },
 	}
 };
