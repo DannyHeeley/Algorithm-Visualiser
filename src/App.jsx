@@ -44,6 +44,7 @@ const App = () => {
 	});
 
 	const [algorithmState, setAlgorithmState] = useState({
+		// TODO: Update this to use the new file PathfindingAlgorithms
 		dijkstra: dijkstra,
 		greedyBestFirst: greedyBestFirstSearch,
 		aStar4Way: aStar4Way,

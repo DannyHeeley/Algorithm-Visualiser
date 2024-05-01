@@ -2,7 +2,6 @@ import { useReset } from './hooks/useReset';
 
 export const ResetButton = ({ initialiseGrid, gridState, setGridState }) => {
 	const { handleReset } = useReset();
-
 	return (
 		<button
 			className='reset'
