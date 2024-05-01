@@ -10,94 +10,52 @@ import { GameOfLifePatterns } from "../../algorithms/GameOfLife/patterns";
 export const PatternSelector = ({ gridState, setGridState }) => {
 	const { handlePatternChange } = useSelector(gridState); 
 
-	const { COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP } = GameOfLifePatterns;
-	
+	const { COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP, ACHIMSP11 } = GameOfLifePatterns;
+	const patterns = [COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP, ACHIMSP11];
     return (
-        <Box>
-            <FormControl
-                id="pattern-selector"
-                sx={{
-                    display: "grid",
-                    gridRow: "7/8",
-                    gridColumn: "1/2",
-                    backgroundColor: "#f6fff0",
-                    position: "absolute",
-                    placeSelf: "center",
-                    marginTop: "10px",
-                    width: "10.2%",
-                    minWidth: "160px",
-                    borderRadius: "5px",
-                    fontSize: "5px",
-                }}
-            >
-                <InputLabel
-                    sx={{
-                        color: "white",
-                        backgroundColor: "rgba(66, 0, 75, 0.904)",
-                        border: "1px solid rgb(102, 18, 18)",
-                    }}
-                >
-                Mode
-                </InputLabel>
-                <Select
-                    sx={{
-                        fontSize: "clamp(0.6rem, 0.65vw, 1vw)",
-                        minWidth: "160px",
-                    }}
-                    value={gridState.pattern}
-                    label="Mode"
-                    onChange={(event) => handlePatternChange(event, setGridState)}
-                >
-                    <MenuItem
-                        value={COPPERHEAD}
-                        sx={{
-                        fontSize: "13px",
-                        }}
-                    >
-                    COPPERHEAD
-                    </MenuItem>
-                    <MenuItem
-                        value={TWOENGINECORDERSHIP}
-                        sx={{
-                        fontSize: "13px",
-                        }}
-                    >
-                    TWO ENGINE CORDERSHIP
-                    </MenuItem>
-                    <MenuItem
-                        value={GOSPERGLIDERGUN}
-                        sx={{
-                        fontSize: "13px",
-                        }}
-                    >
-                    GOSPER GLIDER GUN
-                    </MenuItem>
-                    <MenuItem
-                        value={GLIDER}
-                        sx={{
-                        fontSize: "13px",
-                        }}
-                    >
-                    GLIDER
-                    </MenuItem>
-                    <MenuItem
-                        value={SIRROBIN}
-                        sx={{
-                        fontSize: "13px",
-                        }}
-                    >
-                    SIR ROBIN
-                    </MenuItem>
-                    <MenuItem
-                        value={SNARKLOOP}
-                        sx={{
-                        fontSize: "13px",
-                        }}
-                    >
-                    SNARKLOOP
-                    </MenuItem>
-                </Select>
-            </FormControl>
-        </Box>
-    );
+		<Box>
+			<FormControl
+				id='pattern-selector'
+				sx={{
+					display: 'grid',
+					gridRow: '7/8',
+					gridColumn: '1/2',
+					backgroundColor: '#f6fff0',
+					position: 'absolute',
+					placeSelf: 'center',
+					marginTop: '10px',
+					width: '10.2%',
+					minWidth: '160px',
+					borderRadius: '5px',
+					fontSize: '5px',
+				}}>
+				<InputLabel
+					sx={{
+						color: 'white',
+						backgroundColor: 'rgba(66, 0, 75, 0.904)',
+						border: '1px solid rgb(102, 18, 18)',
+					}}>
+					Mode
+				</InputLabel>
+				<Select
+					sx={{
+						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
+						minWidth: '160px',
+					}}
+					value={gridState.pattern}
+					label='Mode'
+					onChange={(event) => handlePatternChange(event, setGridState)}>
+					{patterns.map((pattern) => {
+						return <MenuItem
+							value={pattern}
+							sx={{
+								fontSize: '13px',
+							}}>
+							{pattern.name}
+						</MenuItem>
+					})}
+				</Select>
+			</FormControl>
+		</Box>
+	);
 };
