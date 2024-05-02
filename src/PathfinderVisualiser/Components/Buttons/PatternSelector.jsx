@@ -7,13 +7,13 @@ import Select from "@mui/material/Select";
 import { useSelector } from "./hooks/useSelector";
 import { GameOfLifePatterns } from "../../algorithms/GameOfLife/patterns";
 
-export const PatternSelector = ({ gridState, setGridState }) => {
-	const { handlePatternChange } = useSelector(gridState); 
-	const patterns = Object.values(GameOfLifePatterns)
-    return (
+export const PatternSelector = ({ appState, setAppState }) => {
+	const { handlePatternChange } = useSelector(appState, setAppState);
+	const patterns = Object.values(GameOfLifePatterns);
+	return (
 		<Box>
 			<FormControl
-				id='pattern-selector'
+				id='currentPattern-selector'
 				sx={{
 					display: 'grid',
 					gridRow: '7/8',
@@ -33,25 +33,27 @@ export const PatternSelector = ({ gridState, setGridState }) => {
 						backgroundColor: 'rgba(66, 0, 75, 0.904)',
 						border: '1px solid rgb(102, 18, 18)',
 					}}>
-					Mode
+					currentMode
 				</InputLabel>
 				<Select
 					sx={{
 						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
 						minWidth: '160px',
 					}}
-					value={gridState.pattern}
-					label='Mode'
-					onChange={(event) => handlePatternChange(event, setGridState)}>
-					{patterns.map((pattern, index) => {
-						return <MenuItem
-							key={index}
-							value={pattern}
-							sx={{
-								fontSize: '13px',
-							}}>
-							{pattern.name}
-						</MenuItem>
+					value={appState.currentPattern}
+					label='currentMode'
+					onChange={(event) => handlePatternChange(event)}>
+					{patterns.map((currentPattern, index) => {
+						return (
+							<MenuItem
+								key={index}
+								value={currentPattern}
+								sx={{
+									fontSize: '13px',
+								}}>
+								{currentPattern.name}
+							</MenuItem>
+						);
 					})}
 				</Select>
 			</FormControl>

@@ -1,24 +1,7 @@
-import { startAndTargetNodesSet } from '../Node/NodeHelper.js';
+import { useButtons } from "./hooks/useButtons";
 
-export const VisualiseButton = ({ gridState, setGridState, algorithmState }) => {
-	if (gridState.isAnimating || gridState.needsReset || !startAndTargetNodesSet(gridState)) return;
-	let visitedNodesInOrder, shortestPathNodesInOrder;
-	const algorithm = algorithmState.currentAlgorithm;
-	const visualiseAlgorithm = () => {
-		toggleIsAnimating(setGridState);
-		toggleNeedsReset(setGridState);
-		setTimeout(() => {
-			const startNode = gridState.grid[gridState.startNodeRow]?.[gridState.startNodeCol];
-			const targetNode = gridState.grid[gridState.targetNodeRow]?.[gridState.targetNodeCol];
-			if (algorithm.name === 'gameOfLife') {
-				algorithmState.currentAnimation(algorithmState.gameOfLife, gridState, setGridState);
-			} else {
-				[visitedNodesInOrder, shortestPathNodesInOrder] = algorithm(gridState.grid, startNode, targetNode);
-				algorithmState.currentAnimation(visitedNodesInOrder, shortestPathNodesInOrder, gridState);
-			}
-		}, 0);
-		toggleIsAnimating(setGridState);
-	};
+export const VisualiseButton = ({ appState, setAppState }) => {
+	const { visualiseAlgorithm } = useButtons(appState, setAppState);
 	return (
 		<button
 			className='visualise'
@@ -28,16 +11,3 @@ export const VisualiseButton = ({ gridState, setGridState, algorithmState }) => 
 	);
 };
 
-function toggleNeedsReset(setGridState) {
-	setGridState((prevGridState) => ({
-		...prevGridState,
-		needsReset: !prevGridState.needsReset,
-	}));
-}
-
-function toggleIsAnimating(setGridState) {
-	setGridState((prevGridState) => ({
-		...prevGridState,
-		isAnimating: !prevGridState.isAnimating,
-	}));
-}

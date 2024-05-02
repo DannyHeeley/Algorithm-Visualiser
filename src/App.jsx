@@ -1,9 +1,5 @@
 import { useEffect, useState } from 'react';
 import { AlgorithmVisualiser } from './PathfinderVisualiser/AlgorithmVisualiser';
-import { dijkstra } from './PathfinderVisualiser/algorithms/Pathfinding/dijkstra.js';
-import { aStar4Way } from './PathfinderVisualiser/algorithms/Pathfinding/aStar_4Way.js';
-import { aStar8Way } from './PathfinderVisualiser/algorithms/Pathfinding/aStar_8Way.js';
-import { greedyBestFirstSearch } from './PathfinderVisualiser/algorithms/Pathfinding/greedyBestFirstSearch.js';
 import { gameOfLife } from './PathfinderVisualiser/algorithms/GameOfLife/gameOfLife.js';
 import { animatePathfinding } from './PathfinderVisualiser/algorithms/Pathfinding/pathfindingAnimation.js';
 import { animateGameOfLife } from './PathfinderVisualiser/algorithms/GameOfLife/gameOfLifeAnimation.js';
@@ -19,49 +15,38 @@ import './PathfinderVisualiser/Components/Grid/Grid.css';
 import './PathfinderVisualiser/Components/Rules.css';
 import './PathfinderVisualiser/Components/TickCounter.css';
 import { GameOfLifePatterns } from './PathfinderVisualiser/algorithms/GameOfLife/patterns.js';
+import { PathFindingAlgorithms } from './PathfinderVisualiser/algorithms/Pathfinding/PathFindingAlgorithms.js';
 
 const App = () => {
-	const [gridState, setGridState] = useState({
-		mode: GridMode.PATHFINDING,
-		algorithmNameText: "DIJKSTRA'S",
+	// TODO: Lower state that is only used in one component
+	const [appState, setAppState] = useState({
+		currentMode: GridModes.PATHFINDING_MODE,
+		currentPattern: GameOfLifePatterns.COPPERHEAD,
+		currentAlgorithm: PathFindingAlgorithms.DJIKSTRA.algorithm,
+		currentAnimation: animatePathfinding,
+		algorithmButtonText: "Dijkstra's",
 		grid: [],
-		mouseIsPressed: false,
-		isStartNodeSet: true,
-		isTargetNodeSet: true,
-		startNodeRow: 10,
+		startNodeRow: 13,
 		startNodeCol: 15,
-		targetNodeRow: 10,
-		targetNodeCol: 35,
+		targetNodeRow: 13,
+		targetNodeCol: 34,
 		animationSpeed: 60,
 		maxGenerations: 500,
 		currentTick: 0,
-		pattern: GameOfLifePatterns.COPPERHEAD,
 		intervalId: null,
+		isStartNodeSet: true,
+		isTargetNodeSet: true,
 		isAnimating: false,
+		mouseIsPressed: false,
 		needsReset: false,
 		isWallToggled: true,
 		randomUnsortedValues: generateRandomUnsortedValues(),
 	});
 
-	const [algorithmState, setAlgorithmState] = useState({
-		// TODO: Update this to use the new file PathfindingAlgorithms
-		dijkstra: dijkstra,
-		greedyBestFirst: greedyBestFirstSearch,
-		aStar4Way: aStar4Way,
-		aStar8Way: aStar8Way,
-		animatePathfinding: animatePathfinding,
-//------------------------------------------
-		gameOfLife: gameOfLife,
-		animateGameOfLife: animateGameOfLife,
-//------------------------------------------
-		currentAlgorithm: dijkstra,
-		currentAnimation: animatePathfinding,
-	});
-
 	useEffect(() => {
-		const newGrid = initialiseGrid(gridState);
-		setGridState((prevGridState) => ({
-			...prevGridState,
+		const newGrid = initialiseGrid(appState);
+		setAppState((prevState) => ({
+			...prevState,
 			grid: newGrid,
 		}));
 	}, []);
@@ -69,27 +54,51 @@ const App = () => {
 	return (
 		<div className='app-container'>
 			<AlgorithmVisualiser
-				algorithmState={algorithmState}
-				setAlgorithmState={setAlgorithmState}
-				gridState={gridState}
-				setGridState={setGridState}
-				initialiseGrid={initialiseGrid}></AlgorithmVisualiser>
+				appState={appState}
+				setAppState={setAppState}
+			></AlgorithmVisualiser>
 		</div>
 	);
 };
 
-export const initialiseGrid = (gridState) => {
+export const initialiseGrid = (appState) => {
 	return Array.from({ length: 25 }, (_, row) =>
 		Array.from({ length: 50 }, (_, col) => {
-			return initialiseNode(col, row, gridState);
+			return initialiseNode(col, row, appState);
 		})
 	);
 };
 
-export const GridMode = {
-	PATHFINDING: 'PATHFINDING',
-	SORTING: 'SORTING',
-	GAMEOFLIFE: 'GAMEOFLIFE',
+// TODO: Create hook for these
+export const toggleNeedsReset = (setAppState) => {
+	setAppState((prevState) => ({
+		...prevState,
+		needsReset: !prevState.needsReset,
+	}));
+};
+
+export const toggleIsAnimating = (setAppState) => {
+	setAppState((prevState) => ({
+		...prevState,
+		isAnimating: !prevState.isAnimating,
+	}));
+};
+
+export const GridModes = {
+	PATHFINDING_MODE: {
+		name: 'PATHFINDING',
+		ALGORITHMS: PathFindingAlgorithms,
+		animation: animatePathfinding,
+	},
+	SORTING_MODE: {
+		name: 'SORTING'
+	},
+	GAME_OF_LIFE_MODE: {
+		name: 'GAMEOFLIFE',
+		algorithm: gameOfLife,
+		animation: animateGameOfLife,
+		PATTERNS: GameOfLifePatterns
+	},
 };
 
 export default App;

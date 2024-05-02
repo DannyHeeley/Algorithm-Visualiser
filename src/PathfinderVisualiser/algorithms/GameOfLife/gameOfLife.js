@@ -1,7 +1,7 @@
 import { NodeType } from '../../Components/Node/NodeHelper';
 
-export const gameOfLife = (gridState, setGridState) => {
-	let currentGrid = gridState.grid;
+export const gameOfLife = (appState, setAppState) => {
+	let currentGrid = appState.grid;
 	const nextGen = () => {
 		// Create a copy of the grid
 		const nextGenerationGrid = [];
@@ -16,8 +16,8 @@ export const gameOfLife = (gridState, setGridState) => {
 				newRow.push({
 					...cell,
 				});
-				// Update gridState with new cell state
-				handleGridStateUpdate(cell, numberOfAliveNeighbours, setGridState, currentGrid);
+				// Update appState with new cell state
+				handleGridStateUpdate(cell, numberOfAliveNeighbours, setAppState, currentGrid);
 			}
 			nextGenerationGrid.push(newRow);
 		}
@@ -26,7 +26,7 @@ export const gameOfLife = (gridState, setGridState) => {
 	const step = () => {
 		// Get the next iteration of the grid
 		const nextGenerationGrid = nextGen();
-		// Update the gridState (and as a sideEffect, the currentGrid) to the next generation
+		// Update the appState (and as a sideEffect, the currentGrid) to the next generation
 		currentGrid = nextGenerationGrid;
 		return nextGenerationGrid;
 	};
@@ -69,8 +69,8 @@ const countAliveNeighbours = (rowId, colId, grid) => {
 	return numberOfAliveNeighbours;
 };
 
-const handleGridStateUpdate = (cell, numberOfAliveNeighbours, setGridState, prevGenerationGrid) => {
-	setGridState((prevState) => {
+const handleGridStateUpdate = (cell, numberOfAliveNeighbours, setAppState, prevGenerationGrid) => {
+	setAppState((prevState) => {
 		const newGrid = getNewGridFor(cell, numberOfAliveNeighbours, prevGenerationGrid);
 		return { ...prevState, grid: newGrid };
 	});

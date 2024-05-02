@@ -1,7 +1,7 @@
-export const TickCounter = ({gridState}) => {
+export const TickCounter = ({appState}) => {
     return (
       <div className="tick-counter">
-        <div className="tick"> {gridState.currentTick}</div>
+        <div className="tick"> {appState.currentTick}</div>
       </div>
     );
 }

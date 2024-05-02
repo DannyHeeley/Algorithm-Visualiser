@@ -14,6 +14,6 @@
     transform: scale(1,-1) /*flips the graph on the y axis to handle inverted grid*/
 }
 
-.grid-container.GAMEOFLIFE {
+.grid-container.GAME_OF_LIFE_MODE {
 	
 }

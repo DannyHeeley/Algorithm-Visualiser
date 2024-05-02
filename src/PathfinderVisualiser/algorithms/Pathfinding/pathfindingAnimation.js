@@ -1,9 +1,9 @@
 import { nodeIsAStartOrTarget } from '../../Components/Node/NodeHelper.js';
 
-export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, gridState) => {
+export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState) => {
 	let i = 0;
 	let intervalID;
-	const timeDelay = 1000 / gridState.animationSpeed;
+	const timeDelay = 1000 / appState.animationSpeed;
 
 	const animate = () => {
 		const node = visitedNodesInOrder[i];

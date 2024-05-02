@@ -21,3 +21,4 @@ export const PathFindingAlgorithms = {
 		algorithm: aStar8Way,
 	},
 };
+

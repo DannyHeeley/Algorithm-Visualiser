@@ -1,90 +1,68 @@
 import { initialiseGrid } from '../../../../App';
-import { initialiseGridWithPattern } from '../../../algorithms/GameOfLife/parsePattern';
-import { GameOfLifePatterns } from '../../../algorithms/GameOfLife/patterns';
-import { GridMode } from '../../../../App';
-import { AccordionSummary } from '@mui/material';
+import { initialiseGridWithPattern } from '../../../algorithms/GameOfLife/patternHandler';
+import { GridModes } from '../../../../App';
 
-export const useSelector = (gridState) => {
-	const { COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP, ACHIMSP11} = GameOfLifePatterns;
-	const { GAMEOFLIFE, PATHFINDING, SORTING } = GridMode;
+export const useSelector = (appState, setAppState) => {
+	const { PATHFINDING_MODE, GAME_OF_LIFE_MODE, SORTING_MODE } = GridModes;
+	const { COPPERHEAD, TWOENGINECORDERSHIP, GOSPERGLIDERGUN, GLIDER, SIRROBIN, SNARKLOOP, ACHIMSP11 } = GAME_OF_LIFE_MODE.PATTERNS;
+	const { gameOfLife, animateGameOfLife } = GAME_OF_LIFE_MODE;
+	const DJIKSTRA = PATHFINDING_MODE.ALGORITHMS;
+	const animatePathfinding = PATHFINDING_MODE;
 
-	let newGrid = initialiseGrid(gridState);
-
-	const handleModeChange = (event, setGridState, algorithmState, setAlgorithmState) => {
+	const handleModeChange = (event) => {
 		switch (event.target.value) {
-			case GAMEOFLIFE:
-				const xOffset = COPPERHEAD.offset.x;
-				const yOffset = COPPERHEAD.offset.y;
-				newGrid = initialiseGridWithPattern(newGrid, COPPERHEAD, xOffset, yOffset);
+			case GAME_OF_LIFE_MODE:
+				return changeMode(GAME_OF_LIFE_MODE, gameOfLife, animateGameOfLife);
+			case PATHFINDING_MODE:
+				return changeMode(PATHFINDING_MODE, DJIKSTRA, animatePathfinding);
+			case SORTING_MODE:
 				return changeMode(
-					GAMEOFLIFE,
-					newGrid,
-					algorithmState.animateGameOfLife,
-					setGridState,
-					algorithmState.gameOfLife,
-					setAlgorithmState
-				);
-			case PATHFINDING:
-				return changeMode(
-					PATHFINDING,
-					newGrid,
-					algorithmState.animatePathfinding,
-					setGridState,
-					algorithmState.djikstra,
-					setAlgorithmState
-				);
-			case SORTING:
-				return changeMode(
-					SORTING,
-					newGrid,
-					null, // TODO: Update this line once sorting algorithms have been implemented
-					setGridState,
+					SORTING_MODE,
 					null,
-					setAlgorithmState
+					null // TODO: Update this line once sorting algorithms have been implemented
 				);
 		}
 	};
 
-	const handlePatternChange = (event, setGridState) => {
+	const handlePatternChange = (event) => {
 		switch (event.target.value) {
 			case COPPERHEAD:
-				return changePattern(COPPERHEAD, newGrid, setGridState);
+				return changePattern(COPPERHEAD);
 			case TWOENGINECORDERSHIP:
-				return changePattern(TWOENGINECORDERSHIP, newGrid, setGridState);
+				return changePattern(TWOENGINECORDERSHIP);
 			case GOSPERGLIDERGUN:
-				return changePattern(GOSPERGLIDERGUN, newGrid, setGridState);
+				return changePattern(GOSPERGLIDERGUN);
 			case GLIDER:
-				return changePattern(GLIDER, newGrid, setGridState);
+				return changePattern(GLIDER);
 			case SIRROBIN:
-				return changePattern(SIRROBIN, newGrid, setGridState);
+				return changePattern(SIRROBIN);
 			case SNARKLOOP:
-				return changePattern(SNARKLOOP, newGrid, setGridState);
-			case ACHIMSP11: 
-				return changePattern(ACHIMSP11, newGrid, setGridState);
+				return changePattern(SNARKLOOP);
+			case ACHIMSP11:
+				return changePattern(ACHIMSP11);
 		}
 	};
 
-	const changeMode = (newMode, newGrid, newAnimation, setGridState, newAlgorithm, setAlgorithmState) => {
-		setGridState((prevGridState) => ({
-			...prevGridState,
-			grid: newGrid,
-			mode: newMode,
-		}));
-		setAlgorithmState((prevAlgorithmState) => ({
-			...prevAlgorithmState,
+	const changeMode = (newMode, newAlgorithm, newAnimation) => {
+		setAppState((prevState) => ({
+			...prevState,
+			grid:
+				newMode === GAME_OF_LIFE_MODE
+					? initialiseGridWithPattern(COPPERHEAD, prevState, COPPERHEAD.offset.x, COPPERHEAD.offset.y)
+					: initialiseGrid(prevState),
+			currentMode: newMode,
 			currentAlgorithm: newAlgorithm,
 			currentAnimation: newAnimation,
 		}));
 	};
 
-	const changePattern = (newPattern, newGrid, setGridState, xOffset=0, yOffset=0) => {
-		return setGridState((prevGridState) => ({
-			...prevGridState,
-			grid: initialiseGridWithPattern(newGrid, newPattern, xOffset, yOffset),
-			pattern: newPattern,
+	const changePattern = (newPattern, xOffset = 0, yOffset = 0) => {
+		return setAppState((prevState) => ({
+			...prevState,
+			grid: initialiseGridWithPattern(newPattern, prevState, xOffset, yOffset),
+			currentPattern: newPattern,
 		}));
 	};
 
 	return { handleModeChange, handlePatternChange };
 };
-

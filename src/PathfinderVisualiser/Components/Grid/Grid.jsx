@@ -1,47 +1,47 @@
 import { Node } from '../Node/Node';
 import { useMouseEvents } from '../../useMouseEvents';
 
-export const Grid = ({ gridState, setGridState }) => {
+export const Grid = ({ appState, setAppState }) => {
 	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } =
 		useMouseEvents();
-	const gridMode = gridState.mode;
-	const randomUnsortedValues = gridState.randomUnsortedValues;
+	const GridModes = appState.currentMode;
+	const randomUnsortedValues = appState.randomUnsortedValues;
 	return (
 		<div
-			className={`grid-container ${gridMode}`}
+			className={`grid-container ${GridModes}`}
 			onDragStart={(event) => event.preventDefault()}
 			onMouseEnter={() => {
-				if (gridState.isAnimating || gridState.needsReset) return;
-				if (gridState.mouseIsPressed) {
-					setMouseIsPressedTo(true, setGridState);
+				if (appState.isAnimating || appState.needsReset) return;
+				if (appState.mouseIsPressed) {
+					setMouseIsPressedTo(true, setAppState);
 				}
 			}}
 			onMouseLeave={() => {
-				if (gridState.isAnimating || gridState.needsReset) return;
-				if (gridState.mouseIsPressed) {
-					setMouseIsPressedTo(false, setGridState);
+				if (appState.isAnimating || appState.needsReset) return;
+				if (appState.mouseIsPressed) {
+					setMouseIsPressedTo(false, setAppState);
 				}
 			}}>
-			{gridState.grid.map((row, rowId) => (
+			{appState.grid.map((row, rowId) => (
 				<div key={rowId}>
 					{row.map((node, nodeId) => {
 						return (
 							<Node
 								key={nodeId}
-								gridMode={gridMode}
+								GridModes={GridModes}
 								randomUnsortedValues={randomUnsortedValues}
 								node={{ ...node }}
 								onMouseDown={() => {
-									if (gridState.isAnimating || gridState.needsReset) return;
-									handleMouseDown(node, gridState, setGridState);
+									if (appState.isAnimating || appState.needsReset) return;
+									handleMouseDown(node, appState, setAppState);
 								}}
 								onMouseEnter={() => {
-									if (gridState.isAnimating || gridState.needsReset) return;
-									handleMouseEnter(node, gridState, setGridState);
+									if (appState.isAnimating || appState.needsReset) return;
+									handleMouseEnter(node, appState, setAppState);
 								}}
 								onMouseUp={() => {
-									if (gridState.isAnimating || gridState.needsReset) return;
-									handleMouseUp(gridState, setGridState);
+									if (appState.isAnimating || appState.needsReset) return;
+									handleMouseUp(appState, setAppState);
 								}}></Node>
 						);
 					})}

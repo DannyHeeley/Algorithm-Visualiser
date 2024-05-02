@@ -55,7 +55,7 @@
     animation-delay: 0;
     animation-direction: alternate;
     animation-iteration-count: 1;
-    animation-fill-mode: forwards;
+    animation-fill-currentMode: forwards;
     animation-play-state: running;
 }
 

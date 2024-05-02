@@ -7,60 +7,58 @@ import { VisualiseButton } from './Components/Buttons/VisualiseButton.jsx';
 import { ToggleAlgorithmButton } from './Components/Buttons/ToggleAlgorithmButton.jsx';
 import { Grid } from './Components/Grid/Grid.jsx';
 import { ModeSelector } from './Components/Buttons/ModeSelector.jsx';
-import { GridMode } from '../App.jsx';
+import { GridModes, initialiseGrid } from '../App.jsx';
 import { TickCounter } from './Components/TickCounter.jsx';
 import { PatternSelector } from './Components/Buttons/PatternSelector.jsx';
 
-export const AlgorithmVisualiser = ({ algorithmState, setAlgorithmState, gridState, setGridState, initialiseGrid }) => {
+export const AlgorithmVisualiser = ({ appState, setAppState }) => {
+	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE } = GridModes;
 	return (
 		<>
-			<div
-				className='pathfinder-container'>
+			<div className='pathfinder-container'>
 				<div className='app-title'>ALGORITHM VISUALISER</div>
 				<ModeSelector
-					gridState={gridState}
-					setGridState={setGridState}
-					algorithmState={algorithmState}
-					setAlgorithmState={setAlgorithmState}></ModeSelector>
+					appState={appState}
+					setAppState={setAppState}
+				></ModeSelector>
 				<Grid
-					gridState={gridState}
-					setGridState={setGridState}></Grid>
+					appState={appState}
+					setAppState={setAppState}></Grid>
 				<ResetButton
 					initialiseGrid={initialiseGrid}
-					gridState={gridState}
-					setGridState={setGridState}></ResetButton>
+					appState={appState}
+					setAppState={setAppState}></ResetButton>
 				<VisualiseButton
-					initialiseGrid={initialiseGrid}
-					gridState={gridState}
-					setGridState={setGridState}
-					algorithmState={algorithmState}></VisualiseButton>
-				{gridState.mode === GridMode.PATHFINDING && (
+					appState={appState}
+					setAppState={setAppState}
+				></VisualiseButton>
+				{appState.currentMode === PATHFINDING_MODE && (
 					<>
 						<ToggleAlgorithmButton
-							gridState={gridState}
-							setGridState={setGridState}
-							algorithmState={algorithmState}
-							setAlgorithmState={setAlgorithmState}></ToggleAlgorithmButton>
+							appState={appState}
+							setAppState={setAppState}
+						></ToggleAlgorithmButton>
 						<ToggleWallButton
-							gridState={gridState}
-							setGridState={setGridState}></ToggleWallButton>
+							appState={appState}
+							setAppState={setAppState}></ToggleWallButton>
 						<Legend></Legend>
 						<div className='info'>
 							<span>Click on a start or target node to change its position</span>
 						</div>
 						<AnimationSpeedSlider
-							gridState={gridState}
-							setGridState={setGridState}
+							appState={appState}
+							setAppState={setAppState}
 						/>
 					</>
 				)}
-				{gridState.mode === GridMode.GAMEOFLIFE && (
+				{appState.currentMode === GAME_OF_LIFE_MODE && (
 					<>
 						<PatternSelector
-							gridState={gridState}
-							setGridState={setGridState}></PatternSelector>
+							appState={appState}
+							setAppState={setAppState}
+						></PatternSelector>
 						<Rules></Rules>
-						<TickCounter gridState={gridState}></TickCounter>
+						<TickCounter appState={appState}></TickCounter>
 					</>
 				)}
 			</div>

@@ -1,15 +1,15 @@
 import { Slider, Box } from '@mui/material';
 
-export const AnimationSpeedSlider = ({ gridState, setGridState }) => {
+export const AnimationSpeedSlider = ({ appState, setAppState }) => {
 	return (
 		<div className='slider'>
 			<div className='slider-label'>Animation Speed:</div>
 			<Box sx={{ width: 400 }}>
 				<Slider
 					aria-label='animationSpeed'
-					value={gridState.animationSpeed}
+					value={appState.animationSpeed}
 					onChange={(event, value) => {
-						handleSliderChange(value, gridState, setGridState);
+						handleSliderChange(value, appState, setAppState);
 						event.stopPropagation();
 					}}
 					step={10}
@@ -22,10 +22,10 @@ export const AnimationSpeedSlider = ({ gridState, setGridState }) => {
 	);
 };
 
-function handleSliderChange(value, gridState, setGridState) {
-	if (gridState.isAnimating) return;
-	setGridState((prevGridState) => ({
-		...prevGridState,
+function handleSliderChange(value, appState, setAppState) {
+	if (appState.isAnimating) return;
+	setAppState((prevState) => ({
+		...prevState,
 		animationSpeed: value,
 	}));
 }

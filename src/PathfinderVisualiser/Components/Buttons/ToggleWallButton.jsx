@@ -1,10 +1,10 @@
 import { useState } from 'react';
 
-export const ToggleWallButton = ({ gridState, setGridState }) => {
+export const ToggleWallButton = ({ appState, setAppState }) => {
 	const [wallTypeText, setWallTypeText] = useState('Draw Walls');
 	const [wallType, setWallType] = useState('wall-type-wall');
 	const toggleWallType = () => {
-		if (gridState.isAnimating || gridState.needsReset) return;
+		if (appState.isAnimating || appState.needsReset) return;
 		if (wallTypeText === 'Draw Walls') {
 			setWallTypeText('Draw Weight');
 			setWallType('wall-type-weight');
@@ -12,9 +12,9 @@ export const ToggleWallButton = ({ gridState, setGridState }) => {
 			setWallTypeText('Draw Walls');
 			setWallType('wall-type-wall');
 		}
-		setGridState((prevGridState) => ({
-			...prevGridState,
-			isWallToggled: !prevGridState.isWallToggled,
+		setAppState((prevState) => ({
+			...prevState,
+			isWallToggled: !prevState.isWallToggled,
 		}));
 	};
 	return (

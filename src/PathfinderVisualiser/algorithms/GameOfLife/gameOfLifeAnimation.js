@@ -1,14 +1,14 @@
 export const animateGameOfLife = (
     gameOfLife,
-    gridState,
-    setGridState,
+    appState,
+    setAppState,
 ) => {
     const timeDelay = 500;
-    let generationsRemaining = gridState.maxGenerations;
+    let generationsRemaining = appState.maxGenerations;
     const intervalId = setInterval(() => {
-        gameOfLife(gridState, setGridState)();
+        gameOfLife(appState, setAppState)();
         generationsRemaining--;
-        setGridState((prevState) => {
+        setAppState((prevState) => {
             return {
                 ...prevState,
                 currentTick: prevState.currentTick + 1,

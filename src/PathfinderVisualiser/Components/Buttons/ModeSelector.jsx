@@ -6,17 +6,18 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import { useSelector } from './hooks/useSelector';
-import { GridMode } from "../../../App";
+import { GridModes } from "../../../App";
 
-export const ModeSelector = ({ gridState, setGridState, algorithmState, setAlgorithmState }) => {
-	const { handleModeChange } = useSelector(gridState);
+export const ModeSelector = ({ appState, setAppState }) => {
 
-	const { GAMEOFLIFE, PATHFINDING, SORTING } = GridMode;
+	const { handleModeChange } = useSelector(appState, setAppState);
+
+	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = GridModes;
 	
   return (
 		<Box>
 			<FormControl
-				id='mode-selector'
+				id='currentMode-selector'
 				sx={{
 					display: 'grid',
 					gridRow: '1/2',
@@ -44,27 +45,25 @@ export const ModeSelector = ({ gridState, setGridState, algorithmState, setAlgor
 						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
 						minWidth: '160px',
 					}}
-					value={gridState.mode}
-					label='Mode'
-					onChange={(event) =>
-						handleModeChange(event, setGridState, algorithmState, setAlgorithmState)
-					}>
+					value={appState.currentMode}
+					label='currentMode'
+					onChange={(event) => handleModeChange(event)}>
 					<MenuItem
-						value={PATHFINDING}
+						value={PATHFINDING_MODE}
 						sx={{
 							fontSize: '13px',
 						}}>
 						Pathfinding Algorithms
 					</MenuItem>
 					<MenuItem
-						value={SORTING}
+						value={SORTING_MODE}
 						sx={{
 							fontSize: '13px',
 						}}>
 						Sorting Algorithms
 					</MenuItem>
 					<MenuItem
-						value={GAMEOFLIFE}
+						value={GAME_OF_LIFE_MODE}
 						sx={{
 							fontSize: '13px',
 						}}>
