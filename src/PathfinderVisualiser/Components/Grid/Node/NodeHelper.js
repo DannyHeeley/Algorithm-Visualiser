@@ -1,4 +1,4 @@
-import { GridModes } from '../../../App';
+import { GridModes } from '../../../../App';
 
 // TODO: Turn into custom hook - something like "useNodeLogic"
 
