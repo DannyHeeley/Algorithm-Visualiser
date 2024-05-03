@@ -6,10 +6,14 @@
     border: 2px solid rgb(53, 0, 53);
     border-radius: 8px;
     opacity: 100%;
-    height: calc(((1.6vw - 2px) * 20) + 2px);
+    /*height: calc(((1.6vw - 2px) * 20) + 2px);*/
     width: calc(((1.6vw - 2px) * 50) + 2px);
     min-height: 370px;
     min-width: 925px;
     margin-bottom: -14px;
     transform: scale(1,-1) /*flips the graph on the y axis to handle inverted grid*/
+}
+
+.grid-container.GAME_OF_LIFE_MODE {
+	
 }

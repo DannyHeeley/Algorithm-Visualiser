@@ -1,127 +1,70 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import { startGameOfLife } from "../../algorithms/GameOfLife/gameOfLifeAnimation";
-import { animatePathfinding } from "../../algorithms/Pathfinding/pathfindingAnimation";
-import { initialiseGrid } from "../../../App";
-import { initialiseGridWithPattern } from "../../algorithms/GameOfLife/parseRle";
-import { gameOfLifePatterns } from "../../algorithms/GameOfLife/patterns";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
-export const ModeSelector = ({ gridState, setGridState, algorithmState, setAlgorithmState }) => {
-  const handleChange = (event) => {
-    const newGrid = initialiseGrid(gridState);
-    if (event.target.value === "gameoflife") {
-      setGridState((prevGridState) => ({
-        ...prevGridState,
-        grid: initialiseGridWithPattern(
-          newGrid,
-          gameOfLifePatterns.GLIDER
-        ),
-        mode: "gameoflife",
-      }));
-      setAlgorithmState((prevAlgorithmState) => ({
-        ...prevAlgorithmState,
-        currentAlgorithm: algorithmState.gameOfLife,
-        animation: startGameOfLife,
-      }));
-      return;
-    }
-    if (event.target.value === "pathfinding") {
-      setGridState((prevGridState) => ({
-        ...prevGridState,
-        grid: newGrid,
-        mode: "pathfinding",
-      }));
-      setAlgorithmState((prevAlgorithmState) => ({
-        ...prevAlgorithmState,
-        currentAlgorithm: algorithmState.dijkstra,
-        animation: animatePathfinding,
-      }));
-      return
-    } 
-    if (event.target.value === "sorting") {
-      setGridState((prevGridState) => ({
-        ...prevGridState,
-        grid: newGrid,
-        mode: "sorting",
-      }));
-      setAlgorithmState((prevAlgorithmState) => ({
-        ...prevAlgorithmState,
-        currentAlgorithm: null, //TODO: Set this correctly once algorithms implemented
-        animation: null, //TODO: Set this correctly once algorithms implemented
-      }));
-      return;
-    }
-  };
+import { useSelector } from './hooks/useSelector';
+import { GridModes } from '../../../App';
 
-  return (
-    <Box>
-      <FormControl
-        id="mode-selector"
-        sx={{
-          display: "grid",
-          gridRow: "1/2",
-          gridColumn: "1/2",
-          backgroundColor: "#f6fff0",
-          position: "absolute",
-          placeSelf: "center",
-          marginLeft: "20px",
-          marginTop: "10px",
-          width: "10.2%",
-          minWidth: "160px",
-          borderRadius: "5px",
-          fontSize: "5px",
-        }}
-      >
-        <InputLabel
-          sx={{
-            color: "white",
-            backgroundColor: "rgba(66, 0, 75, 0.904)",
-            border: "1px solid rgb(102, 18, 18)",
-          }}
-        >
-          Mode
-        </InputLabel>
-        <Select
-          labelId="select-label"
-          id="simple-select"
-          sx={{
-            fontSize: "clamp(0.6rem, 0.65vw, 1vw)",
-            minWidth: "160px",
-          }}
-          value={gridState.mode}
-          label="Mode"
-          onChange={handleChange}
-        >
-          <MenuItem
-            value={"pathfinding"}
-            sx={{
-              fontSize: "13px",
-            }}
-          >
-            Pathfinding Algorithms
-          </MenuItem>
-          <MenuItem
-            value={"sorting"}
-            sx={{
-              fontSize: "13px",
-            }}
-          >
-            Sorting Algorithms
-          </MenuItem>
-          <MenuItem
-            value={"gameoflife"}
-            sx={{
-              fontSize: "13px",
-            }}
-          >
-            Conway's Game of Life
-          </MenuItem>
-        </Select>
-      </FormControl>
-    </Box>
-  );
-}
+export const ModeSelector = ({ appState, setAppState }) => {
+	const { handleModeChange } = useSelector(appState, setAppState);
+	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = GridModes;
+	return (
+		<Box
+			sx={{
+				display: 'flex',
+				gridRow: '1/2',
+				gridColumn: '1/2',
+				backgroundColor: '#f6fff0',
+				placeSelf: 'center',
+				width: '75%',
+				minWidth: '160px',
+				borderRadius: '5px',
+				fontSize: '5px',
+				marginRight: '5px',
+			}}>
+			<FormControl>
+				<InputLabel
+					sx={{
+						color: 'white',
+						backgroundColor: 'rgba(66, 0, 75, 0.904)',
+						border: '1px solid rgb(102, 18, 18)',
+					}}>
+					Mode
+				</InputLabel>
+				<Select
+					sx={{
+						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
+
+					}}
+					value={appState.currentMode}
+					label='currentMode'
+					onChange={(event) => handleModeChange(event)}>
+					<MenuItem
+						value={PATHFINDING_MODE}
+						sx={{
+							fontSize: '13px',
+						}}>
+						Pathfinding Algorithms
+					</MenuItem>
+					<MenuItem
+						value={SORTING_MODE}
+						sx={{
+							fontSize: '13px',
+						}}>
+						Sorting Algorithms
+					</MenuItem>
+					<MenuItem
+						value={GAME_OF_LIFE_MODE}
+						sx={{
+							fontSize: '13px',
+						}}>
+						Conway's Game of Life
+					</MenuItem>
+				</Select>
+			</FormControl>
+		</Box>
+	);
+};

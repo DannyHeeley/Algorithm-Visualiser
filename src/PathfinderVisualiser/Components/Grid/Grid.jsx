@@ -1,45 +1,49 @@
-import { Node } from "../Node/Node";
-import { useMouseEvents } from "../../useMouseEvents";
+import { Node } from '../Node/Node';
+import { useMouseEvents } from '../../useMouseEvents';
 
-
-export const Grid = ({ gridState, setGridState }) => {
-  const { handleMouseDown, handleMouseEnter, handleMouseUp } = useMouseEvents();
-  const gridMode = gridState.mode;
-  const randomUnsortedValues = gridState.randomUnsortedValues;
-  return (
-    <div className="grid-container">
-      {
-        gridState.grid.map((row, rowId) => (
-          <div key={rowId}>
-            {
-              row.map((node, nodeId) => {
-                return (
-                  <Node
-                    key={nodeId}
-                    gridMode={gridMode}
-                    randomUnsortedValues={randomUnsortedValues}
-                    node={{ ...node }}
-                    onMouseDown={() => {
-                      if (gridState.isAnimating || gridState.needsReset) return;
-                      handleMouseDown(node, gridState, setGridState);
-                    }}
-                    onMouseEnter={() => {
-                      if (gridState.isAnimating || gridState.needsReset) return;
-                      handleMouseEnter(node, gridState, setGridState);
-                    }}
-                    onMouseUp={() => {
-                      if (gridState.isAnimating || gridState.needsReset) return;
-                      handleMouseUp(setGridState);
-                    }}
-                  ></Node>
-                );
-              })
-            }
-          </div>
-        ))
-      }
-    </div>
-  );
+export const Grid = ({ appState, setAppState }) => {
+	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } =
+		useMouseEvents();
+	const GridModes = appState.currentMode;
+	const randomUnsortedValues = appState.randomUnsortedValues;
+	return (
+		<div
+			className={`grid-container ${GridModes}`}
+			onDragStart={(event) => event.preventDefault()}
+			onMouseEnter={() => {
+				if (appState.isAnimating || appState.needsReset) return;
+				if (appState.mouseIsPressed) {
+					setMouseIsPressedTo(true, setAppState);
+				}
+			}}
+			onMouseLeave={() => {
+				if (appState.isAnimating || appState.needsReset) return;
+				if (appState.mouseIsPressed) {
+					setMouseIsPressedTo(false, setAppState);
+				}
+			}}>
+			{appState.grid.map((row, rowId) => (
+				<div key={rowId}>
+					{row.map((node, nodeId) => {
+						return (
+							<Node
+								key={nodeId}
+								GridModes={GridModes}
+								randomUnsortedValues={randomUnsortedValues}
+								node={{ ...node }}
+								onMouseDown={() => {
+									handleMouseDown(node, appState, setAppState);
+								}}
+								onMouseEnter={() => {
+									handleMouseEnter(node, appState, setAppState);
+								}}
+								onMouseUp={() => {
+									handleMouseUp(appState, setAppState);
+								}}></Node>
+						);
+					})}
+				</div>
+			))}
+		</div>
+	);
 };
-
-
