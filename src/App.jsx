@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { AlgorithmVisualiser } from './PathfinderVisualiser/AlgorithmVisualiser';
-import { gameOfLife } from './PathfinderVisualiser/algorithms/GameOfLife/gameOfLife.js';
-import { animatePathfinding } from './PathfinderVisualiser/algorithms/Pathfinding/pathfindingAnimation.js';
-import { animateGameOfLife } from './PathfinderVisualiser/algorithms/GameOfLife/gameOfLifeAnimation.js';
+import { gameOfLife } from './PathfinderVisualiser/modes/GameOfLife/gameOfLife.js';
+import { animatePathfinding } from './PathfinderVisualiser/modes/Pathfinding/pathfindingAnimation.js';
+import { animateGameOfLife } from './PathfinderVisualiser/modes/GameOfLife/gameOfLifeAnimation.js';
 import { initialiseNode } from './PathfinderVisualiser/Components/Node/NodeHelper';
-import { generateRandomUnsortedValues } from './PathfinderVisualiser/algorithms/Sorting/sortHelper.js';
+import { generateRandomUnsortedValues } from './PathfinderVisualiser/modes/Sorting/sortHelper.js';
 
 import './App.css';
 import './PathfinderVisualiser/Components/Node/Node.css';
@@ -14,18 +14,18 @@ import './PathfinderVisualiser/Components/Legend.css';
 import './PathfinderVisualiser/Components/Grid/Grid.css';
 import './PathfinderVisualiser/Components/Rules.css';
 import './PathfinderVisualiser/Components/TickCounter.css';
-import { GameOfLifePatterns } from './PathfinderVisualiser/algorithms/GameOfLife/patterns.js';
-import { PathFindingAlgorithms } from './PathfinderVisualiser/algorithms/Pathfinding/PathFindingAlgorithms.js';
+import { GAME_OF_LIFE_PATTERNS } from './PathfinderVisualiser/modes/GameOfLife/GAME_OF_LIFE_PATTERNS.js';
+import { PATHFINDING_ALGORITHMS } from './PathfinderVisualiser/modes/Pathfinding/PATHFINDING_ALGORITHMS.js';
 
 const App = () => {
 	// TODO: Lower state that is only used in one component
 	const [appState, setAppState] = useState({
 		grid: [],
 		currentMode: GridModes.PATHFINDING_MODE,
-		currentPattern: GameOfLifePatterns.COPPERHEAD,
-		currentAlgorithm: PathFindingAlgorithms.DJIKSTRA.algorithm,
+		currentPattern: GAME_OF_LIFE_PATTERNS.COPPERHEAD,
+		currentAlgorithm: PATHFINDING_ALGORITHMS.DJIKSTRA.algorithm,
 		currentAnimation: animatePathfinding,
-		algorithmButtonText: PathFindingAlgorithms.DJIKSTRA.name,
+		algorithmButtonText: PATHFINDING_ALGORITHMS.DJIKSTRA.name,
 		startNodeRow: 13,
 		startNodeCol: 15,
 		targetNodeRow: 13,
@@ -87,7 +87,7 @@ export const toggleIsAnimating = (setAppState) => {
 export const GridModes = {
 	PATHFINDING_MODE: {
 		name: 'PATHFINDING',
-		ALGORITHMS: PathFindingAlgorithms,
+		ALGORITHMS: PATHFINDING_ALGORITHMS,
 		animation: animatePathfinding,
 	},
 	SORTING_MODE: {
@@ -97,7 +97,7 @@ export const GridModes = {
 		name: 'GAMEOFLIFE',
 		algorithm: gameOfLife,
 		animation: animateGameOfLife,
-		PATTERNS: GameOfLifePatterns
+		PATTERNS: GAME_OF_LIFE_PATTERNS
 	},
 };
 

@@ -1,5 +1,5 @@
 import { initialiseGrid } from '../../../../App';
-import { initialiseGridWithPattern } from '../../../algorithms/GameOfLife/patternHandler';
+import { initialiseGridWithPattern } from '../../../modes/GameOfLife/patternHandler';
 import { GridModes } from '../../../../App';
 
 export const useSelector = (appState, setAppState) => {
@@ -20,7 +20,7 @@ export const useSelector = (appState, setAppState) => {
 				return changeMode(
 					SORTING_MODE,
 					null,
-					null // TODO: Update this line once sorting algorithms have been implemented
+					null // TODO: Update this line once sorting modes have been implemented
 				);
 		}
 	};

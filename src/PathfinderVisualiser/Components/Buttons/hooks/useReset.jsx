@@ -1,4 +1,4 @@
-import { generateRandomUnsortedValues } from '../../../algorithms/Sorting/sortHelper';
+import { generateRandomUnsortedValues } from '../../../modes/Sorting/sortHelper';
 import { GridModes } from '../../../../App';
 
 export const useReset = () => {

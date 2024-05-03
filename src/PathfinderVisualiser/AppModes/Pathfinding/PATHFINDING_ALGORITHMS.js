@@ -1,9 +1,9 @@
-import { dijkstra } from './dijkstra';
-import { greedyBestFirstSearch } from './greedyBestFirstSearch';
-import { aStar4Way } from "./aStar_4Way";
-import { aStar8Way } from './aStar_8Way';
+import { dijkstra } from './algorithms/dijkstra';
+import { greedyBestFirstSearch } from './algorithms/greedyBestFirstSearch';
+import { aStar4Way } from './algorithms/aStar_4Way';
+import { aStar8Way } from './algorithms/aStar_8Way';
 
-export const PathFindingAlgorithms = {
+export const PATHFINDING_ALGORITHMS = {
 	DJIKSTRA: {
 		name: "Dijkstra's",
 		algorithm: dijkstra,
