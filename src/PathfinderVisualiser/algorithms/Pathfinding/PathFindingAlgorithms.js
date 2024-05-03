@@ -5,19 +5,19 @@ import { aStar8Way } from './aStar_8Way';
 
 export const PathFindingAlgorithms = {
 	DJIKSTRA: {
-		name: 'DJIKSTRA',
+		name: "Dijkstra's",
 		algorithm: dijkstra,
 	},
 	GREEDYBESTFIRSTSEARCH: {
-		name: 'GREEDYBESTFIRSTSEARCH',
+		name: 'GreedyBestFirst',
 		algorithm: greedyBestFirstSearch,
 	},
 	ASTAR4WAY: {
-		name: 'ASTAR4WAY',
+		name: 'A* 4-WAY',
 		algorithm: aStar4Way,
 	},
 	ASTAR8WAY: {
-		name: 'ASTAR8WAY',
+		name: 'A* 8-WAY',
 		algorithm: aStar8Way,
 	},
 };

@@ -22,10 +22,10 @@ export const AnimationSpeedSlider = ({ appState, setAppState }) => {
 	);
 };
 
-function handleSliderChange(value, appState, setAppState) {
+const handleSliderChange = (value, appState, setAppState) => {
 	if (appState.isAnimating) return;
 	setAppState((prevState) => ({
 		...prevState,
 		animationSpeed: value,
 	}));
-}
+};

@@ -1,7 +1,7 @@
 import { AnimationSpeedSlider } from './Components/Buttons/Slider.jsx';
 import { Legend } from './Components/Legend.jsx';
 import { Rules } from './Components/Rules.jsx';
-import { ToggleWallButton } from './Components/Buttons/ToggleWallButton.jsx';
+import { DrawTypeButton } from './Components/Buttons/DrawTypeButton.jsx';
 import { ResetButton } from './Components/Buttons/ResetButton.jsx';
 import { VisualiseButton } from './Components/Buttons/VisualiseButton.jsx';
 import { ToggleAlgorithmButton } from './Components/Buttons/ToggleAlgorithmButton.jsx';
@@ -38,9 +38,9 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 							appState={appState}
 							setAppState={setAppState}
 						></ToggleAlgorithmButton>
-						<ToggleWallButton
+						<DrawTypeButton
 							appState={appState}
-							setAppState={setAppState}></ToggleWallButton>
+							setAppState={setAppState}></DrawTypeButton>
 						<Legend></Legend>
 						<div className='info'>
 							<span>Click on a start or target node to change its position</span>

@@ -1,12 +1,11 @@
-import { useButtons } from "./hooks/useButtons";
+import { useAlgorithmUpdate } from "./hooks/useAlgorithmUpdate";
 
 export const ToggleAlgorithmButton = ({ appState, setAppState }) => {
-const { handleAlgorithmUpdate } = useButtons(appState, setAppState);
 	return (
 		<div className='toggle-algorithm'>
 			<button
 				className='toggle-algorithm-button'
-				onClick={() => handleAlgorithmUpdate()}>
+				onClick={useAlgorithmUpdate(appState, setAppState)}>
 				&#129518;
 			</button>
 			<div className='algorithm-text'>

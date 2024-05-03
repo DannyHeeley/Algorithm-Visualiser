@@ -36,7 +36,7 @@ export const typeOfNode = (node, appState) => {
 		? NodeType.START
 		: node.isTarget || !appState.isTargetNodeSet
 		? NodeType.TARGET
-		: appState.isWallToggled
+		: appState.drawType
 		? NodeType.WALL
 		: NodeType.WEIGHTED;
 };

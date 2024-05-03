@@ -1,37 +1,31 @@
-import * as React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 import { useSelector } from './hooks/useSelector';
-import { GridModes } from "../../../App";
+import { GridModes } from '../../../App';
 
 export const ModeSelector = ({ appState, setAppState }) => {
-
 	const { handleModeChange } = useSelector(appState, setAppState);
-
 	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = GridModes;
-	
-  return (
-		<Box>
-			<FormControl
-				id='currentMode-selector'
-				sx={{
-					display: 'grid',
-					gridRow: '1/2',
-					gridColumn: '1/2',
-					backgroundColor: '#f6fff0',
-					position: 'absolute',
-					placeSelf: 'center',
-					marginLeft: '20px',
-					marginTop: '10px',
-					width: '10.2%',
-					minWidth: '160px',
-					borderRadius: '5px',
-					fontSize: '5px',
-				}}>
+	return (
+		<Box
+			sx={{
+				display: 'flex',
+				gridRow: '1/2',
+				gridColumn: '1/2',
+				backgroundColor: '#f6fff0',
+				placeSelf: 'center',
+				width: '75%',
+				minWidth: '160px',
+				borderRadius: '5px',
+				fontSize: '5px',
+				marginRight: '5px',
+			}}>
+			<FormControl>
 				<InputLabel
 					sx={{
 						color: 'white',
@@ -43,7 +37,7 @@ export const ModeSelector = ({ appState, setAppState }) => {
 				<Select
 					sx={{
 						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
-						minWidth: '160px',
+
 					}}
 					value={appState.currentMode}
 					label='currentMode'
@@ -72,5 +66,5 @@ export const ModeSelector = ({ appState, setAppState }) => {
 				</Select>
 			</FormControl>
 		</Box>
-  );
-}
+	);
+};

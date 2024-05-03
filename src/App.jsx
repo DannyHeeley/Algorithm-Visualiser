@@ -20,12 +20,12 @@ import { PathFindingAlgorithms } from './PathfinderVisualiser/algorithms/Pathfin
 const App = () => {
 	// TODO: Lower state that is only used in one component
 	const [appState, setAppState] = useState({
+		grid: [],
 		currentMode: GridModes.PATHFINDING_MODE,
 		currentPattern: GameOfLifePatterns.COPPERHEAD,
 		currentAlgorithm: PathFindingAlgorithms.DJIKSTRA.algorithm,
 		currentAnimation: animatePathfinding,
-		algorithmButtonText: "Dijkstra's",
-		grid: [],
+		algorithmButtonText: PathFindingAlgorithms.DJIKSTRA.name,
 		startNodeRow: 13,
 		startNodeCol: 15,
 		targetNodeRow: 13,
@@ -39,7 +39,7 @@ const App = () => {
 		isAnimating: false,
 		mouseIsPressed: false,
 		needsReset: false,
-		isWallToggled: true,
+		drawType: 'wall',
 		randomUnsortedValues: generateRandomUnsortedValues(),
 	});
 

@@ -32,15 +32,12 @@ export const Grid = ({ appState, setAppState }) => {
 								randomUnsortedValues={randomUnsortedValues}
 								node={{ ...node }}
 								onMouseDown={() => {
-									if (appState.isAnimating || appState.needsReset) return;
 									handleMouseDown(node, appState, setAppState);
 								}}
 								onMouseEnter={() => {
-									if (appState.isAnimating || appState.needsReset) return;
 									handleMouseEnter(node, appState, setAppState);
 								}}
 								onMouseUp={() => {
-									if (appState.isAnimating || appState.needsReset) return;
 									handleMouseUp(appState, setAppState);
 								}}></Node>
 						);

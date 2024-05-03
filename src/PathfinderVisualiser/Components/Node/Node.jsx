@@ -9,7 +9,7 @@ export const Node = memo(
     onMouseDown,
     onMouseEnter,
     onMouseUp,
-  }) => {
+	}) => {
     return (
 		<div
 			id={`node-${node.row}-${node.col}`}

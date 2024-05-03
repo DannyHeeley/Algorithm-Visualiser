@@ -1,6 +1,6 @@
 .visualise,
 .reset,
-.toggle-text,
+.draw-type-text,
 .algorithm-text,
 .slider-label {
 	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
@@ -8,8 +8,8 @@
 
 .toggle-algorithm,
 .algorithm-text,
-.toggle-text,
-.toggle-wall {
+.draw-type-text,
+.draw-type {
 	border: 1px solid rgb(102, 18, 18);
 	border-radius: 0px 10px 10px 0px;
 }
@@ -44,7 +44,7 @@
 }
 
 
-.toggle-wall,
+.draw-type,
 .toggle-algorithm {
 	display: flex;
 	align-self: center;
@@ -53,7 +53,7 @@
 	grid-column: 1 / 2;
 }
 
-.toggle-wall {
+.draw-type {
 	grid-row: 3 / 4;
 }
 
@@ -63,7 +63,7 @@
 }
 
 
-.toggle-text,
+.draw-type-text,
 .algorithm-text {
 	font-weight: bold;
 	text-align: center;
@@ -72,7 +72,7 @@
 	width: 100%;
 }
 
-.toggle-text {
+.draw-type-text {
 	padding: 12px;
 }
 
@@ -92,18 +92,18 @@
 	max-width: 200px;
 }
 
-.wall-type-wall,
-.wall-type-weight {
+.draw-type-wall,
+.draw-type-weight {
 	width: 2.2vw;
 	min-width: 35px;
 	max-width: 200px;
 }
 
-.wall-type-wall {
+.draw-type-wall {
 	background-color: black;
 }
 
-.wall-type-weight {
+.draw-type-weight {
 	background-color: chocolate;
 }
 
@@ -127,11 +127,4 @@
 	white-space: nowrap;
 	margin-top: 13px;
 }
-
-.MuiBox-root {
-	margin-left: 10px;
-}
-
-
-
 

@@ -3,7 +3,9 @@ import { NodeType, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } fr
 import { GridModes } from '../App';
 
 export const useMouseEvents = () => {
+
 	const handleMouseDown = (node, appState, setAppState) => {
+		if (appState.isAnimating || appState.needsReset) return;
 		toggleMouseIsPressed(setAppState);
 		const thisNodeType = typeOfNode(node, appState);
 		if (startAndTargetNodesSet(appState) || appState.currentMode === GridModes.GAME_OF_LIFE_MODE) {
@@ -18,19 +20,20 @@ export const useMouseEvents = () => {
 	};
 
 	const handleMouseEnter = (node, appState, setAppState) => {
+		if (appState.isAnimating || appState.needsReset) return;
 		if (appState.mouseIsPressed && startAndTargetNodesSet(appState)) {
-			const nodeTypePathfinding = appState.isWallToggled ? NodeType.WALL : NodeType.WEIGHTED;
+			const nodeTypePathfinding = appState.drawType ? NodeType.WALL : NodeType.WEIGHTED;
 			const thisNodeType = appState.currentMode === GridModes.GAME_OF_LIFE_MODE ? NodeType.CELL : nodeTypePathfinding;
 			handleNodeClick(node, thisNodeType, setAppState);
 		}
 	};
 
 	const handleMouseUp = (appState, setAppState) => {
+		if (appState.isAnimating || appState.needsReset) return;
 		if (appState.mouseIsPressed) {
 			toggleMouseIsPressed(setAppState);
 		}
 	};
-
 
 	const getNewGridFor = (oldNode, nodeType, prevState) => {
 		const newGrid = prevState.grid.slice();
