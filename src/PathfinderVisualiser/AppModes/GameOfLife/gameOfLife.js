@@ -1,4 +1,4 @@
-import { NodeType } from '../../Components/Node/NodeHelper';
+import { NodeType } from '../../Components/Grid/Node/NodeHelper.js';
 
 export const gameOfLife = (appState, setAppState) => {
 	let currentGrid = appState.grid;

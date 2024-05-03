@@ -1,5 +1,5 @@
-import { Node } from '../Node/Node';
-import { useMouseEvents } from '../../useMouseEvents';
+import { Node } from './Node/Node';
+import { useMouseEvents } from './useMouseEvents';
 
 export const Grid = ({ appState, setAppState }) => {
 	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } =

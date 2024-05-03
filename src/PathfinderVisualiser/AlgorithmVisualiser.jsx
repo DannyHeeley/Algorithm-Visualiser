@@ -1,6 +1,6 @@
 import { AnimationSpeedSlider } from './Components/Buttons/Slider.jsx';
-import { Legend } from './Components/Legend.jsx';
-import { Rules } from './Components/Rules.jsx';
+import { Legend } from './Components/Info/Legend.jsx';
+import { Rules } from './Components/Info/Rules.jsx';
 import { DrawTypeButton } from './Components/Buttons/DrawTypeButton.jsx';
 import { ResetButton } from './Components/Buttons/ResetButton.jsx';
 import { VisualiseButton } from './Components/Buttons/VisualiseButton.jsx';
@@ -8,7 +8,7 @@ import { ToggleAlgorithmButton } from './Components/Buttons/ToggleAlgorithmButto
 import { Grid } from './Components/Grid/Grid.jsx';
 import { ModeSelector } from './Components/Buttons/ModeSelector.jsx';
 import { GridModes, initialiseGrid } from '../App.jsx';
-import { TickCounter } from './Components/TickCounter.jsx';
+import { TickCounter } from './Components/Info/TickCounter.jsx';
 import { PatternSelector } from './Components/Buttons/PatternSelector.jsx';
 
 export const AlgorithmVisualiser = ({ appState, setAppState }) => {

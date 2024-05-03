@@ -1,21 +1,22 @@
 import { useEffect, useState } from 'react';
 import { AlgorithmVisualiser } from './PathfinderVisualiser/AlgorithmVisualiser';
-import { gameOfLife } from './PathfinderVisualiser/modes/GameOfLife/gameOfLife.js';
-import { animatePathfinding } from './PathfinderVisualiser/modes/Pathfinding/pathfindingAnimation.js';
-import { animateGameOfLife } from './PathfinderVisualiser/modes/GameOfLife/gameOfLifeAnimation.js';
-import { initialiseNode } from './PathfinderVisualiser/Components/Node/NodeHelper';
-import { generateRandomUnsortedValues } from './PathfinderVisualiser/modes/Sorting/sortHelper.js';
+import { gameOfLife } from './PathfinderVisualiser/AppModes/GameOfLife/gameOfLife.js';
+import { animatePathfinding } from './PathfinderVisualiser/AppModes/Pathfinding/pathfindingAnimation.js';
+import { animateGameOfLife } from './PathfinderVisualiser/AppModes/GameOfLife/gameOfLifeAnimation.js';
+import { initialiseNode } from './PathfinderVisualiser/Components/Grid/Node/NodeHelper.js';
+import { generateRandomUnsortedValues } from './PathfinderVisualiser/AppModes/Sorting/sortHelper.js';
+import { GAME_OF_LIFE_PATTERNS } from './PathfinderVisualiser/AppModes/GameOfLife/GAME_OF_LIFE_PATTERNS.js';
+import { PATHFINDING_ALGORITHMS } from './PathfinderVisualiser/AppModes/Pathfinding/PATHFINDING_ALGORITHMS.js';
 
 import './App.css';
-import './PathfinderVisualiser/Components/Node/Node.css';
+import './PathfinderVisualiser/Components/Grid/Node/Node.css';
 import './PathfinderVisualiser/AlgorithmVisualiser.css';
 import './PathfinderVisualiser/Components/Buttons/Buttons.css';
-import './PathfinderVisualiser/Components/Legend.css';
+import './PathfinderVisualiser/Components/Info/Legend.css';
 import './PathfinderVisualiser/Components/Grid/Grid.css';
-import './PathfinderVisualiser/Components/Rules.css';
-import './PathfinderVisualiser/Components/TickCounter.css';
-import { GAME_OF_LIFE_PATTERNS } from './PathfinderVisualiser/modes/GameOfLife/GAME_OF_LIFE_PATTERNS.js';
-import { PATHFINDING_ALGORITHMS } from './PathfinderVisualiser/modes/Pathfinding/PATHFINDING_ALGORITHMS.js';
+import './PathfinderVisualiser/Components/Info/Rules.css';
+import './PathfinderVisualiser/Components/Info/TickCounter.css';
+
 
 const App = () => {
 	// TODO: Lower state that is only used in one component

@@ -1,6 +1,6 @@
-import { NodeType, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } from './Components/Node/NodeHelper';
+import { NodeType, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } from './Node/NodeHelper.js';
 
-import { GridModes } from '../App';
+import { GridModes } from '../../../App';
 
 export const useMouseEvents = () => {
 

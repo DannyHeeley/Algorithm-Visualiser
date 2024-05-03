@@ -1,5 +1,5 @@
 import { GridModes, toggleIsAnimating, toggleNeedsReset } from "../../../../App";
-import { startAndTargetNodesSet } from "../../Node/NodeHelper";
+import { startAndTargetNodesSet } from "../../Grid/Node/NodeHelper.js";
 
 export const useVisualise = (appState, setAppState) => {
 	const { currentAlgorithm, currentAnimation } = appState;
