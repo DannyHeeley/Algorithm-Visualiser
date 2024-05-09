@@ -15,3 +15,4 @@ export const ToggleAlgorithmButton = ({ appState, setAppState }) => {
 	);
 };
 
+// TODO: This is likely the cause of broken visualise button

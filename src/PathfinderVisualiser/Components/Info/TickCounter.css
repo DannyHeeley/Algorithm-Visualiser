@@ -3,6 +3,6 @@
     grid-column: 1 / 2;
     color: wheat;
     font-size:xx-large;
-    place-self: center;
-	margin-top:30px
+    place-self: end center;
+	margin-bottom: auto;
 }

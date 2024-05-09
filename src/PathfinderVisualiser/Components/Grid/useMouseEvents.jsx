@@ -35,8 +35,8 @@ export const useMouseEvents = () => {
 		}
 	};
 
-	const getNewGridFor = (oldNode, nodeType, prevState) => {
-		const newGrid = prevState.grid.slice();
+	const getNewGridFor = (oldNode, nodeType, appState) => {
+		const newGrid = appState.grid.slice();
 		const thisNode = newGrid[oldNode.row][oldNode.col];
 		const newNode = {
 			...thisNode,
@@ -48,7 +48,7 @@ export const useMouseEvents = () => {
 
 	const handleStartOrTargetSelect = (node, nodeType, setAppState) => {
 		setAppState((prevState) => {
-			const newGrid = getNewGridFor(node, nodeType, prevState);
+			const newGrid = getNewGridFor(node, nodeType, appState);
 			if (nodeType === NodeType.START) {
 				setAppState((prevState) => ({
 					...prevState,
@@ -74,7 +74,7 @@ export const useMouseEvents = () => {
 
 	const handleStartOrTargetDeselect = (node, nodeType, setAppState) => {
 		setAppState((prevState) => {
-			const newGrid = getNewGridFor(node, nodeType, prevState);
+			const newGrid = getNewGridFor(node, nodeType, appState);
 			if (nodeType === NodeType.START) {
 				setAppState((prevState) => ({
 					...prevState,

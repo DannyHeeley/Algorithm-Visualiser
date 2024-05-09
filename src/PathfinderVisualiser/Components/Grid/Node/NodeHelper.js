@@ -74,10 +74,10 @@ const handleClassNamePathfinding = (node) => {
 		: NodeType.NODE;
 };
 
-export const handleExtraClassNameFor = (node, GridModes, randomUnsortedValues) => {
-	return GridModes === GridModes.GAME_OF_LIFE_MODE
+export const handleExtraClassNameFor = (node, mode, randomUnsortedValues) => {
+	return mode === GridModes.GAME_OF_LIFE_MODE
 		? handleClassNameGameOfLife(node)
-		: GridModes === GridModes.SORTING_MODE
+		: mode === GridModes.SORTING_MODE
 		? handleClassNameSorting(node, randomUnsortedValues)
 		: handleClassNamePathfinding(node);
 };

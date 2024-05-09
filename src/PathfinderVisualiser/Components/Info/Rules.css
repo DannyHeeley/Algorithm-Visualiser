@@ -10,7 +10,7 @@
     border-radius: 10px;
     text-align: center;
     height: fit-content;
-    margin: 10px 35px 0px 30px;
+    margin: auto 35px auto 30px;
     padding: 0.5vw 5px 0.5vw 5px;
     place-self: center;
 }

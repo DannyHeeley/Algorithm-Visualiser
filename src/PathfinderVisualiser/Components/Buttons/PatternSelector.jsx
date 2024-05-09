@@ -10,7 +10,7 @@ import { GAME_OF_LIFE_PATTERNS } from '../../AppModes/GameOfLife/GAME_OF_LIFE_PA
 
 export const PatternSelector = ({ appState, setAppState }) => {
 	const { handlePatternChange } = useSelector(appState, setAppState);
-	const GAME_OF_LIFE_PATTERNS = Object.values(GAME_OF_LIFE_PATTERNS);
+	const patterns = Object.values(GAME_OF_LIFE_PATTERNS);
 	return (
 		<Box
 			sx={{
@@ -23,7 +23,7 @@ export const PatternSelector = ({ appState, setAppState }) => {
 				minWidth: '150px',
 				borderRadius: '5px',
 				fontSize: '5px',
-				marginRight: '5px'
+				marginRight: '5px',
 			}}>
 			<FormControl>
 				<InputLabel
@@ -39,18 +39,17 @@ export const PatternSelector = ({ appState, setAppState }) => {
 						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
 						width: '100%',
 					}}
-					value={appState.currentPattern}
+					value={appState.CURRENT_PATTERN}
 					label='currentMode'
 					onChange={(event) => handlePatternChange(event)}>
-					{GAME_OF_LIFE_PATTERNS.map((currentPattern, index) => {
+					{patterns.map((PATTERN, index) => {
 						return (
 							<MenuItem
+								sx={{fontSize: '13px'}}
 								key={index}
-								value={currentPattern}
-								sx={{
-									fontSize: '13px',
-								}}>
-								{currentPattern.name}
+								value={PATTERN}
+							>
+								{PATTERN.name}
 							</MenuItem>
 						);
 					})}

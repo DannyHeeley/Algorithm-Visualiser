@@ -1,3 +1,5 @@
+import { toggleIsAnimating } from "../../../App";
+
 export const animateGameOfLife = (
     gameOfLife,
     appState,
@@ -15,7 +17,8 @@ export const animateGameOfLife = (
                 intervalId: intervalId,
             }
         })
-        if (generationsRemaining === 0) {
+		if (generationsRemaining === 0) {
+			toggleIsAnimating(setAppState);
             clearInterval(intervalId);
         }
     }, timeDelay);

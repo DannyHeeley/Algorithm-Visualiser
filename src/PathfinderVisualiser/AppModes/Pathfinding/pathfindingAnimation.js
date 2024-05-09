@@ -1,4 +1,5 @@
 import { nodeIsAStartOrTarget } from '../../Components/Grid/Node/NodeHelper.js';
+import { toggleIsAnimating } from '../../../App.jsx';
 
 export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState) => {
 	let i = 0;
@@ -12,6 +13,7 @@ export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder
 			// Stop the animation and animate the shortest path
 			clearInterval(intervalID);
 			animateShortestPath(shortestPathNodesInOrder);
+			toggleIsAnimating(setAppState);
 			return;
 		}
 		updateCurrentNode(node);

@@ -4,11 +4,11 @@ import { useMouseEvents } from './useMouseEvents';
 export const Grid = ({ appState, setAppState }) => {
 	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } =
 		useMouseEvents();
-	const GridModes = appState.currentMode;
+	const mode = appState.currentMode;
 	const randomUnsortedValues = appState.randomUnsortedValues;
 	return (
 		<div
-			className={`grid-container ${GridModes}`}
+			className={`grid-container ${mode}`}
 			onDragStart={(event) => event.preventDefault()}
 			onMouseEnter={() => {
 				if (appState.isAnimating || appState.needsReset) return;
@@ -28,7 +28,7 @@ export const Grid = ({ appState, setAppState }) => {
 						return (
 							<Node
 								key={nodeId}
-								GridModes={GridModes}
+								mode={mode}
 								randomUnsortedValues={randomUnsortedValues}
 								node={{ ...node }}
 								onMouseDown={() => {

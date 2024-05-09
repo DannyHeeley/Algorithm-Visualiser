@@ -10,19 +10,25 @@ export const useSelector = (appState, setAppState) => {
 	const gameOfLife = GAME_OF_LIFE_MODE.algorithm;
 	const animateGameOfLife = GAME_OF_LIFE_MODE.animation;
 
+	let newGrid = initialiseGrid(appState);
+
 	const handleModeChange = (event) => {
 		switch (event.target.value) {
 			case GAME_OF_LIFE_MODE:
-				return changeMode(GAME_OF_LIFE_MODE, gameOfLife, animateGameOfLife);
+				initialiseGridWithPattern(appState.CURRENT_PATTERN, newGrid);
+				changeMode(GAME_OF_LIFE_MODE, gameOfLife, animateGameOfLife, newGrid);
+				return;
 			case PATHFINDING_MODE:
-				return changeMode(PATHFINDING_MODE, DJIKSTRA, animatePathfinding);
+				return changeMode(PATHFINDING_MODE, DJIKSTRA, animatePathfinding, newGrid);
 			case SORTING_MODE:
 				return changeMode(
 					SORTING_MODE,
 					null,
-					null // TODO: Update this line once sorting AppModes have been implemented
+					null, // TODO: Update this line once sorting AppModes have been implemented
+					newGrid
 				);
 		}
+	
 	};
 
 	const handlePatternChange = (event) => {
@@ -44,28 +50,29 @@ export const useSelector = (appState, setAppState) => {
 		}
 	};
 
-	const changeMode = (newMode, newAlgorithm, newAnimation) => {
-		let newGrid = initialiseGrid(appState);
-		console.log(COPPERHEAD)
-		setAppState((prevState) => ({
+	const changeMode = (newMode, newAlgorithm, newAnimation, newGrid) => {
+		return setAppState((prevState) => ({
 			...prevState,
-			grid:
-				newMode === GAME_OF_LIFE_MODE
-					? initialiseGridWithPattern(COPPERHEAD, newGrid)
-					: newGrid,
+			grid: newGrid,
 			currentMode: newMode,
 			currentAlgorithm: newAlgorithm,
 			currentAnimation: newAnimation,
+			isStartNodeSet: newMode === PATHFINDING_MODE ? true : false,
+			isTargetNodeSet: newMode === PATHFINDING_MODE ? true : false,
 		}));
 	};
 
 	const changePattern = (newPatternObj) => {
 		return setAppState((prevState) => ({
 			...prevState,
-			grid: initialiseGridWithPattern(newPatternObj, initialiseGrid(appState)),
-			currentPattern: newPattern,
+			grid: initialiseGridWithPattern(newPatternObj, newGrid),
+			CURRENT_PATTERN: newPatternObj,
 		}));
 	};
-
 	return { handleModeChange, handlePatternChange };
 };
+
+// function logAllNodesThatAreCell(newGrid) {
+// 	newGrid.forEach((row) => row.filter((node) => node.isCell).forEach((cell) => console.log("in handleModeChange: ", cell)));
+// }
+

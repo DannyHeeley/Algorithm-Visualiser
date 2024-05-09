@@ -4,9 +4,10 @@ import { startAndTargetNodesSet } from "../../Grid/Node/NodeHelper.js";
 export const useVisualise = (appState, setAppState) => {
 	const { currentAlgorithm, currentAnimation } = appState;
 	const gameOfLife = GridModes.GAME_OF_LIFE_MODE.algorithm;
-	
+	const PATHFINDING_MODE = GridModes.PATHFINDING_MODE;
+
 	const visualiseAlgorithm = () => {
-		if (appState.isAnimating || appState.needsReset || !startAndTargetNodesSet(appState)) return;
+		if (appState.isAnimating || appState.needsReset || (!startAndTargetNodesSet(appState) && appState.currrentMode === PATHFINDING_MODE)) return;
 		let visitedNodesInOrder, shortestPathNodesInOrder;
 		toggleIsAnimating(setAppState);
 		toggleNeedsReset(setAppState);
@@ -20,7 +21,6 @@ export const useVisualise = (appState, setAppState) => {
 				currentAnimation(visitedNodesInOrder, shortestPathNodesInOrder, appState);
 			}
 		}, 0);
-		toggleIsAnimating(setAppState);
 	};
 
 	return visualiseAlgorithm;

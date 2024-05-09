@@ -23,10 +23,10 @@ const App = () => {
 	const [appState, setAppState] = useState({
 		grid: [],
 		currentMode: GridModes.PATHFINDING_MODE,
-		currentPattern: GAME_OF_LIFE_PATTERNS.COPPERHEAD,
-		currentAlgorithm: PATHFINDING_ALGORITHMS.DJIKSTRA.algorithm,
+		CURRENT_PATTERN: GAME_OF_LIFE_PATTERNS.COPPERHEAD,
+		currentAlgorithm: GridModes.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA.algorithm,
 		currentAnimation: animatePathfinding,
-		algorithmButtonText: PATHFINDING_ALGORITHMS.DJIKSTRA.name,
+		algorithmButtonText: GridModes.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA.name,
 		startNodeRow: 13,
 		startNodeCol: 15,
 		targetNodeRow: 13,

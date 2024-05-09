@@ -4,7 +4,7 @@ import { handleExtraClassNameFor } from "./NodeHelper.js";
 export const Node = memo(
   ({
     node,
-    GridModes,
+    mode,
     randomUnsortedValues,
     onMouseDown,
     onMouseEnter,
@@ -13,7 +13,7 @@ export const Node = memo(
     return (
 		<div
 			id={`node-${node.row}-${node.col}`}
-			className={`node ${handleExtraClassNameFor(node, GridModes, randomUnsortedValues)}`}
+			className={`node ${handleExtraClassNameFor(node, mode, randomUnsortedValues)}`}
 			onMouseDown={onMouseDown}
 			onMouseEnter={onMouseEnter}
 			onMouseUp={onMouseUp}

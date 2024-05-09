@@ -29,7 +29,7 @@ export const useAlgorithmUpdate = (appState, setAppState) => {
 	const handleChangeAlgorithmText = () => {
 		setAppState((prevState) => ({
 			...prevState,
-			algorithmButtonText: buttonTextRotator(appState),
+			algorithmButtonText: buttonTextRotator(prevState),
 		}));
 	};
 

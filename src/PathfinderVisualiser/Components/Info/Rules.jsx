@@ -13,11 +13,8 @@ export const Rules = () => {
           Each cell with two or three neighbors survives.
         </p>
         <hr></hr>
-        <p className="rule_2">
-          For a space that is empty or unpopulated:
-        </p>
         <p className="rule">
-          Each cell with three neighbors becomes populated.
+          Each unpopulated cell with three neighbors becomes populated.
         </p>
       </div>
     );
