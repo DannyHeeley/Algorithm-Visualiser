@@ -1,4 +1,4 @@
-import { NodeType } from '../../Components/Grid/Node/NodeHelper.js';
+import { NodeType } from "../../Components/Grid/Node/NodeType.js";
 
 export const gameOfLife = (appState, setAppState) => {
 	let currentGrid = appState.grid;
@@ -15,7 +15,7 @@ export const gameOfLife = (appState, setAppState) => {
 					...cell,
 				});
 				// Update appState with new cell state
-				handleGridStateUpdate(cell, numberOfAliveNeighbours, setAppState, currentGrid);
+				handleNextGenGridStateUpdate(cell, numberOfAliveNeighbours, setAppState, currentGrid);
 			}
 			nextGenerationGrid.push(newRow);
 		}
@@ -67,20 +67,20 @@ const countAliveNeighbours = (rowId, colId, grid) => {
 	return numberOfAliveNeighbours;
 };
 
-const handleGridStateUpdate = (cell, numberOfAliveNeighbours, setAppState, prevGenerationGrid) => {
+const handleNextGenGridStateUpdate = (cell, numberOfAliveNeighbours, setAppState, prevGenerationGrid) => {
 	setAppState((prevState) => {
-		const newGrid = getNewGridFor(cell, numberOfAliveNeighbours, prevGenerationGrid);
+		const newGrid = getNewGridForNextGen(cell, numberOfAliveNeighbours, prevGenerationGrid);
 		return { ...prevState, grid: newGrid };
 	});
 };
 
-const getNewGridFor = (oldCell, numberOfAliveNeighbours, prevGenerationGrid) => {
+const getNewGridForNextGen = (cell, numberOfAliveNeighbours, prevGenerationGrid) => {
 	const newGrid = prevGenerationGrid.slice();
-	const thisCell = newGrid[oldCell.row][oldCell.col];
+	const thisCell = newGrid[cell.row][cell.col];
 	const newCell = {
 		...thisCell,
 		[NodeType.CELL]: cellIsAlive(thisCell, numberOfAliveNeighbours),
 	};
-	newGrid[oldCell.row][oldCell.col] = newCell;
+	newGrid[cell.row][cell.col] = newCell;
 	return newGrid;
 };

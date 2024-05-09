@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { handleExtraClassNameFor } from "./NodeHelper.js";
+import { useNodeHelper } from "./useNodeHelper";
 
 export const Node = memo(
   ({
@@ -10,6 +10,7 @@ export const Node = memo(
     onMouseEnter,
     onMouseUp,
 	}) => {
+	const { handleExtraClassNameFor } = useNodeHelper();
     return (
 		<div
 			id={`node-${node.row}-${node.col}`}

@@ -1,13 +1,17 @@
-import { NodeType, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } from './Node/NodeHelper.js';
-import { GridModes, deepCopyGrid } from '../../../App';
+import { useNodeHelper } from './Node/useNodeHelper';
+import { NodeType } from './Node/NodeType.js';
+import { deepCopyGrid } from '../../../App';
+import { AppModes } from '../../AppModes/AppModes.js';
 
 export const useMouseEvents = () => {
+
+	const { typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } = useNodeHelper();
 
 	const handleMouseDown = (node, appState, setAppState) => {
 		if (appState.isAnimating || appState.needsReset) return;
 		toggleMouseIsPressed(setAppState);
 		const thisNodeType = typeOfNode(node, appState);
-		if (startAndTargetNodesSet(appState) || appState.currentMode === GridModes.GAME_OF_LIFE_MODE) {
+		if (startAndTargetNodesSet(appState) || appState.currentMode === AppModes.GAME_OF_LIFE_MODE) {
 			if (nodeIsAStartOrTarget(node)) {
 				handleStartOrTargetDeselect(node, thisNodeType, setAppState);
 			} else {
@@ -22,7 +26,7 @@ export const useMouseEvents = () => {
 		if (appState.isAnimating || appState.needsReset) return;
 		if (appState.mouseIsPressed && startAndTargetNodesSet(appState)) {
 			const nodeTypePathfinding = appState.drawType ? NodeType.WALL : NodeType.WEIGHTED;
-			const thisNodeType = appState.currentMode === GridModes.GAME_OF_LIFE_MODE ? NodeType.CELL : nodeTypePathfinding;
+			const thisNodeType = appState.currentMode === AppModes.GAME_OF_LIFE_MODE ? NodeType.CELL : nodeTypePathfinding;
 			handleNodeClick(node, thisNodeType, setAppState);
 		}
 	};

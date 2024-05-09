@@ -1,9 +1,9 @@
 import { initialiseGrid } from '../../../../App';
 import { initialiseGridWithPattern } from '../../../AppModes/GameOfLife/patternHandler';
-import { GridModes } from '../../../../App';
+import { AppModes } from '../../../AppModes/AppModes';
 
 export const useSelector = (appState, setAppState) => {
-	const { PATHFINDING_MODE, GAME_OF_LIFE_MODE, SORTING_MODE } = GridModes;
+	const { PATHFINDING_MODE, GAME_OF_LIFE_MODE, SORTING_MODE } = AppModes;
 	const { COPPERHEAD, TWO_ENGINE_CORDERSHIP, GOSPER_GLIDER_GUN, GLIDER, SIR_ROBIN, SNARK_LOOP, ACHIMSP11 } = GAME_OF_LIFE_MODE.PATTERNS;
 	const DJIKSTRA = PATHFINDING_MODE.ALGORITHMS;
 	const animatePathfinding = PATHFINDING_MODE;

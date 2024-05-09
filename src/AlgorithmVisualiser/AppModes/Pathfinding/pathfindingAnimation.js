@@ -1,5 +1,7 @@
-import { NodeType, nodeIsAStartOrTarget } from '../../Components/Grid/Node/NodeHelper.js';
+import { useNodeHelper } from '../../Components/Grid/Node/useNodeHelper.jsx';
 import { toggleIsAnimating } from '../../../App.jsx';
+
+const { nodeIsAStartOrTarget } = useNodeHelper();
 
 export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState) => {
 	let i = 0;

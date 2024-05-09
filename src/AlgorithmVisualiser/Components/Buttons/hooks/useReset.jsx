@@ -1,9 +1,9 @@
 import { generateRandomUnsortedValues } from '../../../AppModes/Sorting/sortHelper';
-import { GridModes } from '../../../../App';
+import { AppModes } from '../../../AppModes/AppModes';
 import { initialiseGridWithPattern } from '../../../AppModes/GameOfLife/patternHandler';
 
 export const useReset = (initialiseGrid, appState, setAppState) => {
-	const { PATHFINDING_MODE, SORTING_MODE, GAME_OF_LIFE_MODE } = GridModes;
+	const { PATHFINDING_MODE, SORTING_MODE, GAME_OF_LIFE_MODE } = AppModes;
 	
 	const handleReset = () => {
 		switch (appState.currentMode) {

@@ -6,11 +6,11 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 import { useSelector } from './hooks/useSelector';
-import { GridModes } from '../../../App';
+import { AppModes } from '../../AppModes/AppModes';
 
 export const ModeSelector = ({ appState, setAppState }) => {
 	const { handleModeChange } = useSelector(appState, setAppState);
-	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = GridModes;
+	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = AppModes;
 	return (
 		<Box
 			sx={{

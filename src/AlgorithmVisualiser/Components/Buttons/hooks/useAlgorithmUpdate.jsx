@@ -1,7 +1,7 @@
-import { GridModes } from "../../../../App";
+import { AppModes } from "../../../AppModes/AppModes";
 
 export const useAlgorithmUpdate = (appState, setAppState) => {
-	const { DJIKSTRA, GREEDYBESTFIRSTSEARCH, ASTAR4WAY, ASTAR8WAY } = GridModes.PATHFINDING_MODE.ALGORITHMS;
+	const { DJIKSTRA, GREEDYBESTFIRSTSEARCH, ASTAR4WAY, ASTAR8WAY } = AppModes.PATHFINDING_MODE.ALGORITHMS;
 
 	const handleAlgorithmUpdate = () => {
 		if (appState.isAnimating || appState.needsReset) return;

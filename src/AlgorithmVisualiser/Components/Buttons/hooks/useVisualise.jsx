@@ -1,10 +1,12 @@
-import { GridModes, toggleIsAnimating, toggleNeedsReset } from "../../../../App";
-import { startAndTargetNodesSet } from "../../Grid/Node/NodeHelper.js";
+import { toggleIsAnimating, toggleNeedsReset } from "../../../../App";
+import { AppModes } from "../../../AppModes/AppModes";
+import { useNodeHelper } from "../../Grid/Node/useNodeHelper";
 
 export const useVisualise = (appState, setAppState) => {
+	const { startAndTargetNodesSet } = useNodeHelper();
 	const { currentAlgorithm, currentAnimation } = appState;
-	const gameOfLife = GridModes.GAME_OF_LIFE_MODE.algorithm;
-	const PATHFINDING_MODE = GridModes.PATHFINDING_MODE;
+	const gameOfLife = AppModes.GAME_OF_LIFE_MODE.algorithm;
+	const PATHFINDING_MODE = AppModes.PATHFINDING_MODE;
 
 	const visualiseAlgorithm = () => {
 		if (appState.isAnimating || appState.needsReset || (!startAndTargetNodesSet(appState) && appState.currrentMode === PATHFINDING_MODE)) return;
