@@ -2,8 +2,7 @@ import { Node } from './Node/Node';
 import { useMouseEvents } from './useMouseEvents';
 
 export const Grid = ({ appState, setAppState }) => {
-	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } =
-		useMouseEvents();
+	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } = useMouseEvents();
 	const mode = appState.currentMode;
 	const randomUnsortedValues = appState.randomUnsortedValues;
 	return (

@@ -1,14 +1,15 @@
 export function dijkstra(grid, startNode, targetNode) {
     const visitedNodesInOrder = [];
     startNode.distance = 0;
-    const unvisitedNodes = getAllNodes(grid);
+	const unvisitedNodes = getAllNodes(grid);
+	console.log(unvisitedNodes)
     while (unvisitedNodes.length) {
         // TODO: using a priority queue and optimizing the neighbor update process can achieve better performance
         unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
         const closestNode = unvisitedNodes.shift();
         if (closestNode.isWall) continue;
         if (closestNode.distance === Infinity) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)];
-        closestNode.isVisited = true;
+        //closestNode.isVisited = true;
         visitedNodesInOrder.push(closestNode);
         if (closestNode === targetNode) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)]
         updateUnvisitedNeighbors(closestNode, grid);

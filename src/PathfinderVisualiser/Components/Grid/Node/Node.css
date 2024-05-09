@@ -59,13 +59,6 @@
     animation-play-state: running;
 }
 
-.djisktras-map-value {
-    font-size: 10px;
-    align-self: center;
-    position: absolute;
-    margin-left: calc(0.6vw - 1px);;
-}
-
 @keyframes visitedAnimation {
     0% {
         transform: scale(0.3);

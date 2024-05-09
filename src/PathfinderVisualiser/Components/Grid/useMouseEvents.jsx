@@ -1,6 +1,5 @@
 import { NodeType, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } from './Node/NodeHelper.js';
-
-import { GridModes } from '../../../App';
+import { GridModes, deepCopyGrid } from '../../../App';
 
 export const useMouseEvents = () => {
 
@@ -35,14 +34,14 @@ export const useMouseEvents = () => {
 		}
 	};
 
-	const getNewGridFor = (oldNode, nodeType, appState) => {
-		const newGrid = appState.grid.slice();
-		const thisNode = newGrid[oldNode.row][oldNode.col];
+	const getNewGridFor = (node, nodeType, appState) => {
+		const newGrid = deepCopyGrid(appState.grid);
+		const thisNode = newGrid[node.row][node.col];
 		const newNode = {
 			...thisNode,
 			[nodeType]: !thisNode[nodeType],
 		};
-		newGrid[oldNode.row][oldNode.col] = newNode;
+		newGrid[node.row][node.col] = newNode;
 		return newGrid;
 	};
 
@@ -121,5 +120,6 @@ export const useMouseEvents = () => {
 		handleMouseEnter,
 		handleMouseUp,
 		setMouseIsPressedTo,
+		getNewGridFor
 	};
 };

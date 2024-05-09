@@ -1,7 +1,7 @@
-import { nodeIsAStartOrTarget } from '../../Components/Grid/Node/NodeHelper.js';
+import { NodeType, nodeIsAStartOrTarget } from '../../Components/Grid/Node/NodeHelper.js';
 import { toggleIsAnimating } from '../../../App.jsx';
 
-export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState) => {
+export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState) => {
 	let i = 0;
 	let intervalID;
 	const timeDelay = 1000 / appState.animationSpeed;
@@ -16,7 +16,7 @@ export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder
 			toggleIsAnimating(setAppState);
 			return;
 		}
-		updateCurrentNode(node);
+		updateCurrentNode(node, appState, setAppState);
 		i++;
 	};
 
@@ -40,9 +40,25 @@ const animateShortestPath = (nodesInShortestPathOrder) => {
 	}
 };
 
-const updateCurrentNode = (node) => {
+const updateCurrentNode = (node, appState, setAppState) => {
 	if (!nodeIsAStartOrTarget(node) && !node.isWeighted) {
-		//node.isVisited = !node.isVisited;
-		document.getElementById(`node-${node.row}-${node.col}`).className = 'node isVisited';
+		setAppState((prevState) => {
+			return {
+				...prevState,
+				grid: getNewGridForVisitedNode(node, appState),
+			};
+		});
+		//document.getElementById(`node-${node.row}-${node.col}`).className = 'node isVisited';
 	}
+};
+
+const getNewGridForVisitedNode = (node, appState) => {
+	const newGrid = appState.grid.slice();
+	const thisNode = newGrid[node.row][node.col];
+	const newNode = {
+		...thisNode,
+		isVisited: true,
+	};
+	newGrid[node.row][node.col] = newNode;
+	return newGrid;
 };

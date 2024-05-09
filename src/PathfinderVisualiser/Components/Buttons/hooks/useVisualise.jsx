@@ -18,7 +18,7 @@ export const useVisualise = (appState, setAppState) => {
 				currentAnimation(gameOfLife, appState, setAppState);
 			} else {
 				[visitedNodesInOrder, shortestPathNodesInOrder] = currentAlgorithm(appState.grid, startNode, targetNode);
-				currentAnimation(visitedNodesInOrder, shortestPathNodesInOrder, appState);
+				currentAnimation(visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState);
 			}
 		}, 0);
 	};

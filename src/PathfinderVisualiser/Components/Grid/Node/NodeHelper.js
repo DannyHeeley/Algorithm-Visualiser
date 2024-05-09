@@ -7,6 +7,9 @@ export const NodeType = {
 	TARGET: 'isTarget',
 	WALL: 'isWall',
 	WEIGHTED: 'isWeighted',
+	VISITED: 'isVisited',
+	SHORTEST_PATH: 'node-shortest-path',
+	SHORTEST_PATH_WEIGHTED: 'node node-weighted-shortest-path',
 	NODE: 'node',
 	SORTING: 'isSorting',
 	CELL: 'isCell',
@@ -21,6 +24,7 @@ export const initialiseNode = (col, row, appState) => {
 		isWall: false,
 		isWeighted: false,
 		isVisited: false,
+		isShortestPath: false,
 		isCell: false,
 		previousNode: null,
 		distance: Infinity,
@@ -70,7 +74,11 @@ const handleClassNamePathfinding = (node) => {
 		: node.isWeighted
 		? NodeType.WEIGHTED
 		: node.isVisited
-		? NodeType.isVisited
+		? NodeType.VISITED
+		: node.isShortestPath
+		? NodeType.SHORTEST_PATH
+		: node.isShortestPath && node.isWeighted
+		? NodeType.SHORTEST_PATH_WEIGHTED
 		: NodeType.NODE;
 };
 

@@ -3,9 +3,7 @@ import { NodeType } from '../../Components/Grid/Node/NodeHelper.js';
 export const gameOfLife = (appState, setAppState) => {
 	let currentGrid = appState.grid;
 	const nextGen = () => {
-		// Create a copy of the grid
 		const nextGenerationGrid = [];
-		// Loop through all cells
 		for (let rowId = 0; rowId < currentGrid.length; rowId++) {
 			const newRow = [];
 			for (let colId = 0; colId < currentGrid[rowId].length; colId++) {
