@@ -65,7 +65,7 @@ export const usePathfindingAnimation = () => {
 		const newNode = {
 			...thisNode,
 			[nodeType]: true,
-			isVisited: setIsVisited,
+			isVisitedAnimation: setIsVisited,
 		};
 		newGrid[node.row][node.col] = newNode;
 		return newGrid;

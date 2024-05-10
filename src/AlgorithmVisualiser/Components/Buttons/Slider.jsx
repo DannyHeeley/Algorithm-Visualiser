@@ -21,7 +21,6 @@ export const AnimationSpeedSlider = ({ appState, setAppState }) => {
 		</div>
 	);
 };
-
 const handleSliderChange = (value, appState, setAppState) => {
 	if (appState.isAnimating) return;
 	setAppState((prevState) => ({

@@ -8,15 +8,15 @@ export const dijkstra = (grid, startNode, targetNode) => {
         const closestNode = unvisitedNodes.shift();
         if (closestNode.isWall) continue;
         if (closestNode.distance === Infinity) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)];
-        //closestNode.isVisited = true;
+        closestNode.isVisited = true;
         visitedNodesInOrder.push(closestNode);
         if (closestNode === targetNode) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)]
-        updateNeighbors(closestNode, grid);
+        updateUnvisitedNeighbors(closestNode, grid);
     }
 };
 
-const updateNeighbors = (node, grid) => {
-    const neighbors = getNeighbors(node, grid);
+const updateUnvisitedNeighbors = (node, grid) => {
+    const neighbors = getUnvisitedNeighbors(node, grid);
     for (const neighbor of neighbors) {
         let potentialCostOfPathFromStartNode = node.distance + (neighbor.isWeighted ? 1.3: 1);
         if (potentialCostOfPathFromStartNode < neighbor.distance && !neighbor.isVisited) {
@@ -26,14 +26,14 @@ const updateNeighbors = (node, grid) => {
     }
 };
 
-const getNeighbors = (node, grid) => {
+const getUnvisitedNeighbors = (node, grid) => {
     const neighbors = [];
     const { row, col } = node;
     if (row > 0) neighbors.push(grid[row - 1][col]);
     if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
     if (col > 0) neighbors.push(grid[row][col - 1]);
     if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-    return neighbors
+    return neighbors.filter((neighbor) => !neighbor.isVisited);
 };
 
 const getAllNodes = (grid) => {

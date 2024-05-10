@@ -11,6 +11,7 @@ export const useNodeHelper = () => {
 			isWall: false,
 			isWeighted: false,
 			isVisited: false,
+			isVisitedAnimation: false,
 			isShortestPath: false,
 			isAutomata: false,
 			previousNode: null,
@@ -72,7 +73,7 @@ export const useNodeHelper = () => {
 			? NodeType.SHORTEST_PATH
 			: node.isWeighted
 			? NodeType.WEIGHTED
-			: node.isVisited
+			: node.isVisitedAnimation
 			? NodeType.VISITED
 			: NodeType.NODE;
 	};
