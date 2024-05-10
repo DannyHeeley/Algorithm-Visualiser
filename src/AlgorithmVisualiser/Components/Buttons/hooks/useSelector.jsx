@@ -52,7 +52,7 @@ export const useSelector = (appState, setAppState) => {
 			...prevState,
 			grid: newGrid,
 			currentMode: newMode,
-			currentAlgorithm: newAlgorithm,
+			CURRENT_ALGORITHM: newAlgorithm,
 			isStartNodeSet: newMode === PATHFINDING_MODE ? true : false,
 			isTargetNodeSet: newMode === PATHFINDING_MODE ? true : false,
 		}));

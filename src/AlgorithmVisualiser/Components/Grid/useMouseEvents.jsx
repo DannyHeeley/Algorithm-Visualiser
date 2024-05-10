@@ -9,7 +9,7 @@ export const useMouseEvents = (appState, setAppState) => {
 
 	const handleMouseDown = (node) => {
 		if (appState.isAnimating || appState.needsReset) return;
-		toggleMouseIsPressed();
+		setMouseIsPressedTo(true);
 		const thisNodeType = typeOfNode(node, appState);
 		if (startAndTargetNodesSet(appState) || appState.currentMode === GAME_OF_LIFE_MODE) {
 			if (nodeIsAStartOrTarget(node)) {
@@ -28,9 +28,8 @@ export const useMouseEvents = (appState, setAppState) => {
 			(appState.mouseIsPressed && startAndTargetNodesSet(appState)) ||
 			(appState.mouseIsPressed && appState.currentMode === GAME_OF_LIFE_MODE)
 		) {
-			const nodeTypePathfinding = appState.drawType ? NodeType.WALL : NodeType.WEIGHTED;
-			const thisNodeType =
-				appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE ? NodeType.AUTOMATA : nodeTypePathfinding;
+			if (nodeIsAStartOrTarget(node)) return;
+			const thisNodeType = typeOfNode(node, appState)
 			handleNodeClick(node, thisNodeType);
 		}
 	};
@@ -38,7 +37,7 @@ export const useMouseEvents = (appState, setAppState) => {
 	const handleMouseUp = () => {
 		if (appState.isAnimating || appState.needsReset) return;
 		if (appState.mouseIsPressed) {
-			toggleMouseIsPressed();
+			setMouseIsPressedTo(false);
 		}
 	};
 
@@ -107,13 +106,6 @@ export const useMouseEvents = (appState, setAppState) => {
 			const newGrid = getNewGridFor(node, nodeType, prevState);
 			return { ...prevState, grid: newGrid };
 		});
-	};
-
-	const toggleMouseIsPressed = () => {
-		setAppState((prevState) => ({
-			...prevState,
-			mouseIsPressed: !prevState.mouseIsPressed,
-		}));
 	};
 
 	const setMouseIsPressedTo = (bool) => {

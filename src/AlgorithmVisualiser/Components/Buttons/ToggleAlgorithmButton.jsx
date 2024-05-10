@@ -9,7 +9,7 @@ export const ToggleAlgorithmButton = ({ appState, setAppState }) => {
 				&#129518;
 			</button>
 			<div className='algorithm-text'>
-				Algorithm: <div className='text-value'>{appState.algorithmButtonText}</div>
+				Algorithm: <div className='text-value'>{appState.CURRENT_ALGORITHM.name}</div>
 			</div>
 		</div>
 	);

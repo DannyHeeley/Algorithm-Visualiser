@@ -27,7 +27,7 @@ export const useNodeHelper = () => {
 			? NodeType.START
 			: node.isTarget || !appState.isTargetNodeSet
 			? NodeType.TARGET
-			: appState.drawType
+			: appState.drawType === 'wall'
 			? NodeType.WALL
 			: NodeType.WEIGHTED;
 	};
@@ -66,14 +66,14 @@ export const useNodeHelper = () => {
 			? NodeType.START
 			: node.isWall
 			? NodeType.WALL
+			: node.isWeightedShortestPath
+			? NodeType.SHORTEST_PATH_WEIGHTED
+			: node.isShortestPath
+			? NodeType.SHORTEST_PATH
 			: node.isWeighted
 			? NodeType.WEIGHTED
 			: node.isVisited
 			? NodeType.VISITED
-			: node.isShortestPath
-			? NodeType.SHORTEST_PATH
-			: node.isShortestPath && node.isWeighted
-			? NodeType.SHORTEST_PATH_WEIGHTED
 			: NodeType.NODE;
 	};
 	return { initialiseNode, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet, handleExtraClassNameFor }

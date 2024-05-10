@@ -4,7 +4,7 @@ import { useNodeHelper } from "../../Grid/Node/useNodeHelper";
 
 export const useVisualise = (appState, setAppState) => {
 	const { startAndTargetNodesSet } = useNodeHelper();
-	const { currentAlgorithm, currentMode } = appState;
+	const { CURRENT_ALGORITHM, currentMode } = appState;
 	const gameOfLife = APP_MODES.GAME_OF_LIFE_MODE.algorithm;
 	const PATHFINDING_MODE = APP_MODES.PATHFINDING_MODE;
 
@@ -16,10 +16,10 @@ export const useVisualise = (appState, setAppState) => {
 		setTimeout(() => {
 			const startNode = appState.grid[appState.startNodeRow]?.[appState.startNodeCol];
 			const targetNode = appState.grid[appState.targetNodeRow]?.[appState.targetNodeCol];
-			if (currentAlgorithm === gameOfLife) {
+			if (CURRENT_ALGORITHM === gameOfLife) {
 				currentMode.animation(gameOfLife, appState, setAppState);
 			} else {
-				[visitedNodesInOrder, shortestPathNodesInOrder] = currentAlgorithm(appState.grid, startNode, targetNode);
+				[visitedNodesInOrder, shortestPathNodesInOrder] = CURRENT_ALGORITHM.algorithm(appState.grid, startNode, targetNode);
 				currentMode.animation(visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState);
 			}
 		}, 0);

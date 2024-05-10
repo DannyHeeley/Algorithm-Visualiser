@@ -12,7 +12,6 @@ export const Rules = () => {
         <p className="rule">
           Each cell with two or three neighbors survives.
         </p>
-        <hr></hr>
         <p className="rule">
           Each unpopulated cell with three neighbors becomes populated.
         </p>
