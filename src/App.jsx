@@ -16,12 +16,13 @@ import './AlgorithmVisualiser/Components/Info/TickCounter.css';
 
 
 const App = () => {
-	// TODO: Lower state that is only used in one component
+
 	const [appState, setAppState] = useState({
 		grid: [],
 		currentMode: APP_MODES.PATHFINDING_MODE,
 		CURRENT_PATTERN: GAME_OF_LIFE_PATTERNS.COPPERHEAD,
 		CURRENT_ALGORITHM: APP_MODES.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA,
+		DRAW_TYPE: APP_MODES.PATHFINDING_MODE.DRAW_TYPE.WALL,
 		startNodeRow: 13,
 		startNodeCol: 15,
 		targetNodeRow: 13,
@@ -35,7 +36,6 @@ const App = () => {
 		isAnimating: false,
 		mouseIsPressed: false,
 		needsReset: false,
-		drawType: 'wall',
 		randomUnsortedValues: generateRandomUnsortedValues(),
 	});
 
@@ -64,14 +64,6 @@ export const initialiseGrid = (appState) => {
 			return initialiseNode(col, row, appState);
 		})
 	);
-};
-
-// TODO: Create hook for these
-export const toggleNeedsReset = (setAppState) => {
-	setAppState((prevState) => ({
-		...prevState,
-		needsReset: !prevState.needsReset,
-	}));
 };
 
 export const toggleIsAnimating = (setAppState) => {

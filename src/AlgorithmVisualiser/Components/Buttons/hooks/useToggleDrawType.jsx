@@ -1,26 +1,23 @@
-import { useState } from 'react';
+import { APP_MODES } from '../../../AppModes/APP_MODES';
 
 export const useToggleDrawType = (appState, setAppState) => {
-	const [drawTypeText, setDrawTypeText] = useState('Draw Walls');
-	const [drawTypeClassName, setDrawTypeClassName] = useState('draw-type-wall');
+
+	const { WALL, WEIGHTED } = APP_MODES.PATHFINDING_MODE.DRAW_TYPE;
 
 	const changeDrawType = () => {
-		if (appState.isAnimating || appState.needsReset) return;
-		if (appState.drawType === 'wall') {
-			updateDrawType('weight', 'Draw Weight', 'draw-type-weight');
+		if (appState.DRAW_TYPE === WALL) {
+			updateDrawType(WEIGHTED);
 		} else {
-			updateDrawType('wall', 'Draw Walls', 'draw-type-wall');
+			updateDrawType(WALL);
 		}
 	};
 
-	const updateDrawType = (newDrawType, newText, newClassName) => {
-		setDrawTypeText(newText);
-		setDrawTypeClassName(newClassName);
+	const updateDrawType = (newDrawType) => {
 		setAppState((prevState) => ({
 			...prevState,
-			drawType: newDrawType,
+			DRAW_TYPE: newDrawType,
 		}));
 	};
 	
-	return { changeDrawType, drawTypeClassName, drawTypeText };
+	return { changeDrawType };
 };

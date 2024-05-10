@@ -27,7 +27,7 @@ export const useNodeHelper = () => {
 			? NodeType.START
 			: node.isTarget || !appState.isTargetNodeSet
 			? NodeType.TARGET
-			: appState.drawType === 'wall'
+			: appState.DRAW_TYPE === APP_MODES.PATHFINDING_MODE.DRAW_TYPE.WALL
 			? NodeType.WALL
 			: NodeType.WEIGHTED;
 	};

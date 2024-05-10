@@ -1,4 +1,4 @@
-import { toggleIsAnimating, toggleNeedsReset } from "../../../../App";
+import { toggleIsAnimating } from "../../../../App";
 import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { useNodeHelper } from "../../Grid/Node/useNodeHelper";
 
@@ -23,6 +23,13 @@ export const useVisualise = (appState, setAppState) => {
 				currentMode.animation(visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState);
 			}
 		}, 0);
+	};
+
+	const toggleNeedsReset = (setAppState) => {
+		setAppState((prevState) => ({
+			...prevState,
+			needsReset: !prevState.needsReset,
+		}));
 	};
 
 	return visualiseAlgorithm;

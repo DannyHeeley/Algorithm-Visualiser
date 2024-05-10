@@ -9,14 +9,18 @@ export const APP_MODES = {
 		name: 'PATHFINDING',
 		ALGORITHMS: PATHFINDING_ALGORITHMS,
 		animation: usePathfindingAnimation(),
+		DRAW_TYPE: {
+			WALL: { name: 'Draw Weight', classname: 'draw-type-wall' },
+			WEIGHTED: { name: 'Draw Walls', classname: 'draw-type-weight' },
+		},
 	},
 	SORTING_MODE: {
-		name: 'SORTING'
+		name: 'SORTING',
 	},
 	GAME_OF_LIFE_MODE: {
 		name: 'GAMEOFLIFE',
 		algorithm: gameOfLife,
 		animation: animateGameOfLife,
-		PATTERNS: GAME_OF_LIFE_PATTERNS
+		PATTERNS: GAME_OF_LIFE_PATTERNS,
 	},
 };
