@@ -1,6 +1,6 @@
 import { Heap } from 'heap-js';
 
-export function greedyBestFirstSearch(grid, startNode, targetNode) {
+export const greedyBestFirstSearch = (grid, startNode, targetNode) => {
     const customPriorityComparator = (a, b) => a.priority - b.priority;
     const priorityQueue = new Heap(customPriorityComparator); 
     const visitedNodesInOrder = [];
@@ -17,7 +17,7 @@ export function greedyBestFirstSearch(grid, startNode, targetNode) {
     return [visualiseNodesList, []]; // No path found
 }
 
-function updateNeighboursGreedy(node, grid, targetNode, priorityQueue, visualiseNodesList) {
+const updateNeighboursGreedy = (node, grid, targetNode, priorityQueue, visualiseNodesList) => {
     const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
     for (const neighbor of unvisitedNeighbors) {
         neighbor.previousNode = node;
@@ -29,7 +29,7 @@ function updateNeighboursGreedy(node, grid, targetNode, priorityQueue, visualise
     }
 }
 
-function getUnvisitedNeighbors(node, grid) {
+const getUnvisitedNeighbors = (node, grid) => {
     const neighbors = [];
     const { row, col } = node;
     if (row > 0) neighbors.push(grid[row - 1][col]);
@@ -39,7 +39,7 @@ function getUnvisitedNeighbors(node, grid) {
     return neighbors.filter(neighbor => !neighbor.isVisited && !neighbor.isWall);
 }
 
-function estimatedDistance(node1, node2) {
+const estimatedDistance = (node1, node2) => {
     // Calculate the shortest distance between two nodes (Estimated Distance)
     const distance_x = Math.abs(node1.col - node2.col);
     const distance_y = Math.abs(node1.row - node2.row);
@@ -47,7 +47,7 @@ function estimatedDistance(node1, node2) {
     return d1 * Math.sqrt(2) + (Math.max(distance_x, distance_y) - d1);
 }
 
-function reconstructPath(targetNode) {
+const reconstructPath = (targetNode) => {
   const shortestPathNodesInOrder = [];
   let currentNode = targetNode;
   while (currentNode !== null) {

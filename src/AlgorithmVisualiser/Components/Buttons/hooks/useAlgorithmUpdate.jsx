@@ -1,7 +1,7 @@
-import { AppModes } from "../../../AppModes/AppModes";
+import { APP_MODES } from '../../../AppModes/APP_MODES';
 
 export const useAlgorithmUpdate = (appState, setAppState) => {
-	const { DJIKSTRA, GREEDYBESTFIRSTSEARCH, ASTAR4WAY, ASTAR8WAY } = AppModes.PATHFINDING_MODE.ALGORITHMS;
+	const { DJIKSTRA, GREEDYBESTFIRSTSEARCH, ASTAR4WAY, ASTAR8WAY } = APP_MODES.PATHFINDING_MODE.ALGORITHMS;
 
 	const handleAlgorithmUpdate = () => {
 		if (appState.isAnimating || appState.needsReset) return;

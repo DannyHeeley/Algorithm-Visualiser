@@ -8,12 +8,12 @@ import { ToggleAlgorithmButton } from './Components/Buttons/ToggleAlgorithmButto
 import { Grid } from './Components/Grid/Grid.jsx';
 import { ModeSelector } from './Components/Buttons/ModeSelector.jsx';
 import { initialiseGrid } from '../App.jsx';
-import { AppModes } from './AppModes/AppModes.js';
+import { APP_MODES } from './AppModes/APP_MODES.js';
 import { TickCounter } from './Components/Info/TickCounter.jsx';
 import { PatternSelector } from './Components/Buttons/PatternSelector.jsx';
 
 export const AlgorithmVisualiser = ({ appState, setAppState }) => {
-	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE } = AppModes;
+	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE } = APP_MODES;
 	return (
 		<>
 			<div className='pathfinder-container'>

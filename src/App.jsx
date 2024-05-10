@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react';
 import { AlgorithmVisualiser } from './AlgorithmVisualiser/AlgorithmVisualiser';
-import { animatePathfinding } from './AlgorithmVisualiser/AppModes/Pathfinding/pathfindingAnimation.js';
 import { useNodeHelper } from './AlgorithmVisualiser/Components/Grid/Node/useNodeHelper.jsx';
 import { generateRandomUnsortedValues } from './AlgorithmVisualiser/AppModes/Sorting/sortHelper.js';
 import { GAME_OF_LIFE_PATTERNS } from './AlgorithmVisualiser/AppModes/GameOfLife/GAME_OF_LIFE_PATTERNS.js';
-import { AppModes } from './AlgorithmVisualiser/AppModes/AppModes.js';
+import { APP_MODES } from './AlgorithmVisualiser/AppModes/APP_MODES.js';
 
 import './App.css';
 import './AlgorithmVisualiser/Components/Grid/Node/Node.css';
@@ -20,11 +19,10 @@ const App = () => {
 	// TODO: Lower state that is only used in one component
 	const [appState, setAppState] = useState({
 		grid: [],
-		currentMode: AppModes.PATHFINDING_MODE,
+		currentMode: APP_MODES.PATHFINDING_MODE,
 		CURRENT_PATTERN: GAME_OF_LIFE_PATTERNS.COPPERHEAD,
-		currentAlgorithm: AppModes.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA.algorithm,
-		currentAnimation: animatePathfinding,
-		algorithmButtonText: AppModes.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA.name,
+		currentAlgorithm: APP_MODES.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA.algorithm,
+		algorithmButtonText: APP_MODES.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA.name,
 		startNodeRow: 13,
 		startNodeCol: 15,
 		targetNodeRow: 13,

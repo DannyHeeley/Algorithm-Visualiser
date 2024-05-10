@@ -1,11 +1,11 @@
 import { useNodeHelper } from './Node/useNodeHelper';
 import { NodeType } from './Node/NodeType.js';
-import { AppModes } from '../../AppModes/AppModes.js';
+import { APP_MODES } from '../../AppModes/APP_MODES.js';
 
 export const useMouseEvents = (appState, setAppState) => {
 	
 	const { typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } = useNodeHelper();
-	const GAME_OF_LIFE_MODE = AppModes.GAME_OF_LIFE_MODE;
+	const GAME_OF_LIFE_MODE = APP_MODES.GAME_OF_LIFE_MODE;
 
 	const handleMouseDown = (node) => {
 		if (appState.isAnimating || appState.needsReset) return;
@@ -30,7 +30,7 @@ export const useMouseEvents = (appState, setAppState) => {
 		) {
 			const nodeTypePathfinding = appState.drawType ? NodeType.WALL : NodeType.WEIGHTED;
 			const thisNodeType =
-				appState.currentMode === AppModes.GAME_OF_LIFE_MODE ? NodeType.AUTOMATA : nodeTypePathfinding;
+				appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE ? NodeType.AUTOMATA : nodeTypePathfinding;
 			handleNodeClick(node, thisNodeType);
 		}
 	};

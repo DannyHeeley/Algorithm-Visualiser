@@ -1,10 +1,13 @@
 import { generateRandomUnsortedValues } from '../../../AppModes/Sorting/sortHelper';
-import { AppModes } from '../../../AppModes/AppModes';
+import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { initialiseGridWithPattern } from '../../../AppModes/GameOfLife/patternHandler';
+import { useNodeHelper } from '../../Grid/Node/useNodeHelper';
 
 export const useReset = (initialiseGrid, appState, setAppState) => {
-	const { PATHFINDING_MODE, SORTING_MODE, GAME_OF_LIFE_MODE } = AppModes;
-	
+
+	const { initialiseNode } = useNodeHelper();
+	const { PATHFINDING_MODE, SORTING_MODE, GAME_OF_LIFE_MODE } = APP_MODES;
+
 	const handleReset = () => {
 		switch (appState.currentMode) {
 			case SORTING_MODE:
@@ -18,7 +21,7 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 					};
 				});
 			case PATHFINDING_MODE:
-				if (appState.isAnimating) return;
+				clearInterval(appState.intervalId)
 				resetAllNodes(appState);
 				return setAppState((prevState) => {
 					return {
@@ -50,10 +53,12 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 		appState.grid.forEach((row) => {
 			row.forEach((node) => {
 				if (!node.isTarget && !node.isStart) {
-					document.getElementById(`node-${node.row}-${node.col}`).className = 'node';
+					initialiseNode(node.col, row, appState);
 				}
 			});
 		});
 	};
+
 	return handleReset;
 };
+

@@ -1,4 +1,4 @@
-import { AppModes } from "../../../AppModes/AppModes";
+import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { NodeType } from './NodeType.js';
 
 export const useNodeHelper = () => {
@@ -21,7 +21,7 @@ export const useNodeHelper = () => {
 	};
 
 	const typeOfNode = (node, appState) => {
-		return appState.currentMode === AppModes.GAME_OF_LIFE_MODE
+		return appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE
 			? NodeType.AUTOMATA
 			: node.isStart || !appState.isStartNodeSet
 			? NodeType.START
@@ -41,9 +41,9 @@ export const useNodeHelper = () => {
 	};
 
 	const handleExtraClassNameFor = (node, mode, randomUnsortedValues) => {
-		return mode === AppModes.GAME_OF_LIFE_MODE
+		return mode === APP_MODES.GAME_OF_LIFE_MODE
 			? handleClassNameGameOfLife(node)
-			: mode === AppModes.SORTING_MODE
+			: mode === APP_MODES.SORTING_MODE
 			? handleClassNameSorting(node, randomUnsortedValues)
 			: handleClassNamePathfinding(node);
 	};

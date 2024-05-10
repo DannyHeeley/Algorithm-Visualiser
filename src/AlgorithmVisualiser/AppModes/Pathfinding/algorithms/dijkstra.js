@@ -1,4 +1,4 @@
-export function dijkstra(grid, startNode, targetNode) {
+export const dijkstra = (grid, startNode, targetNode) => {
     const visitedNodesInOrder = [];
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
@@ -11,13 +11,13 @@ export function dijkstra(grid, startNode, targetNode) {
         //closestNode.isVisited = true;
         visitedNodesInOrder.push(closestNode);
         if (closestNode === targetNode) return [visitedNodesInOrder, reconstructPathDjikstra(targetNode)]
-        updateUnvisitedNeighbors(closestNode, grid);
+        updateNeighbors(closestNode, grid);
     }
 };
 
-function updateUnvisitedNeighbors(node, grid) {
-    const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
-    for (const neighbor of unvisitedNeighbors) {
+const updateNeighbors = (node, grid) => {
+    const neighbors = getNeighbors(node, grid);
+    for (const neighbor of neighbors) {
         let potentialCostOfPathFromStartNode = node.distance + (neighbor.isWeighted ? 1.3: 1);
         if (potentialCostOfPathFromStartNode < neighbor.distance && !neighbor.isVisited) {
             neighbor.distance = potentialCostOfPathFromStartNode;
@@ -26,17 +26,17 @@ function updateUnvisitedNeighbors(node, grid) {
     }
 };
 
-function getUnvisitedNeighbors(node, grid) {
+const getNeighbors = (node, grid) => {
     const neighbors = [];
     const { row, col } = node;
     if (row > 0) neighbors.push(grid[row - 1][col]);
     if (row < grid.length - 1) neighbors.push(grid[row + 1][col]);
     if (col > 0) neighbors.push(grid[row][col - 1]);
     if (col < grid[0].length - 1) neighbors.push(grid[row][col + 1]);
-    return neighbors.filter(neighbor => !neighbor.isVisited);
+    return neighbors
 };
 
-function getAllNodes(grid) {
+const getAllNodes = (grid) => {
     const nodes = [];
     for (const row of grid) {
         for (const node of row) {
@@ -46,7 +46,7 @@ function getAllNodes(grid) {
     return nodes;
 };
 
-function reconstructPathDjikstra(targetNode) {
+const reconstructPathDjikstra = (targetNode) => {
   const shortestPathNodesInOrder = [];
   let currentNode = targetNode;
   while (currentNode !== null) {
