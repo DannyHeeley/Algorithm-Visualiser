@@ -10,6 +10,17 @@
     position: relative;
 }
 
+.node.GAMEOFLIFE {
+	width: calc(0.88vw - 2px);
+	height: calc(0.8vw - 2px);
+	min-height: 9.25px;
+	min-width: 9.25px;
+	box-sizing: border-box;
+	border: 1px solid rgba(204, 204, 204, 0.37);
+	display: inline-flex;
+	position: relative;
+}
+
 .isTarget {
     background-color: red;
     border: 2px solid black;

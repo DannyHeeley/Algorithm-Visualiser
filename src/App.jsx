@@ -4,6 +4,7 @@ import { useNodeHelper } from './AlgorithmVisualiser/Components/Grid/Node/useNod
 import { generateRandomUnsortedValues } from './AlgorithmVisualiser/AppModes/Sorting/sortHelper.js';
 import { GAME_OF_LIFE_PATTERNS } from './AlgorithmVisualiser/AppModes/GameOfLife/GAME_OF_LIFE_PATTERNS.js';
 import { APP_MODES } from './AlgorithmVisualiser/AppModes/APP_MODES.js';
+import { initialiseGridWithPattern } from './AlgorithmVisualiser/AppModes/GameOfLife/patternHandler.js';
 
 import './App.css';
 import './AlgorithmVisualiser/Components/Grid/Node/Node.css';
@@ -40,12 +41,15 @@ const App = () => {
 	});
 
 	useEffect(() => {
-		const newGrid = initialiseGrid(appState);
+		const newGrid =
+			appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE
+				? initialiseGridWithPattern(appState.CURRENT_PATTERN, initialiseGrid(appState))
+				: initialiseGrid(appState);
 		setAppState((prevState) => ({
 			...prevState,
 			grid: newGrid,
 		}));
-	}, []);
+	}, [appState.currentMode]);
 
 	return (
 		<div className='app-container'>
@@ -59,8 +63,8 @@ const App = () => {
 
 export const initialiseGrid = (appState) => {
 	const { initialiseNode } = useNodeHelper();
-	return Array.from({ length: 25 }, (_, row) =>
-		Array.from({ length: 50 }, (_, col) => {
+	return Array.from({ length: appState.currentMode.GRID_DIMENSIONS.numOfRows }, (_, row) =>
+		Array.from({ length: appState.currentMode.GRID_DIMENSIONS.numOfCols }, (_, col) => {
 			return initialiseNode(col, row, appState);
 		})
 	);

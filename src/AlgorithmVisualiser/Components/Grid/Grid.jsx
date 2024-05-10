@@ -3,10 +3,9 @@ import { useMouseEvents } from './useMouseEvents';
 
 export const Grid = ({ appState, setAppState }) => {
 	const { setMouseIsPressedTo } = useMouseEvents(appState, setAppState);
-	const mode = appState.currentMode;
 	return (
 		<div
-			className={`grid-container ${mode}`}
+			className={`grid-container`}
 			onDragStart={(event) => event.preventDefault()}
 			onMouseEnter={() => {
 				if (appState.isAnimating || appState.needsReset) return;

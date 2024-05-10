@@ -13,7 +13,6 @@ export const useSelector = (appState, setAppState) => {
 	const handleModeChange = (event) => {
 		switch (event.target.value) {
 			case GAME_OF_LIFE_MODE:
-				initialiseGridWithPattern(appState.CURRENT_PATTERN, newGrid);
 				changeMode(GAME_OF_LIFE_MODE, gameOfLife, newGrid);
 				return;
 			case PATHFINDING_MODE:
