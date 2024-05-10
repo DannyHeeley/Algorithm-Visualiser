@@ -23,7 +23,7 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 				return setAppState((prevState) => {
 					return {
 						...prevState,
-						startNodeCol: 15,
+						startNodeCol: 13,
 						startNodeRow: 13,
 						targetNodeCol: 34,
 						targetNodeRow: 13,

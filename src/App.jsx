@@ -69,12 +69,6 @@ export const initialiseGrid = (appState) => {
 	);
 };
 
-export const deepCopyGrid = (grid) => {
-	return grid.map((row) => {
-		return row.map((node) => ({ ...node }));
-	});
-};
-
 // TODO: Create hook for these
 export const toggleNeedsReset = (setAppState) => {
 	setAppState((prevState) => ({

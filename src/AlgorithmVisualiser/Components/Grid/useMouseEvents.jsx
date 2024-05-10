@@ -1,57 +1,57 @@
 import { useNodeHelper } from './Node/useNodeHelper';
 import { NodeType } from './Node/NodeType.js';
-import { deepCopyGrid } from '../../../App';
 import { AppModes } from '../../AppModes/AppModes.js';
 
-export const useMouseEvents = () => {
+export const useMouseEvents = (appState, setAppState) => {
 
 	const { typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } = useNodeHelper();
+	const GAME_OF_LIFE_MODE = AppModes.GAME_OF_LIFE_MODE;
 
-	const handleMouseDown = (node, appState, setAppState) => {
+	const handleMouseDown = (node) => {
 		if (appState.isAnimating || appState.needsReset) return;
-		toggleMouseIsPressed(setAppState);
+		toggleMouseIsPressed();
 		const thisNodeType = typeOfNode(node, appState);
-		if (startAndTargetNodesSet(appState) || appState.currentMode === AppModes.GAME_OF_LIFE_MODE) {
+		if (startAndTargetNodesSet(appState) || appState.currentMode === GAME_OF_LIFE_MODE) {
 			if (nodeIsAStartOrTarget(node)) {
-				handleStartOrTargetDeselect(node, thisNodeType, setAppState);
+				handleStartOrTargetDeselect(node, thisNodeType);
 			} else {
-				handleNodeClick(node, thisNodeType, setAppState);
+				handleNodeClick(node, thisNodeType);
 			}
 		} else {
-			handleStartOrTargetSelect(node, thisNodeType, setAppState);
+			handleStartOrTargetSelect(node, thisNodeType);
 		}
 	};
 
-	const handleMouseEnter = (node, appState, setAppState) => {
+	const handleMouseEnter = (node) => {
 		if (appState.isAnimating || appState.needsReset) return;
-		if (appState.mouseIsPressed && startAndTargetNodesSet(appState)) {
+		if (appState.mouseIsPressed && startAndTargetNodesSet(appState) || appState.mouseIsPressed && appState.currentMode === GAME_OF_LIFE_MODE) {
 			const nodeTypePathfinding = appState.drawType ? NodeType.WALL : NodeType.WEIGHTED;
 			const thisNodeType = appState.currentMode === AppModes.GAME_OF_LIFE_MODE ? NodeType.CELL : nodeTypePathfinding;
-			handleNodeClick(node, thisNodeType, setAppState);
+			handleNodeClick(node, thisNodeType);
 		}
 	};
 
-	const handleMouseUp = (appState, setAppState) => {
+	const handleMouseUp = () => {
 		if (appState.isAnimating || appState.needsReset) return;
 		if (appState.mouseIsPressed) {
-			toggleMouseIsPressed(setAppState);
+			toggleMouseIsPressed();
 		}
 	};
 
-	const getNewGridFor = (node, nodeType, appState) => {
-		const newGrid = deepCopyGrid(appState.grid);
-		const thisNode = newGrid[node.row][node.col];
+	const getNewGridFor = (oldNode, nodeType) => {
+		const newGrid = appState.grid.slice();
+		const thisNode = newGrid[oldNode.row][oldNode.col];
 		const newNode = {
 			...thisNode,
 			[nodeType]: !thisNode[nodeType],
 		};
-		newGrid[node.row][node.col] = newNode;
+		newGrid[oldNode.row][oldNode.col] = newNode;
 		return newGrid;
 	};
 
-	const handleStartOrTargetSelect = (node, nodeType, setAppState) => {
+	const handleStartOrTargetSelect = (node, nodeType) => {
 		setAppState((prevState) => {
-			const newGrid = getNewGridFor(node, nodeType, appState);
+			const newGrid = getNewGridFor(node, nodeType);
 			if (nodeType === NodeType.START) {
 				setAppState((prevState) => ({
 					...prevState,
@@ -75,9 +75,9 @@ export const useMouseEvents = () => {
 		});
 	};
 
-	const handleStartOrTargetDeselect = (node, nodeType, setAppState) => {
+	const handleStartOrTargetDeselect = (node, nodeType) => {
 		setAppState((prevState) => {
-			const newGrid = getNewGridFor(node, nodeType, appState);
+			const newGrid = getNewGridFor(node, nodeType);
 			if (nodeType === NodeType.START) {
 				setAppState((prevState) => ({
 					...prevState,
@@ -98,21 +98,21 @@ export const useMouseEvents = () => {
 		});
 	};
 
-	const handleNodeClick = (node, nodeType, setAppState) => {
+	const handleNodeClick = (node, nodeType) => {
 		setAppState((prevState) => {
 			const newGrid = getNewGridFor(node, nodeType, prevState);
 			return { ...prevState, grid: newGrid };
 		});
 	};
 
-	const toggleMouseIsPressed = (setAppState) => {
+	const toggleMouseIsPressed = () => {
 		setAppState((prevState) => ({
 			...prevState,
 			mouseIsPressed: !prevState.mouseIsPressed,
 		}));
 	};
 
-	const setMouseIsPressedTo = (bool, setAppState) => {
+	const setMouseIsPressedTo = (bool) => {
 		setAppState((prevState) => ({
 				...prevState,
 				mouseIsPressed: bool,
@@ -124,6 +124,5 @@ export const useMouseEvents = () => {
 		handleMouseEnter,
 		handleMouseUp,
 		setMouseIsPressedTo,
-		getNewGridFor
 	};
 };

@@ -2,7 +2,7 @@ import { Node } from './Node/Node';
 import { useMouseEvents } from './useMouseEvents';
 
 export const Grid = ({ appState, setAppState }) => {
-	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } = useMouseEvents();
+	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } = useMouseEvents(appState, setAppState);
 	const mode = appState.currentMode;
 	const randomUnsortedValues = appState.randomUnsortedValues;
 	return (
@@ -31,13 +31,13 @@ export const Grid = ({ appState, setAppState }) => {
 								randomUnsortedValues={randomUnsortedValues}
 								node={{ ...node }}
 								onMouseDown={() => {
-									handleMouseDown(node, appState, setAppState);
+									handleMouseDown(node);
 								}}
 								onMouseEnter={() => {
-									handleMouseEnter(node, appState, setAppState);
+									handleMouseEnter(node);
 								}}
 								onMouseUp={() => {
-									handleMouseUp(appState, setAppState);
+									handleMouseUp();
 								}}></Node>
 						);
 					})}
