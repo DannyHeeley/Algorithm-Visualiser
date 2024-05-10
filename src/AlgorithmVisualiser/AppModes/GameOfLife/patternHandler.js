@@ -17,7 +17,7 @@ const updateGridWithPattern = (patternData, grid, yOffset, xOffset) => {
 	for (let y = 0; y < patternData.length; y++) {
 		for (let x = 0; x < patternData[y].length; x++) {
 			if (patternData[y][x]) {
-				grid[y + yOffset][x + xOffset].isCell = true;
+				grid[y + yOffset][x + xOffset].isAutomata = true;
 			}
 		}
 	}

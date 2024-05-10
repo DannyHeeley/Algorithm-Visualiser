@@ -1,12 +1,12 @@
 export const NodeType = {
+	NODE: 'node',
 	START: 'isStart',
 	TARGET: 'isTarget',
 	WALL: 'isWall',
 	WEIGHTED: 'isWeighted',
 	VISITED: 'isVisited',
-	SHORTEST_PATH: 'node-shortest-path',
-	SHORTEST_PATH_WEIGHTED: 'node node-weighted-shortest-path',
-	NODE: 'node',
+	SHORTEST_PATH: 'isShortestPath',
+	SHORTEST_PATH_WEIGHTED: 'isWeightedShortestPath',
 	SORTING: 'isSorting',
-	CELL: 'isCell',
+	AUTOMATA: 'isAutomata',
 };

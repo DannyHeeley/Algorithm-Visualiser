@@ -8,7 +8,7 @@ export const NodeType = {
 	WEIGHTED: 'isWeighted',
 	NODE: 'node',
 	SORTING: 'isSorting',
-	CELL: 'isCell',
+	AUTOMATA: 'isAutomata',
 };
 
 export const initialiseNode = (col, row, appState) => {
@@ -20,7 +20,7 @@ export const initialiseNode = (col, row, appState) => {
 		isWall: false,
 		isWeighted: false,
 		isVisited: false,
-		isCell: false,
+		isAutomata: false,
 		previousNode: null,
 		distance: Infinity,
 		costOfPathFromStartNode: row == appState.startNodeRow && col === appState.startNodeCol ? 0 : Infinity,
@@ -29,8 +29,8 @@ export const initialiseNode = (col, row, appState) => {
 };
 
 export const typeOfNode = (node, appState) => {
-	return appState.currentMode === GridModes.GAME_OF_LIFE_MODE
-		? NodeType.CELL
+	return appState.currentMode === AppModes.GAME_OF_LIFE_MODE
+		? NodeType.AUTOMATA
 		: node.isStart || !appState.isStartNodeSet
 		? NodeType.START
 		: node.isTarget || !appState.isTargetNodeSet
@@ -56,7 +56,7 @@ const handleClassNameSorting = (node, randomUnsortedValues) => {
 };
 
 const handleClassNameGameOfLife = (node) => {
-	return node.isCell ? NodeType.CELL : NodeType.NODE;
+	return node.isAutomata ? NodeType.AUTOMATA : NodeType.NODE;
 };
 
 const handleClassNamePathfinding = (node) => {
@@ -74,9 +74,9 @@ const handleClassNamePathfinding = (node) => {
 };
 
 export const handleExtraClassNameFor = (node, mode, randomUnsortedValues) => {
-	return mode === GridModes.GAME_OF_LIFE_MODE
+	return mode === AppModes.GAME_OF_LIFE_MODE
 		? handleClassNameGameOfLife(node)
-		: mode === GridModes.SORTING_MODE
+		: mode === AppModes.SORTING_MODE
 		? handleClassNameSorting(node, randomUnsortedValues)
 		: handleClassNamePathfinding(node);
 };

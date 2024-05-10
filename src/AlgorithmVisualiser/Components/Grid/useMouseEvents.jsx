@@ -3,7 +3,7 @@ import { NodeType } from './Node/NodeType.js';
 import { AppModes } from '../../AppModes/AppModes.js';
 
 export const useMouseEvents = (appState, setAppState) => {
-
+	
 	const { typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet } = useNodeHelper();
 	const GAME_OF_LIFE_MODE = AppModes.GAME_OF_LIFE_MODE;
 
@@ -24,9 +24,13 @@ export const useMouseEvents = (appState, setAppState) => {
 
 	const handleMouseEnter = (node) => {
 		if (appState.isAnimating || appState.needsReset) return;
-		if (appState.mouseIsPressed && startAndTargetNodesSet(appState) || appState.mouseIsPressed && appState.currentMode === GAME_OF_LIFE_MODE) {
+		if (
+			(appState.mouseIsPressed && startAndTargetNodesSet(appState)) ||
+			(appState.mouseIsPressed && appState.currentMode === GAME_OF_LIFE_MODE)
+		) {
 			const nodeTypePathfinding = appState.drawType ? NodeType.WALL : NodeType.WEIGHTED;
-			const thisNodeType = appState.currentMode === AppModes.GAME_OF_LIFE_MODE ? NodeType.CELL : nodeTypePathfinding;
+			const thisNodeType =
+				appState.currentMode === AppModes.GAME_OF_LIFE_MODE ? NodeType.AUTOMATA : nodeTypePathfinding;
 			handleNodeClick(node, thisNodeType);
 		}
 	};
@@ -38,14 +42,14 @@ export const useMouseEvents = (appState, setAppState) => {
 		}
 	};
 
-	const getNewGridFor = (oldNode, nodeType) => {
+	const getNewGridFor = (node, nodeType) => {
 		const newGrid = appState.grid.slice();
-		const thisNode = newGrid[oldNode.row][oldNode.col];
+		const thisNode = newGrid[node.row][node.col];
 		const newNode = {
 			...thisNode,
 			[nodeType]: !thisNode[nodeType],
 		};
-		newGrid[oldNode.row][oldNode.col] = newNode;
+		newGrid[node.row][node.col] = newNode;
 		return newGrid;
 	};
 
@@ -114,8 +118,8 @@ export const useMouseEvents = (appState, setAppState) => {
 
 	const setMouseIsPressedTo = (bool) => {
 		setAppState((prevState) => ({
-				...prevState,
-				mouseIsPressed: bool,
+			...prevState,
+			mouseIsPressed: bool,
 		}));
 	};
 

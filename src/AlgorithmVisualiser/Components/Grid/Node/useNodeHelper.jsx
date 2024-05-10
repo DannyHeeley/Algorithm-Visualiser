@@ -12,7 +12,7 @@ export const useNodeHelper = () => {
 			isWeighted: false,
 			isVisited: false,
 			isShortestPath: false,
-			isCell: false,
+			isAutomata: false,
 			previousNode: null,
 			distance: Infinity,
 			costOfPathFromStartNode: row == appState.startNodeRow && col === appState.startNodeCol ? 0 : Infinity,
@@ -22,7 +22,7 @@ export const useNodeHelper = () => {
 
 	const typeOfNode = (node, appState) => {
 		return appState.currentMode === AppModes.GAME_OF_LIFE_MODE
-			? NodeType.CELL
+			? NodeType.AUTOMATA
 			: node.isStart || !appState.isStartNodeSet
 			? NodeType.START
 			: node.isTarget || !appState.isTargetNodeSet
@@ -56,7 +56,7 @@ export const useNodeHelper = () => {
 	};
 
 	const handleClassNameGameOfLife = (node) => {
-		return node.isCell ? NodeType.CELL : NodeType.NODE;
+		return node.isAutomata ? NodeType.AUTOMATA : NodeType.NODE;
 	};
 
 	const handleClassNamePathfinding = (node) => {

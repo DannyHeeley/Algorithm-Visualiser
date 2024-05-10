@@ -38,7 +38,7 @@ const cellIsAlive = (cell, numberOfAliveNeighbours) => {
 	// - Any live cell with fewer than two live neighbors dies, as if by underpopulation. (if alive neighbours is less than 2, cell = 0 (dead))
 	// - Any live cell with two or three live neighbors lives on to the next generation. (if alive neightbours is 2 or 3, cell = 1 (alive))
 	// - Any live cell with more than three live neighbors dies, as if by overpopulation. (if alive neighbours is more than 3, cell = 0 (dead))
-	if (cell.isCell) {
+	if (cell.isAutomata) {
 		return numberOfAliveNeighbours === 2 || numberOfAliveNeighbours === 3;
 	} else {
 		// - Any dead cell with exactly three live neighbors becomes a live cell, as if by reproduction. (if alive neighbours is exactly 3, alive neighbours become live cells)
@@ -52,7 +52,7 @@ const neighbourIsAliveAndWithinGrid = (neighbourRow, neighbourCol, grid) => {
 		neighbourRow < grid.length &&
 		neighbourCol >= 0 &&
 		neighbourCol < grid[neighbourRow].length &&
-		grid[neighbourRow][neighbourCol].isCell
+		grid[neighbourRow][neighbourCol].isAutomata
 	);
 };
 
@@ -81,7 +81,7 @@ const getNewGridForNextGen = (cell, numberOfAliveNeighbours, prevGenerationGrid)
 	const thisCell = newGrid[cell.row][cell.col];
 	const newCell = {
 		...thisCell,
-		[NodeType.CELL]: cellIsAlive(thisCell, numberOfAliveNeighbours),
+		[NodeType.AUTOMATA]: cellIsAlive(thisCell, numberOfAliveNeighbours),
 	};
 	newGrid[cell.row][cell.col] = newCell;
 	return newGrid;

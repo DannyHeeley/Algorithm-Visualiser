@@ -1,22 +1,22 @@
 import { nodeIsAStartOrTarget } from '../../Components/Grid/Node/NodeHelper.js';
 import { toggleIsAnimating } from '../../../App.jsx';
+import { NodeType } from '../../Components/Grid/Node/NodeType.js';
 
-export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState) => {
+export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState) => {
 	let i = 0;
 	let intervalID;
 	const timeDelay = 1000 / appState.animationSpeed;
 
 	const animate = () => {
 		const node = visitedNodesInOrder[i];
-		//If we have been through all the nodes
 		if (i >= visitedNodesInOrder.length) {
-			// Stop the animation and animate the shortest path
+			// Stop the animation and animate the shortest path if we have been through all the nodes
 			clearInterval(intervalID);
-			animateShortestPath(shortestPathNodesInOrder);
+			animateShortestPath(shortestPathNodesInOrder, setAppState);
 			toggleIsAnimating(setAppState);
 			return;
 		}
-		updateCurrentNode(node);
+		updateCurrentNode(node, setAppState);
 		i++;
 	};
 
@@ -24,25 +24,46 @@ export const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder
 	intervalID = setInterval(animate, timeDelay); // Repeatedly calls a function with a fixed time delay between each call
 };
 
-// BAD PRACTICE TO DO THIS IN REACT,
-// TODO: NEED TO REWRITE TO USE SOMETHING OTHER THAN DIRECT DOM MANIPULATION.
-const animateShortestPath = (nodesInShortestPathOrder) => {
+const animateShortestPath = (nodesInShortestPathOrder, setAppState) => {
 	for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
 		const node = nodesInShortestPathOrder[i];
 		setTimeout(() => {
 			if (nodeIsAStartOrTarget(node)) return;
 			if (node.isWeighted) {
-				document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-weighted-shortest-path';
+				handleGridUpdateForNode(node, NodeType.SHORTEST_PATH_WEIGHTED, setAppState);
 			} else {
-				document.getElementById(`node-${node.row}-${node.col}`).className = 'node node-shortest-path';
+				handleGridUpdateForNode(node, NodeType.SHORTEST_PATH, setAppState);
 			}
 		}, 50 * i);
 	}
 };
 
-const updateCurrentNode = (node) => {
+const updateCurrentNode = (node, setAppState) => {
 	if (!nodeIsAStartOrTarget(node) && !node.isWeighted) {
-		//node.isVisited = !node.isVisited;
-		document.getElementById(`node-${node.row}-${node.col}`).className = 'node isVisited';
+		handleGridUpdateForNode(node, NodeType.VISITED, setAppState);
 	}
+};
+
+const handleGridUpdateForNode = (node, nodeType, setAppState) => {
+	setAppState((prevState) => {
+		return {
+			...prevState,
+			grid:
+				nodeType === NodeType.VISITED
+					? getNewGridForAnimation(node, nodeType, prevState.grid)
+					: getNewGridForAnimation(node, nodeType, prevState.grid, false),
+		};
+	});
+};
+
+const getNewGridForAnimation = (node, nodeType, grid, setIsVisited=true) => {
+	const newGrid = grid.slice();
+	const thisNode = newGrid[node.row][node.col];
+	const newNode = {
+		...thisNode,
+		[nodeType]: true,
+		isVisited: setIsVisited,
+	};
+	newGrid[node.row][node.col] = newNode;
+	return newGrid;
 };

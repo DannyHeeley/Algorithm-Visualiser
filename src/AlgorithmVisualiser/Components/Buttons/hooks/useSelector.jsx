@@ -73,6 +73,6 @@ export const useSelector = (appState, setAppState) => {
 };
 
 // function logAllNodesThatAreCell(newGrid) {
-// 	newGrid.forEach((row) => row.filter((node) => node.isCell).forEach((cell) => console.log("in handleModeChange: ", cell)));
+// 	newGrid.forEach((row) => row.filter((node) => node.isAutomata).forEach((cell) => console.log("in handleModeChange: ", cell)));
 // }
 
