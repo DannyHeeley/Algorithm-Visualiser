@@ -2,6 +2,7 @@ import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { NodeType } from './NodeType.js';
 
 export const useNodeHelper = () => {
+
 	const initialiseNode = (col, row, appState) => {
 		return {
 			col,
@@ -41,16 +42,16 @@ export const useNodeHelper = () => {
 		return appState.isStartNodeSet && appState.isTargetNodeSet;
 	};
 
-	const handleExtraClassNameFor = (node, mode, randomUnsortedValues) => {
-		return mode === APP_MODES.GAME_OF_LIFE_MODE
+	const handleExtraClassNameFor = (node, appState) => {
+		return appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE
 			? handleClassNameGameOfLife(node)
-			: mode === APP_MODES.SORTING_MODE
-			? handleClassNameSorting(node, randomUnsortedValues)
+			: appState.currentMode === APP_MODES.SORTING_MODE
+			? handleClassNameSorting(node, appState)
 			: handleClassNamePathfinding(node);
 	};
 
-	const handleClassNameSorting = (node, randomUnsortedValues) => {
-		if (node.row < randomUnsortedValues[node.col]) {
+	const handleClassNameSorting = (node, appState) => {
+		if (node.row < appState.randomUnsortedValues[node.col]) {
 			return NodeType.SORTING;
 		}
 		return NodeType.NODE;
@@ -77,6 +78,6 @@ export const useNodeHelper = () => {
 			? NodeType.VISITED
 			: NodeType.NODE;
 	};
-	return { initialiseNode, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet, handleExtraClassNameFor }
+	
+	return { initialiseNode, typeOfNode, nodeIsAStartOrTarget, startAndTargetNodesSet, handleExtraClassNameFor };
 };
-

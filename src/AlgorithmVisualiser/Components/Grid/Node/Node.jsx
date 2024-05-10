@@ -1,25 +1,22 @@
-import { memo } from "react";
-import { useNodeHelper } from "./useNodeHelper";
+import { memo } from 'react';
+import { useNodeHelper } from './useNodeHelper';
+import { useMouseEvents } from '../useMouseEvents';
 
-export const Node = memo(
-  ({
-    node,
-    mode,
-    randomUnsortedValues,
-    onMouseDown,
-    onMouseEnter,
-    onMouseUp,
-	}) => {
+export const Node = memo(({ node, appState, setAppState }) => {
+	const { handleMouseDown, handleMouseEnter, handleMouseUp } = useMouseEvents(appState, setAppState);
 	const { handleExtraClassNameFor } = useNodeHelper();
-    return (
+	return (
 		<div
 			id={`node-${node.row}-${node.col}`}
-			className={`node ${handleExtraClassNameFor(node, mode, randomUnsortedValues)}`}
-			onMouseDown={onMouseDown}
-			onMouseEnter={onMouseEnter}
-			onMouseUp={onMouseUp}
-		></div>
+			className={`node ${handleExtraClassNameFor(node, appState)}`}
+			onMouseDown={() => {
+				handleMouseDown(node);
+			}}
+			onMouseEnter={() => {
+				handleMouseEnter(node);
+			}}
+			onMouseUp={() => {
+				handleMouseUp();
+			}}></div>
 	);
-  }
-);
-
+});

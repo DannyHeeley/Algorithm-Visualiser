@@ -14,7 +14,7 @@ export const GAME_OF_LIFE_PATTERNS = {
 		name: 'Gosper Glider Gun',
 		pattern:
 			'24bo11b$22bobo11b$12b2o6b2o12b2o$11bo3bo4b2o12b2o$2o8bo5bo3b2o14b$2o8bo3bob2o4bobo11b$10bo5bo7bo11b$11bo3bo20b$12b2o!',
-		offset: { x: 0, y: 0 },
+		offset: { x: 2, y: 2 },
 	},
 	GLIDER: {
 		name: 'Glider',

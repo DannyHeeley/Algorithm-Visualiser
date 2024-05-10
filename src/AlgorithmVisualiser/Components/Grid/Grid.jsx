@@ -2,9 +2,8 @@ import { Node } from './Node/Node';
 import { useMouseEvents } from './useMouseEvents';
 
 export const Grid = ({ appState, setAppState }) => {
-	const { handleMouseDown, handleMouseEnter, handleMouseUp, setMouseIsPressedTo } = useMouseEvents(appState, setAppState);
+	const { setMouseIsPressedTo } = useMouseEvents(appState, setAppState);
 	const mode = appState.currentMode;
-	const randomUnsortedValues = appState.randomUnsortedValues;
 	return (
 		<div
 			className={`grid-container ${mode}`}
@@ -27,18 +26,10 @@ export const Grid = ({ appState, setAppState }) => {
 						return (
 							<Node
 								key={nodeId}
-								mode={mode}
-								randomUnsortedValues={randomUnsortedValues}
+								appState={appState}
+								setAppState={setAppState}
 								node={{ ...node }}
-								onMouseDown={() => {
-									handleMouseDown(node);
-								}}
-								onMouseEnter={() => {
-									handleMouseEnter(node);
-								}}
-								onMouseUp={() => {
-									handleMouseUp();
-								}}></Node>
+							></Node>
 						);
 					})}
 				</div>
