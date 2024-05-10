@@ -1,0 +1,8 @@
+.tick-counter {
+    grid-row: 6 / 7;
+    grid-column: 1 / 2;
+    color: wheat;
+    font-size:xx-large;
+    place-self: end center;
+	margin-bottom: auto;
+}
