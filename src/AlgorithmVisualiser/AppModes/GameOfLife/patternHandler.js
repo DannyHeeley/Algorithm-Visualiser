@@ -24,35 +24,6 @@ const updateGridWithPattern = (patternData, grid, yOffset, xOffset) => {
 	return grid;
 };
 
-const parseRlePattern = (pattern) => {
-	const patternArray = pattern.split('');
-	let currentRow = [];
-	let patternData = [];
-	let runLengthStr = '';
-	for (let i = 0; i < patternArray.length; i++) {
-		const char = patternArray[i];
-		if (/\d/.test(char)) {
-			runLengthStr += char;
-		} else if (runLengthStr !== '') {
-			const runLength = parseInt(runLengthStr);
-			const nextChar = patternArray[i];
-			for (let j = 0; j < runLength; j++) {
-				currentRow.push(nextChar === 'b' ? false : true);
-			}
-			runLengthStr = '';
-		} else if (char === '$') {
-			patternData.push(currentRow);
-			currentRow = [];
-		} else if (char === '!') {
-			patternData.push(currentRow);
-			break;
-		} else {
-			currentRow.push(char === 'b' ? false : true);
-		}
-	}
-	return patternData;
-}
-
 const patternIsWithinGridBounds = (patternData, grid, xOffset, yOffset) => {
 	if (patternData.length > grid.length - yOffset) return false;
 	for (const row of patternData) {
@@ -60,3 +31,28 @@ const patternIsWithinGridBounds = (patternData, grid, xOffset, yOffset) => {
 	}
 	return true;
 };
+
+const parseRlePattern = (rleString) => {
+	const decodedPattern = decodeRle(rleString);
+	let patternData = [];
+	let currentRow = [];
+	for (let char of decodedPattern) {
+		if (char === 'b') currentRow.push(false);
+		if (char === 'o') currentRow.push(true);
+		if (char === '$') {
+			patternData.push(currentRow);
+			currentRow = [];
+		}
+		if (char === '!') {
+			patternData.push(currentRow);
+			break;
+		}
+	}
+	return patternData;
+};
+
+const decodeRle = (str) => {
+	return str.replace(/(\d+)(\w)/g, (_, n, c) => {
+		return new Array(parseInt(n, 10) + 1).join(c);
+	});
+}

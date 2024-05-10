@@ -8,7 +8,7 @@ export const GAME_OF_LIFE_PATTERNS = {
 		name: 'Two Engine Cordership',
 		pattern:
 			'19b2o$19b4o$19bob2o2$20bo$19b2o$19b3o$21bo$33b2o$33b2o7$36bo$35b2o$34bo3bo$35b2o2bo$40bo$37bobo$38bo$38bo$38b2o$38b2o3$13bo10bo$12b5o5bob2o11bo$11bo10bo3bo9bo$12b2o8b3obo9b2o$13b2o9b2o12bo$2o13bo21b3o$2o35b3o7$8b2o$8b2o11b2o$19b2o2bo$24bo3bo$18bo5bo3bo$19bo2b2o3bobo$20b3o5bo$28bo!',
-		offset: { x: 0, y: 0 },
+		offset: { x: 20, y: 10 },
 	},
 	GOSPER_GLIDER_GUN: {
 		name: 'Gosper Glider Gun',
@@ -38,6 +38,6 @@ export const GAME_OF_LIFE_PATTERNS = {
 		name: 'ACHIMSP11',
 		pattern:
 			'10b2o10b$10b2o10b$5bo10bo5b$4bobo8bobo4b$3bobo3bo2bo3bobo3b$2bobo4bo2bo4bobo2b$3bo5bo2bo5bo3b3$4b3o8b3o4b$2o18b2o$2o18b2o$4b3o8b3o4b3$3bo5bo2bo5bo3b$2bobo4bo2bo4bobo2b$3bobo3bo2bo3bobo3b$4bobo8bobo4b$5bo10bo5b$10b2o10b$10b2o!',
-		offset: { x: 20, y: 2 },
+		offset: { x: 35, y: 20 },
 	},
 };
