@@ -1,6 +1,6 @@
 import { toggleIsAnimating } from "../../../App";
 
-export const animateGameOfLife = (
+export const startGameOfLife = (
     gameOfLife,
     appState,
     setAppState,

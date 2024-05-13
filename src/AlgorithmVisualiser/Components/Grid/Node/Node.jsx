@@ -8,7 +8,7 @@ export const Node = memo(({ node, appState, setAppState }) => {
 	return (
 		<div
 			id={`node-${node.row}-${node.col}`}
-			className={`node ${handleExtraClassNameFor(node, appState)} ${appState.currentMode.name}`}
+			className={`node ${handleExtraClassNameFor(node, appState)} ${appState.CURRENT_MODE.name}`}
 			onMouseDown={() => {
 				handleMouseDown(node);
 			}}

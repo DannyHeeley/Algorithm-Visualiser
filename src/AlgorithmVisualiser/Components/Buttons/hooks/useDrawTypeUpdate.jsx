@@ -1,6 +1,6 @@
 import { APP_MODES } from '../../../AppModes/APP_MODES';
 
-export const useToggleDrawType = (appState, setAppState) => {
+export const useDrawTypeUpdate = (appState, setAppState) => {
 
 	const { WALL, WEIGHTED } = APP_MODES.PATHFINDING_MODE.DRAW_TYPE;
 

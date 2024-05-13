@@ -13,15 +13,14 @@ import { TickCounter } from './Components/Info/TickCounter.jsx';
 import { PatternSelector } from './Components/Buttons/PatternSelector.jsx';
 
 export const AlgorithmVisualiser = ({ appState, setAppState }) => {
-	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE } = APP_MODES;
+	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = APP_MODES;
 	return (
 		<>
 			<div className='pathfinder-container'>
 				<div className='app-title'>ALGORITHM VISUALISER</div>
 				<ModeSelector
 					appState={appState}
-					setAppState={setAppState}
-				></ModeSelector>
+					setAppState={setAppState}></ModeSelector>
 				<Grid
 					appState={appState}
 					setAppState={setAppState}></Grid>
@@ -31,14 +30,17 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 					setAppState={setAppState}></ResetButton>
 				<VisualiseButton
 					appState={appState}
-					setAppState={setAppState}
-				></VisualiseButton>
-				{appState.currentMode === PATHFINDING_MODE && (
+					setAppState={setAppState}></VisualiseButton>
+				{appState.CURRENT_MODE === SORTING_MODE && (
+					<ToggleAlgorithmButton
+						appState={appState}
+						setAppState={setAppState}></ToggleAlgorithmButton>
+				)}
+				{appState.CURRENT_MODE === PATHFINDING_MODE && (
 					<>
 						<ToggleAlgorithmButton
 							appState={appState}
-							setAppState={setAppState}
-						></ToggleAlgorithmButton>
+							setAppState={setAppState}></ToggleAlgorithmButton>
 						<DrawTypeButton
 							appState={appState}
 							setAppState={setAppState}></DrawTypeButton>
@@ -52,12 +54,11 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 						/>
 					</>
 				)}
-				{appState.currentMode === GAME_OF_LIFE_MODE && (
+				{appState.CURRENT_MODE === GAME_OF_LIFE_MODE && (
 					<>
 						<PatternSelector
 							appState={appState}
-							setAppState={setAppState}
-						></PatternSelector>
+							setAppState={setAppState}></PatternSelector>
 						<Rules></Rules>
 						<TickCounter appState={appState}></TickCounter>
 					</>

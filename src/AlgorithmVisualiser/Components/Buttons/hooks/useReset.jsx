@@ -9,12 +9,13 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 	const { PATHFINDING_MODE, SORTING_MODE, GAME_OF_LIFE_MODE } = APP_MODES;
 
 	const handleReset = () => {
-		switch (appState.currentMode) {
+		switch (appState.CURRENT_MODE) {
 			case SORTING_MODE:
+				clearInterval(appState.intervalId);
 				return setAppState((prevState) => {
 					return {
 						...prevState,
-						randomUnsortedValues: generateRandomUnsortedValues(),
+						sortingArray: generateRandomUnsortedValues(),
 						grid: initialiseGrid(appState),
 						needsReset: false,
 						isAnimating: false,
@@ -26,10 +27,6 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 				return setAppState((prevState) => {
 					return {
 						...prevState,
-						startNodeCol: 15,
-						startNodeRow: 13,
-						targetNodeCol: 34,
-						targetNodeRow: 13,
 						grid: initialiseGrid(appState),
 						needsReset: false,
 						isAnimating: false,

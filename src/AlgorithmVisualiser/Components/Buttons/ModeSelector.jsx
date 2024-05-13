@@ -5,12 +5,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useSelector } from './hooks/useSelector';
+import { useModeSelector } from './hooks/useModeSelector';
 import { APP_MODES } from '../../AppModes/APP_MODES';
 
 export const ModeSelector = ({ appState, setAppState }) => {
-	const { handleModeChange } = useSelector(appState, setAppState);
+	
+	const handleModeChange = useModeSelector(appState, setAppState);
 	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = APP_MODES;
+
 	return (
 		<Box
 			sx={{
@@ -39,8 +41,8 @@ export const ModeSelector = ({ appState, setAppState }) => {
 						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
 
 					}}
-					value={appState.currentMode}
-					label='currentMode'
+					value={appState.CURRENT_MODE}
+					label='CURRENT_MODE'
 					onChange={(event) => handleModeChange(event)}>
 					<MenuItem
 						value={PATHFINDING_MODE}

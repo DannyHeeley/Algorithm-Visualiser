@@ -20,7 +20,7 @@ export const Grid = ({ appState, setAppState }) => {
 				}
 			}}>
 			{appState.grid.map((row, rowId) => (
-				<div key={rowId}>
+				<div className='row' key={rowId}>
 					{row.map((node, nodeId) => {
 						return (
 							<Node

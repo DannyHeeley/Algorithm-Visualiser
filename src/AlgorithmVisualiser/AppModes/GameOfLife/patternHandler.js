@@ -44,7 +44,9 @@ const parseRlePattern = (rleString) => {
 			currentRow = [];
 		}
 		if (char === '!') {
-			patternData.push(currentRow);
+			if (currentRow.length > 0) {
+				patternData.push(currentRow);
+			}
 			break;
 		}
 	}

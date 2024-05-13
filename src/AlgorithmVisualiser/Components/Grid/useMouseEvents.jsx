@@ -11,7 +11,7 @@ export const useMouseEvents = (appState, setAppState) => {
 		if (appState.isAnimating || appState.needsReset) return;
 		setMouseIsPressedTo(true);
 		const thisNodeType = typeOfNode(node, appState);
-		if (startAndTargetNodesSet(appState) || appState.currentMode === GAME_OF_LIFE_MODE) {
+		if (startAndTargetNodesSet(appState) || appState.CURRENT_MODE === GAME_OF_LIFE_MODE) {
 			if (nodeIsAStartOrTarget(node)) {
 				handleStartOrTargetDeselect(node, thisNodeType);
 			} else {
@@ -26,7 +26,7 @@ export const useMouseEvents = (appState, setAppState) => {
 		if (appState.isAnimating || appState.needsReset) return;
 		if (
 			(appState.mouseIsPressed && startAndTargetNodesSet(appState)) ||
-			(appState.mouseIsPressed && appState.currentMode === GAME_OF_LIFE_MODE)
+			(appState.mouseIsPressed && appState.CURRENT_MODE === GAME_OF_LIFE_MODE)
 		) {
 			if (nodeIsAStartOrTarget(node)) return;
 			const thisNodeType = typeOfNode(node, appState)

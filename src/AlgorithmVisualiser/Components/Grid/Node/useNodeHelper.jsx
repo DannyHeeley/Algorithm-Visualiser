@@ -23,7 +23,7 @@ export const useNodeHelper = () => {
 	};
 
 	const typeOfNode = (node, appState) => {
-		return appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE
+		return appState.CURRENT_MODE === APP_MODES.GAME_OF_LIFE_MODE
 			? NodeType.AUTOMATA
 			: node.isStart || !appState.isStartNodeSet
 			? NodeType.START
@@ -43,15 +43,15 @@ export const useNodeHelper = () => {
 	};
 
 	const handleExtraClassNameFor = (node, appState) => {
-		return appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE
+		return appState.CURRENT_MODE === APP_MODES.GAME_OF_LIFE_MODE
 			? handleClassNameGameOfLife(node)
-			: appState.currentMode === APP_MODES.SORTING_MODE
+			: appState.CURRENT_MODE === APP_MODES.SORTING_MODE
 			? handleClassNameSorting(node, appState)
 			: handleClassNamePathfinding(node);
 	};
 
 	const handleClassNameSorting = (node, appState) => {
-		if (node.row < appState.randomUnsortedValues[node.col]) {
+		if (node.row < appState.sortingArray[node.col]) {
 			return NodeType.SORTING;
 		}
 		return NodeType.NODE;

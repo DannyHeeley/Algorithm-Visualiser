@@ -20,7 +20,7 @@ const App = () => {
 
 	const [appState, setAppState] = useState({
 		grid: [],
-		currentMode: APP_MODES.PATHFINDING_MODE,
+		CURRENT_MODE: APP_MODES.PATHFINDING_MODE,
 		CURRENT_PATTERN: GAME_OF_LIFE_PATTERNS.COPPERHEAD,
 		CURRENT_ALGORITHM: APP_MODES.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA,
 		DRAW_TYPE: APP_MODES.PATHFINDING_MODE.DRAW_TYPE.WALL,
@@ -37,19 +37,19 @@ const App = () => {
 		isAnimating: false,
 		mouseIsPressed: false,
 		needsReset: false,
-		randomUnsortedValues: generateRandomUnsortedValues(),
+		sortingArray: generateRandomUnsortedValues(),
 	});
 
 	useEffect(() => {
 		const newGrid =
-			appState.currentMode === APP_MODES.GAME_OF_LIFE_MODE
+			appState.CURRENT_MODE === APP_MODES.GAME_OF_LIFE_MODE
 				? initialiseGridWithPattern(appState.CURRENT_PATTERN, initialiseGrid(appState))
 				: initialiseGrid(appState);
 		setAppState((prevState) => ({
 			...prevState,
 			grid: newGrid,
 		}));
-	}, [appState.currentMode]);
+	}, [appState.CURRENT_MODE]);
 
 	return (
 		<div className='app-container'>
@@ -63,8 +63,8 @@ const App = () => {
 
 export const initialiseGrid = (appState) => {
 	const { initialiseNode } = useNodeHelper();
-	return Array.from({ length: appState.currentMode.GRID_DIMENSIONS.numOfRows }, (_, row) =>
-		Array.from({ length: appState.currentMode.GRID_DIMENSIONS.numOfCols }, (_, col) => {
+	return Array.from({ length: appState.CURRENT_MODE.GRID_DIMENSIONS.numOfRows }, (_, row) =>
+		Array.from({ length: appState.CURRENT_MODE.GRID_DIMENSIONS.numOfCols }, (_, col) => {
 			return initialiseNode(col, row, appState);
 		})
 	);

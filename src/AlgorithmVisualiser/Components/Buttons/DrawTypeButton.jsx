@@ -1,8 +1,8 @@
 
-import { useToggleDrawType } from './hooks/useToggleDrawType'
+import { useDrawTypeUpdate } from './hooks/useDrawTypeUpdate'
 
 export const DrawTypeButton = ({ appState, setAppState }) => {
-	const { changeDrawType } = useToggleDrawType(appState, setAppState);
+	const { changeDrawType } = useDrawTypeUpdate(appState, setAppState);
 	return (
 		<div className='draw-type'>
 			<button

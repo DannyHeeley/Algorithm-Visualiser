@@ -2,11 +2,9 @@ import { useNodeHelper } from '../../Components/Grid/Node/useNodeHelper.jsx';
 import { toggleIsAnimating } from '../../../App.jsx';
 import { NodeType } from '../../Components/Grid/Node/NodeType.js';
 
-export const usePathfindingAnimation = () => {
-	
 	const { nodeIsAStartOrTarget } = useNodeHelper();
 	
-	const animatePathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState) => {
+	export const startPathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState) => {
 		let i = 0;
 		let intervalId;
 		const timeDelay = 1000 / appState.animationSpeed;
@@ -80,8 +78,6 @@ export const usePathfindingAnimation = () => {
 		});
 	};
 
-	return animatePathfinding;
-}
 
 
 

@@ -5,12 +5,14 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-import { useSelector } from './hooks/useSelector';
 import { GAME_OF_LIFE_PATTERNS } from '../../AppModes/GameOfLife/GAME_OF_LIFE_PATTERNS';
+import { usePatternSelector } from './hooks/usePatternSelector';
 
 export const PatternSelector = ({ appState, setAppState }) => {
-	const { handlePatternChange } = useSelector(appState, setAppState);
+
+	const handlePatternChange = usePatternSelector(appState, setAppState);
 	const patterns = Object.values(GAME_OF_LIFE_PATTERNS);
+
 	return (
 		<Box
 			sx={{
@@ -40,7 +42,7 @@ export const PatternSelector = ({ appState, setAppState }) => {
 						width: '100%',
 					}}
 					value={appState.CURRENT_PATTERN}
-					label='currentMode'
+					label='CURRENT_MODE'
 					onChange={(event) => handlePatternChange(event)}>
 					{patterns.map((PATTERN, index) => {
 						return (

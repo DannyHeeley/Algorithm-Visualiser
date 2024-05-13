@@ -10,7 +10,7 @@
     position: relative;
 }
 
-.node.GAMEOFLIFE {
+.node.Game_of_Life {
 	width: calc(0.88vw - 2px);
 	height: calc(0.8vw - 2px);
 	min-height: 9.25px;
@@ -19,16 +19,22 @@
 	border: 1px solid rgba(204, 204, 204, 0.37);
 	display: inline-flex;
 	position: relative;
+	overflow: visible;
+	flex-wrap: nowrap;
+}
+
+.row {
+	display: flex;
 }
 
 .isTarget {
     background-color: red;
-    border: 2px solid black;
+		box-shadow: inset 0px 0px 0px 1px black;
 }
 
 .isStart {
     background-color: rgb(165, 0, 180);
-    border: 2px solid black;
+	box-shadow: inset 0px 0px 0px 1px black;
 }
 
 .isWall {
@@ -41,6 +47,8 @@
 
 .isSorting {
     background-color:blueviolet;
+	box-sizing: border-box;
+	box-shadow: inset 0px 0px 0px 0.8px black;
 }
 
 .isAutomata {

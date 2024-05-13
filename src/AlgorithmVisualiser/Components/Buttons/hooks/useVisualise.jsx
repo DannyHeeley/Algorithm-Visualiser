@@ -3,24 +3,32 @@ import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { useNodeHelper } from "../../Grid/Node/useNodeHelper";
 
 export const useVisualise = (appState, setAppState) => {
+
 	const { startAndTargetNodesSet } = useNodeHelper();
-	const { CURRENT_ALGORITHM, currentMode } = appState;
+	const { CURRENT_ALGORITHM, CURRENT_MODE } = appState;
 	const gameOfLife = APP_MODES.GAME_OF_LIFE_MODE.algorithm;
-	const PATHFINDING_MODE = APP_MODES.PATHFINDING_MODE;
+	const { PATHFINDING_MODE, GAME_OF_LIFE_MODE, SORTING_MODE } = APP_MODES;
 
 	const visualiseAlgorithm = () => {
-		if (appState.isAnimating || appState.needsReset || (!startAndTargetNodesSet(appState) && appState.currentMode === PATHFINDING_MODE)) return;
+		if (appState.isAnimating || appState.needsReset || (!startAndTargetNodesSet(appState) && appState.CURRENT_MODE === PATHFINDING_MODE)) return;
 		let visitedNodesInOrder, shortestPathNodesInOrder;
 		toggleIsAnimating(setAppState);
 		toggleNeedsReset(setAppState);
+
 		setTimeout(() => {
 			const startNode = appState.grid[appState.startNodeRow]?.[appState.startNodeCol];
 			const targetNode = appState.grid[appState.targetNodeRow]?.[appState.targetNodeCol];
-			if (CURRENT_ALGORITHM === gameOfLife) {
-				currentMode.animation(gameOfLife, appState, setAppState);
-			} else {
-				[visitedNodesInOrder, shortestPathNodesInOrder] = CURRENT_ALGORITHM.algorithm(appState.grid, startNode, targetNode);
-				currentMode.animation(visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState);
+			switch (CURRENT_MODE) {
+				case GAME_OF_LIFE_MODE:
+					CURRENT_MODE.animation(gameOfLife, appState, setAppState);
+					return;
+				case PATHFINDING_MODE:
+					[visitedNodesInOrder, shortestPathNodesInOrder] = CURRENT_ALGORITHM.algorithm(appState.grid, startNode, targetNode);
+					CURRENT_MODE.animation(visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState);
+					return;
+				case SORTING_MODE:
+					CURRENT_MODE.animation(appState, setAppState);
+					return;
 			}
 		}, 0);
 	};
