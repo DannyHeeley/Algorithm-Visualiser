@@ -8,7 +8,7 @@ import { startSorting } from './Sorting/startSorting.js';
 
 export const APP_MODES = {
 	PATHFINDING_MODE: {
-		name: 'Pathfinding',
+		name: 'Pathfinding Mode',
 		GRID_DIMENSIONS: { numOfRows: 25, numOfCols: 50 },
 		ALGORITHMS: PATHFINDING_ALGORITHMS,
 		animation: startPathfinding,
@@ -18,13 +18,13 @@ export const APP_MODES = {
 		},
 	},
 	SORTING_MODE: {
-		name: 'Sorting',
+		name: 'Sorting Mode',
 		GRID_DIMENSIONS: { numOfRows: 25, numOfCols: 50 },
 		ALGORITHMS: SORTING_ALGORITHMS,
 		animation: startSorting,
 	},
 	GAME_OF_LIFE_MODE: {
-		name: 'Game_of_Life',
+		name: 'Game of Life Mode',
 		GRID_DIMENSIONS: { numOfRows: 50, numOfCols: 100 },
 		algorithm: gameOfLife,
 		animation: startGameOfLife,

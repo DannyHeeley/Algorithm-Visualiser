@@ -1,4 +1,9 @@
 export const GAME_OF_LIFE_PATTERNS = {
+	NO_PATTERN: {
+		name: 'No Pattern',
+		pattern: '',
+		offset: { x: 0, y: 0 },
+	},
 	COPPERHEAD: {
 		name: 'Copperhead',
 		pattern: '5bob2o$4bo6bo$3b2o3bo2bo$2obo5b2o$2obo5b2o$3b2o3bo2bo$4bo6bo$5bob2o!',

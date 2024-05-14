@@ -27,7 +27,7 @@ export const PatternSelector = ({ appState, setAppState }) => {
 				fontSize: '5px',
 				marginRight: '5px',
 			}}>
-			<FormControl>
+			<FormControl sx={{ width: '100%' }}>
 				<InputLabel
 					sx={{
 						color: 'white',
@@ -47,10 +47,9 @@ export const PatternSelector = ({ appState, setAppState }) => {
 					{patterns.map((PATTERN, index) => {
 						return (
 							<MenuItem
-								sx={{fontSize: '13px'}}
+								sx={{ fontSize: '13px' }}
 								key={index}
-								value={PATTERN}
-							>
+								value={PATTERN}>
 								{PATTERN.name}
 							</MenuItem>
 						);

@@ -11,7 +11,7 @@ import { APP_MODES } from '../../AppModes/APP_MODES';
 export const ModeSelector = ({ appState, setAppState }) => {
 	
 	const handleModeChange = useModeSelector(appState, setAppState);
-	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = APP_MODES;
+	const appModes = Object.values(APP_MODES);
 
 	return (
 		<Box
@@ -22,12 +22,11 @@ export const ModeSelector = ({ appState, setAppState }) => {
 				backgroundColor: '#f6fff0',
 				placeSelf: 'center',
 				width: '75%',
-				minWidth: '160px',
 				borderRadius: '5px',
 				fontSize: '5px',
 				marginRight: '5px',
 			}}>
-			<FormControl>
+			<FormControl sx={{ width: '100%' }}>
 				<InputLabel
 					sx={{
 						color: 'white',
@@ -43,27 +42,16 @@ export const ModeSelector = ({ appState, setAppState }) => {
 					value={appState.CURRENT_MODE}
 					label='CURRENT_MODE'
 					onChange={(event) => handleModeChange(event)}>
-					<MenuItem
-						value={PATHFINDING_MODE}
-						sx={{
-							fontSize: '13px',
-						}}>
-						Pathfinding Algorithms
-					</MenuItem>
-					<MenuItem
-						value={SORTING_MODE}
-						sx={{
-							fontSize: '13px',
-						}}>
-						Sorting Algorithms
-					</MenuItem>
-					<MenuItem
-						value={GAME_OF_LIFE_MODE}
-						sx={{
-							fontSize: '13px',
-						}}>
-						Conway's Game of Life
-					</MenuItem>
+					{appModes.map((mode) => {
+						return (
+							<MenuItem
+								value={mode}
+								sx={{
+									fontSize: '13px',
+								}}>
+								{mode.name}
+							</MenuItem>)
+						})}
 				</Select>
 			</FormControl>
 		</Box>

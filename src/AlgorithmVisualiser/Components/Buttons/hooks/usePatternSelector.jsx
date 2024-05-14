@@ -6,12 +6,14 @@ import { APP_MODES } from '../../../AppModes/APP_MODES';
 
 export const usePatternSelector = (appState, setAppState) => {
 	const { GAME_OF_LIFE_MODE } = APP_MODES;
-	const { COPPERHEAD, TWO_ENGINE_CORDERSHIP, GOSPER_GLIDER_GUN, GLIDER, SIR_ROBIN, SNARK_LOOP, ACHIMSP11 } = GAME_OF_LIFE_MODE.PATTERNS;
+	const { COPPERHEAD, TWO_ENGINE_CORDERSHIP, GOSPER_GLIDER_GUN, GLIDER, SIR_ROBIN, SNARK_LOOP, ACHIMSP11, NO_PATTERN } = GAME_OF_LIFE_MODE.PATTERNS;
 
 	let newGrid = initialiseGrid(appState);
 
 	const handlePatternChange = (event) => {
 		switch (event.target.value) {
+			case NO_PATTERN:
+				return changePattern(NO_PATTERN);
 			case COPPERHEAD:
 				return changePattern(COPPERHEAD);
 			case TWO_ENGINE_CORDERSHIP:
