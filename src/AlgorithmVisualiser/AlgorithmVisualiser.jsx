@@ -11,6 +11,7 @@ import { initialiseGrid } from '../App.jsx';
 import { APP_MODES } from './AppModes/APP_MODES.js';
 import { TickCounter } from './Components/Info/TickCounter.jsx';
 import { PatternSelector } from './Components/Buttons/PatternSelector.jsx';
+import { SortingInfo } from './Components/Info/sortingInfo.jsx';
 
 export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = APP_MODES;
@@ -31,11 +32,6 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 				<VisualiseButton
 					appState={appState}
 					setAppState={setAppState}></VisualiseButton>
-				{appState.CURRENT_MODE === SORTING_MODE && (
-					<ToggleAlgorithmButton
-						appState={appState}
-						setAppState={setAppState}></ToggleAlgorithmButton>
-				)}
 				{appState.CURRENT_MODE === PATHFINDING_MODE && (
 					<>
 						<ToggleAlgorithmButton
@@ -52,6 +48,14 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 							appState={appState}
 							setAppState={setAppState}
 						/>
+					</>
+				)}
+				{appState.CURRENT_MODE === SORTING_MODE && (
+					<>
+						<ToggleAlgorithmButton
+							appState={appState}
+							setAppState={setAppState}></ToggleAlgorithmButton>
+						<SortingInfo appState={appState}></SortingInfo>
 					</>
 				)}
 				{appState.CURRENT_MODE === GAME_OF_LIFE_MODE && (

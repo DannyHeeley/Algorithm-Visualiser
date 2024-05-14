@@ -1,17 +1,14 @@
+import { swapValues, updateStateForStep } from "../sortHelper";
+
 export const bubbleSort = (list, setAppState) => {
 	let i = 0;
 	let j = 0;
-
 	let sortingInterval = setInterval(() => {
 		if (i < list.length - 1) {
 			if (j < list.length - 1 - i) {
 				if (list[j] > list[j + 1]) {
-					[list[j], list[j + 1]] = [list[j + 1], list[j]];
-					setAppState((prevState) => ({
-						...prevState,
-						sortingArray: [...list],
-						intervalId: sortingInterval
-					}));
+					swapValues(list, j, j + 1)
+					updateStateForStep(setAppState, list, sortingInterval);
 				}
 				j++;
 			} else {
@@ -20,9 +17,8 @@ export const bubbleSort = (list, setAppState) => {
 			}
 		} else {
 			clearInterval(sortingInterval);
-
 		}
-	}, 50);	
-				return list;
+	}, 100);	
+	return list;
 };
 

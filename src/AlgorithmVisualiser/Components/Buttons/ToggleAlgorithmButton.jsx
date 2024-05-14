@@ -1,11 +1,12 @@
 import { useAlgorithmUpdate } from "./hooks/useAlgorithmUpdate";
 
 export const ToggleAlgorithmButton = ({ appState, setAppState }) => {
+	const handleAlgorithmUpdate = useAlgorithmUpdate(appState, setAppState);
 	return (
 		<div className='toggle-algorithm'>
 			<button
 				className='toggle-algorithm-button'
-				onClick={useAlgorithmUpdate(appState, setAppState)}>
+				onClick={handleAlgorithmUpdate}>
 				&#129518;
 			</button>
 			<div className='algorithm-text'>
@@ -14,5 +15,3 @@ export const ToggleAlgorithmButton = ({ appState, setAppState }) => {
 		</div>
 	);
 };
-
-// TODO: This is likely the cause of broken visualise button

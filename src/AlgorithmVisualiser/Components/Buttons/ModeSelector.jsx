@@ -39,7 +39,6 @@ export const ModeSelector = ({ appState, setAppState }) => {
 				<Select
 					sx={{
 						fontSize: 'clamp(0.6rem, 0.65vw, 1vw)',
-
 					}}
 					value={appState.CURRENT_MODE}
 					label='CURRENT_MODE'

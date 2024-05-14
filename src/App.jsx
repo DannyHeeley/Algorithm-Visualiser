@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { AlgorithmVisualiser } from './AlgorithmVisualiser/AlgorithmVisualiser';
 import { useNodeHelper } from './AlgorithmVisualiser/Components/Grid/Node/useNodeHelper.jsx';
 import { generateRandomUnsortedValues } from './AlgorithmVisualiser/AppModes/Sorting/sortHelper.js';
-import { GAME_OF_LIFE_PATTERNS } from './AlgorithmVisualiser/AppModes/GameOfLife/GAME_OF_LIFE_PATTERNS.js';
 import { APP_MODES } from './AlgorithmVisualiser/AppModes/APP_MODES.js';
 import { initialiseGridWithPattern } from './AlgorithmVisualiser/AppModes/GameOfLife/patternHandler.js';
 
@@ -14,14 +13,14 @@ import './AlgorithmVisualiser/Components/Info/Legend.css';
 import './AlgorithmVisualiser/Components/Grid/Grid.css';
 import './AlgorithmVisualiser/Components/Info/Rules.css';
 import './AlgorithmVisualiser/Components/Info/TickCounter.css';
-
+import './AlgorithmVisualiser/Components/Info/SortingInfo.css'
 
 const App = () => {
 
 	const [appState, setAppState] = useState({
 		grid: [],
 		CURRENT_MODE: APP_MODES.PATHFINDING_MODE,
-		CURRENT_PATTERN: GAME_OF_LIFE_PATTERNS.COPPERHEAD,
+		CURRENT_PATTERN: null,
 		CURRENT_ALGORITHM: APP_MODES.PATHFINDING_MODE.ALGORITHMS.DJIKSTRA,
 		DRAW_TYPE: APP_MODES.PATHFINDING_MODE.DRAW_TYPE.WALL,
 		startNodeRow: 13,
@@ -37,8 +36,15 @@ const App = () => {
 		isAnimating: false,
 		mouseIsPressed: false,
 		needsReset: false,
-		sortingArray: generateRandomUnsortedValues(),
+		sortingArray: null,
 	});
+
+	useEffect(() => (
+		setAppState((prevState) => ({
+			...prevState,
+			sortingArray: generateRandomUnsortedValues(),
+		}))
+	), [])
 
 	useEffect(() => {
 		const newGrid =

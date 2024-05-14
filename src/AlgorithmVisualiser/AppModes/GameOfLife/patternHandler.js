@@ -1,7 +1,5 @@
-
-// TODO: Memoise the pattern once parsed within the pattern object for better performance
-
 export const initialiseGridWithPattern = (patternObj, grid) => {
+	if (patternObj === null) return grid;
 	const patternData = parseRlePattern(patternObj.pattern);
 	const xOffset = patternObj.offset.x;
 	const yOffset = patternObj.offset.y;

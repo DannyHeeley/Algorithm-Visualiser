@@ -1,28 +1,26 @@
+import { updateStateForStep } from "../sortHelper";
+
 export const selectionSort = (list, setAppState) => {
 	let i = 0;
-	let minIndex = 0;
+	let indexOfMinimumVal = 0;
 
 	let sortingInterval = setInterval(() => {
 		if (i < list.length - 1) {
-			minIndex = i;
+			indexOfMinimumVal = i;
 			for (let j = i + 1; j < list.length; j++) {
-				if (list[j] < list[minIndex]) {
-					minIndex = j;
+				if (list[j] < list[indexOfMinimumVal]) {
+					indexOfMinimumVal = j;
 				}
 			}
-			if (minIndex !== i) {
-				[list[minIndex], list[i]] = [list[i], list[minIndex]];
-				setAppState((prevState) => ({
-					...prevState,
-					sortingArray: [...list],
-					intervalId: sortingInterval,
-				}));
+			if (indexOfMinimumVal !== i) {
+				[list[indexOfMinimumVal], list[i]] = [list[i], list[indexOfMinimumVal]];
+				updateStateForStep(setAppState, list, sortingInterval);
 			}
 			i++;
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 50);
+	}, 100);
 
 	return list;
 };

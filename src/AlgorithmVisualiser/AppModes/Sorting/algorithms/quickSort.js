@@ -16,7 +16,7 @@ export async function quickSort(list, setAppState) {
 		}
 		[list[i + 1], list[high]] = [list[high], list[i + 1]];
 		// Update app state
-		await new Promise((resolve) => setTimeout(resolve, 50));
+		await new Promise((resolve) => setTimeout(resolve, 100));
 		setAppState((prevState) => ({
 			...prevState,
 			sortingValues: [...list],

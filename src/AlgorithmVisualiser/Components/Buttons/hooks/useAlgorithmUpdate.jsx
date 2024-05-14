@@ -1,10 +1,14 @@
 import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { generateRandomUnsortedValues } from '../../../AppModes/Sorting/sortHelper';
+import { isSorted } from '../../../AppModes/Sorting/sortHelper';
 
 export const useAlgorithmUpdate = (appState, setAppState) => {
 	const { PATHFINDING_MODE, SORTING_MODE } = APP_MODES;
 	const { DJIKSTRA, GREEDYBESTFIRSTSEARCH, ASTAR4WAY, ASTAR8WAY } = APP_MODES.PATHFINDING_MODE.ALGORITHMS;
-	const { BUBBLE_SORT, QUICK_SORT, SELECTION_SORT, INSERTION_SORT, MERGE_SORT } = APP_MODES.SORTING_MODE.ALGORITHMS;
+	const { BUBBLE_SORT,QUICK_SORT, SELECTION_SORT, INSERTION_SORT, HEAP_SORT, COMB_SORT, GNOME_SORT,
+		BOGO_SORT,
+		COUNTING_SORT,
+	} = APP_MODES.SORTING_MODE.ALGORITHMS;
 
 	const handleAlgorithmUpdate = () => {
 		setAppState((prevState) => ({
@@ -32,21 +36,29 @@ export const useAlgorithmUpdate = (appState, setAppState) => {
 				: appState.CURRENT_ALGORITHM === SELECTION_SORT
 				? INSERTION_SORT
 				: appState.CURRENT_ALGORITHM === INSERTION_SORT
-				? MERGE_SORT
+				? HEAP_SORT
+				: appState.CURRENT_ALGORITHM === HEAP_SORT
+				? COMB_SORT
+				: appState.CURRENT_ALGORITHM === COMB_SORT
+				? GNOME_SORT
+				: appState.CURRENT_ALGORITHM === GNOME_SORT
+				? BOGO_SORT
+				: appState.CURRENT_ALGORITHM === BOGO_SORT
+				? COUNTING_SORT
 				: BUBBLE_SORT;
 		}
 	};
 
-	const shuffleSortingArray = (appState, setAppState) => {
-		if (isSorted(appState.sortingArray)) {
-			setAppState((prevState) => {
-				return {
-					...prevState,
-					sortingArray: generateRandomUnsortedValues(),
-				};
-			});
-		}
-	};
+	// const shuffleSortingArray = (appState, setAppState) => {
+	// 	if (isSorted(appState.sortingArray)) {
+	// 		setAppState((prevState) => {
+	// 			return {
+	// 				...prevState,
+	// 				sortingArray: generateRandomUnsortedValues(),
+	// 			};
+	// 		});
+	// 	}
+	// };
 
 	const isSorted = (list) => {
 		for (let i = 0; i < list.length - 1; i++) {
@@ -59,4 +71,3 @@ export const useAlgorithmUpdate = (appState, setAppState) => {
 
 	return handleAlgorithmUpdate;
 };
-
