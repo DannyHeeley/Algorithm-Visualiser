@@ -6,7 +6,7 @@ export const initialiseGridWithPattern = (patternObj, grid) => {
 	if (patternIsWithinGridBounds(patternData, grid, xOffset, yOffset)) {
 		updateGridWithPattern(patternData, grid, yOffset, xOffset);
 	} else {
-		throw new Error(`Pattern ${patternObj.name} doesn't fit within the newGrid!`);
+		throw new Error(`Pattern ${patternObj.name} doesn't fit within the grid!`);
 	}
 	return grid;
 };
@@ -32,11 +32,17 @@ const patternIsWithinGridBounds = (patternData, grid, xOffset, yOffset) => {
 
 const parseRlePattern = (rleString) => {
 	const decodedPattern = decodeRle(rleString);
+	console.log(decodedPattern);
 	let patternData = [];
 	let currentRow = [];
 	for (let char of decodedPattern) {
 		if (char === 'b') currentRow.push(false);
 		if (char === 'o') currentRow.push(true);
+		if (!isNaN(Number(char))) {
+			for (let i = 0; i < Number(char); i++) {
+				patternData.push([])
+			}
+		}
 		if (char === '$') {
 			patternData.push(currentRow);
 			currentRow = [];
@@ -52,7 +58,9 @@ const parseRlePattern = (rleString) => {
 };
 
 const decodeRle = (str) => {
-	return str.replace(/(\d+)(\w)/g, (_, n, c) => {
-		return new Array(parseInt(n, 10) + 1).join(c);
+	return str.replace(/(\d*)(\D)/g, (_, n, c) => {
+		const count = n !== '' ? parseInt(n, 10) : 1;
+		return c.repeat(count);
 	});
-}
+};
+

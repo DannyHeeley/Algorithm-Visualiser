@@ -42,9 +42,10 @@ export const ModeSelector = ({ appState, setAppState }) => {
 					value={appState.CURRENT_MODE}
 					label='CURRENT_MODE'
 					onChange={(event) => handleModeChange(event)}>
-					{appModes.map((mode) => {
+					{appModes.map((mode, index) => {
 						return (
 							<MenuItem
+								key={index}
 								value={mode}
 								sx={{
 									fontSize: '13px',
