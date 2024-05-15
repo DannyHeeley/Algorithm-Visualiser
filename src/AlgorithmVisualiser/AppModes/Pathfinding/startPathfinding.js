@@ -20,8 +20,7 @@ import { NodeType } from '../../Components/Grid/Node/NodeType.js';
 			updateCurrentNode(node, setAppState);
 			i++;
 		};
-		// Start the animation loop and return the ID (to be used in clearInterval when cancelling the animation)
-		intervalId = setInterval(animate, timeDelay); // Repeatedly calls a function with a fixed time delay between each call
+		intervalId = setInterval(animate, timeDelay);
 		setIntervalID(intervalId, setAppState);
 	};
 
