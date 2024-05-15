@@ -1,27 +1,26 @@
-export async function quickSort(list, setAppState) {
+import { swapValues, updateStateForStep } from "../sortHelper";
+
+export async function quickSort(list, setAppState, animationSpeed) {
 	async function partition(low, high) {
-		let pivot = list[high];
+		let pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
+		let pivot = list[pivotIndex];
+		swapValues(list, pivotIndex, high);
+		pivotIndex = high;
+
 		let i = low - 1;
 		for (let j = low; j < high; j++) {
 			if (list[j] < pivot) {
 				i++;
-				[list[i], list[j]] = [list[j], list[i]];
-				// Update app state
-				await new Promise((resolve) => setTimeout(resolve, 50));
-				setAppState((prevState) => ({
-					...prevState,
-					sortingValues: [...list],
-				}));
+				swapValues(list, i, j);
+				await new Promise((resolve) => setTimeout(resolve, animationSpeed));
+				updateStateForStep(setAppState, list);
 			}
 		}
-		[list[i + 1], list[high]] = [list[high], list[i + 1]];
-		// Update app state
-		await new Promise((resolve) => setTimeout(resolve, 100));
-		setAppState((prevState) => ({
-			...prevState,
-			sortingValues: [...list],
-		}));
-		return i + 1;
+		i++;
+		swapValues(list, i, pivotIndex); // Move pivot to its final position
+		await new Promise((resolve) => setTimeout(resolve, animationSpeed));
+		updateStateForStep(setAppState, list);
+		return i;
 	}
 
 	async function sort(low, high) {

@@ -1,6 +1,4 @@
 import { APP_MODES } from '../../../AppModes/APP_MODES';
-import { generateRandomUnsortedValues } from '../../../AppModes/Sorting/sortHelper';
-import { isSorted } from '../../../AppModes/Sorting/sortHelper';
 
 export const useAlgorithmUpdate = (appState, setAppState) => {
 	const { PATHFINDING_MODE, SORTING_MODE } = APP_MODES;
@@ -18,55 +16,51 @@ export const useAlgorithmUpdate = (appState, setAppState) => {
 	};
 
 	const algorithmRotator = () => {
-		if (appState.CURRENT_MODE === PATHFINDING_MODE) {
-			return appState.CURRENT_ALGORITHM === DJIKSTRA
-				? GREEDYBESTFIRSTSEARCH
-				: appState.CURRENT_ALGORITHM === GREEDYBESTFIRSTSEARCH
-				? ASTAR4WAY
-				: appState.CURRENT_ALGORITHM === ASTAR4WAY
-				? ASTAR8WAY
-				: DJIKSTRA;
-		}
-		if (appState.CURRENT_MODE === SORTING_MODE) {
-			//shuffleSortingArray(appState, setAppState);
-			return appState.CURRENT_ALGORITHM === BUBBLE_SORT
-				? QUICK_SORT
-				: appState.CURRENT_ALGORITHM === QUICK_SORT
-				? SELECTION_SORT
-				: appState.CURRENT_ALGORITHM === SELECTION_SORT
-				? INSERTION_SORT
-				: appState.CURRENT_ALGORITHM === INSERTION_SORT
-				? HEAP_SORT
-				: appState.CURRENT_ALGORITHM === HEAP_SORT
-				? COMB_SORT
-				: appState.CURRENT_ALGORITHM === COMB_SORT
-				? GNOME_SORT
-				: appState.CURRENT_ALGORITHM === GNOME_SORT
-				? BOGO_SORT
-				: appState.CURRENT_ALGORITHM === BOGO_SORT
-				? COUNTING_SORT
-				: BUBBLE_SORT;
+		const { CURRENT_MODE, CURRENT_ALGORITHM } = appState;
+		switch (CURRENT_MODE) {
+			case PATHFINDING_MODE:
+				return handlePathfindingAlgoUpdate(CURRENT_ALGORITHM, DJIKSTRA, GREEDYBESTFIRSTSEARCH, ASTAR4WAY, ASTAR8WAY);
+			case SORTING_MODE:
+				return handleSortingAlgoUpdate(CURRENT_ALGORITHM, BUBBLE_SORT, QUICK_SORT, SELECTION_SORT, INSERTION_SORT, HEAP_SORT, COMB_SORT, GNOME_SORT, BOGO_SORT, COUNTING_SORT);
+			default:
+				return CURRENT_ALGORITHM;
 		}
 	};
 
-	// const shuffleSortingArray = (appState, setAppState) => {
-	// 	if (isSorted(appState.sortingArray)) {
-	// 		setAppState((prevState) => {
-	// 			return {
-	// 				...prevState,
-	// 				sortingArray: generateRandomUnsortedValues(),
-	// 			};
-	// 		});
-	// 	}
-	// };
-
-	const isSorted = (list) => {
-		for (let i = 0; i < list.length - 1; i++) {
-			if (list[i] > list[i + 1]) {
-				return false;
-			}
+	const handleSortingAlgoUpdate = (CURRENT_ALGORITHM) => {
+		switch (CURRENT_ALGORITHM) {
+			case BUBBLE_SORT:
+				return QUICK_SORT;
+			case QUICK_SORT:
+				return SELECTION_SORT;
+			case SELECTION_SORT:
+				return INSERTION_SORT;
+			case INSERTION_SORT:
+				return HEAP_SORT;
+			case HEAP_SORT:
+				return COMB_SORT;
+			case COMB_SORT:
+				return GNOME_SORT;
+			case GNOME_SORT:
+				return BOGO_SORT;
+			case BOGO_SORT:
+				return COUNTING_SORT;
+			default:
+				return BUBBLE_SORT;
 		}
-		return true;
+	};
+
+	const handlePathfindingAlgoUpdate = (CURRENT_ALGORITHM) => {
+		switch (CURRENT_ALGORITHM) {
+			case DJIKSTRA:
+				return GREEDYBESTFIRSTSEARCH;
+			case GREEDYBESTFIRSTSEARCH:
+				return ASTAR4WAY;
+			case ASTAR4WAY:
+				return ASTAR8WAY;
+			default:
+				return DJIKSTRA;
+		}
 	};
 
 	return handleAlgorithmUpdate;
