@@ -1,6 +1,6 @@
 import { updateStateForStep } from "../sortHelper";
 
-export const selectionSort = (list, setAppState) => {
+export const selectionSort = (list, setAppState, animationSpeed) => {
 	let i = 0;
 	let indexOfMinimumVal = 0;
 
@@ -20,7 +20,7 @@ export const selectionSort = (list, setAppState) => {
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 100);
+	}, animationSpeed);
 
 	return list;
 };

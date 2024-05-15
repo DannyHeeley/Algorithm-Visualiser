@@ -1,6 +1,6 @@
 import { updateStateForStep, swapValues } from "../sortHelper";
 
-export const insertionSort = (list, setAppState) => {
+export const insertionSort = (list, setAppState, animationSpeed) => {
 	let i = 1;
 
 	let sortingInterval = setInterval(() => {
@@ -15,7 +15,7 @@ export const insertionSort = (list, setAppState) => {
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 100);
+	}, animationSpeed);
 
 	return list;
 };

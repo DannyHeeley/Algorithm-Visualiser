@@ -1,6 +1,6 @@
 import { updateStateForStep } from "../sortHelper";
 
-export const countingSort = (list, setAppState) => {
+export const countingSort = (list, setAppState, animationSpeed) => {
 	const maxValue = Math.max(...list);
 	const counts = Array(maxValue + 1).fill(0);
 	for (let i = 0; i < list.length; i++) {
@@ -20,6 +20,6 @@ export const countingSort = (list, setAppState) => {
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 100);
+	}, animationSpeed);
 	return list;
 };

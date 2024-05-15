@@ -1,7 +1,7 @@
 import { swapValues, updateStateForStep } from "../sortHelper";
 import { isSorted } from "../sortHelper";
 
-export const bogoSort = (list, setAppState) => {
+export const bogoSort = (list, setAppState, animationSpeed) => {
 	const shuffle = (arr) => {
 		for (let i = arr.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1));
@@ -16,6 +16,6 @@ export const bogoSort = (list, setAppState) => {
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 100);
+	}, animationSpeed);
 	return list;
 };

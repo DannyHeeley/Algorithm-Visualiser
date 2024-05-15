@@ -7,7 +7,7 @@ import { NodeType } from '../../Components/Grid/Node/NodeType.js';
 	export const startPathfinding = (visitedNodesInOrder, shortestPathNodesInOrder, appState, setAppState) => {
 		let i = 0;
 		let intervalId;
-		const timeDelay = 1000 / appState.animationSpeed;
+		const timeDelay = 2000 / appState.animationSpeed;
 		const animate = () => {
 			const node = visitedNodesInOrder[i];
 			if (i >= visitedNodesInOrder.length) {

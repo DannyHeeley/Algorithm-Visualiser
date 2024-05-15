@@ -1,6 +1,6 @@
 import { swapValues, updateStateForStep } from "../sortHelper";
 
-export const combSort = (list, setAppState) => {
+export const combSort = (list, setAppState, animationSpeed) => {
 	const getNextGap = (gap) => {
 		gap = Math.floor(gap / 1.3);
 		return gap < 1 ? 1 : gap;
@@ -13,7 +13,7 @@ export const combSort = (list, setAppState) => {
 			swapped = false;
 			for (let i = 0; i < list.length - gap; i++) {
 				if (list[i] > list[i + gap]) {
-					swapValues(list, i, i + gap)
+					swapValues(list, i, i + gap);
 					swapped = true;
 					updateStateForStep(setAppState, list, sortingInterval);
 				}
@@ -21,6 +21,6 @@ export const combSort = (list, setAppState) => {
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 100);
+	}, animationSpeed);
 	return list;
 };

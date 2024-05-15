@@ -18,6 +18,7 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 						sortingArray: generateRandomUnsortedValues(),
 						grid: initialiseGrid(appState),
 						needsReset: false,
+						animationSpeed: 60,
 						isAnimating: false,
 					};
 				});
@@ -29,6 +30,7 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 						...prevState,
 						grid: initialiseGrid(appState),
 						needsReset: false,
+						animationSpeed: 60,
 						isAnimating: false,
 					};
 				});
@@ -40,6 +42,7 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 						grid: initialiseGridWithPattern(appState.CURRENT_PATTERN, initialiseGrid(appState)),
 						needsReset: false,
 						isAnimating: false,
+						animationSpeed: 60,
 						currentTick: 0,
 					};
 				});

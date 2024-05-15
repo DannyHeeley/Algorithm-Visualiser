@@ -2,15 +2,15 @@
 import { swapValues } from "../sortHelper";
 import { updateStateForStep } from "../sortHelper";
 
-export const gnomeSort = (list, setAppState) => {
+export const gnomeSort = (list, setAppState, animationSpeed) => {
 	let index = 0;
 	let sortingInterval = setInterval(() => {
 		if (index < list.length) {
-			if (index === 0 ) {
+			if (index === 0) {
 				index++;
 			}
 			if (list[index] >= list[index - 1]) {
-				index++
+				index++;
 			} else {
 				swapValues(list, index, index - 1);
 				index--;
@@ -19,7 +19,7 @@ export const gnomeSort = (list, setAppState) => {
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 100);
+	}, animationSpeed);
 	return list;
 };
 

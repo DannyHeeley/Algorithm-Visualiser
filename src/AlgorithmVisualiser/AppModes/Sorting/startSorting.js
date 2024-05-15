@@ -1,4 +1,5 @@
 export const startSorting = (appState, setAppState) => {
-	let list = appState.sortingArray;
-	appState.CURRENT_ALGORITHM.algorithm(list, setAppState);
+	const animationSpeed = 2000 / appState.animationSpeed;
+	const list = appState.sortingArray;
+	appState.CURRENT_ALGORITHM.algorithm(list, setAppState, animationSpeed);
 };

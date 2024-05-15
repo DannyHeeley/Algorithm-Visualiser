@@ -32,6 +32,10 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 				<VisualiseButton
 					appState={appState}
 					setAppState={setAppState}></VisualiseButton>
+				<AnimationSpeedSlider
+					appState={appState}
+					setAppState={setAppState}
+				/>
 				{appState.CURRENT_MODE === PATHFINDING_MODE && (
 					<>
 						<ToggleAlgorithmButton
@@ -44,10 +48,6 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 						<div className='info'>
 							<span>Click on a start or target node to change its position</span>
 						</div>
-						<AnimationSpeedSlider
-							appState={appState}
-							setAppState={setAppState}
-						/>
 					</>
 				)}
 				{appState.CURRENT_MODE === SORTING_MODE && (

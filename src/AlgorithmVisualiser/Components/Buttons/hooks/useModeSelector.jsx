@@ -1,8 +1,6 @@
 import { initialiseGrid } from '../../../../App';
 import { APP_MODES } from '../../../AppModes/APP_MODES';
 
-//TODO: Split into two hooks, usePatternSelector and useModeSelector
-
 export const useModeSelector = (appState, setAppState) => {
 
 	const { PATHFINDING_MODE, GAME_OF_LIFE_MODE, SORTING_MODE } = APP_MODES;

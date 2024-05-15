@@ -20,15 +20,16 @@ export const Grid = ({ appState, setAppState }) => {
 				}
 			}}>
 			{appState.grid.map((row, rowId) => (
-				<div className='row' key={rowId}>
+				<div
+					className='row'
+					key={rowId}>
 					{row.map((node, nodeId) => {
 						return (
 							<Node
 								key={nodeId}
 								appState={appState}
 								setAppState={setAppState}
-								node={{ ...node }}
-							></Node>
+								node={{ ...node }}></Node>
 						);
 					})}
 				</div>

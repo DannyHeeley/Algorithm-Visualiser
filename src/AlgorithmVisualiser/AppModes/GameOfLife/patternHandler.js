@@ -32,7 +32,6 @@ const patternIsWithinGridBounds = (patternData, grid, xOffset, yOffset) => {
 
 const parseRlePattern = (rleString) => {
 	const decodedPattern = decodeRle(rleString);
-	console.log(decodedPattern);
 	let patternData = [];
 	let currentRow = [];
 	for (let char of decodedPattern) {

@@ -1,6 +1,6 @@
 import { updateStateForStep } from "../sortHelper";
 
-export const heapSort = (list, setAppState) => {
+export const heapSort = (list, setAppState, animationSpeed) => {
 	buildMaxHeap(list, setAppState);
 
 	let n = list.length;
@@ -15,7 +15,7 @@ export const heapSort = (list, setAppState) => {
 		} else {
 			clearInterval(sortingInterval);
 		}
-	}, 100);
+	}, animationSpeed);
 	return list;
 };
 
