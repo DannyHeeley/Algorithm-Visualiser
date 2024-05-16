@@ -22,3 +22,11 @@ export const PATHFINDING_ALGORITHMS = {
 	},
 };
 
+/* 
+TODO: 
+Swarm Algorithm(weighted)
+Convergent Swarm Algorithm (weighted)
+Bidirectional Swarm Algorithm (weighted)
+Breath-first Search (unweighted)
+Depth-first Search (unweighted)
+*/

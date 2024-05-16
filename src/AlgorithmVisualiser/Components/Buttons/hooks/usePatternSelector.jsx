@@ -11,6 +11,7 @@ export const usePatternSelector = (appState, setAppState) => {
 		SNARK_LOOP,
 		ACHIMSP11,
 		NO_PATTERN,
+		RANDOM,
 		AIRFORCE,
 		P208PIHEPTOMINOHASSLER,
 		WORKER_BEE,
@@ -24,6 +25,8 @@ export const usePatternSelector = (appState, setAppState) => {
 		switch (event.target.value) {
 			case NO_PATTERN:
 				return changePattern(NO_PATTERN);
+			case RANDOM:
+				return changePattern(RANDOM);
 			case COPPERHEAD:
 				return changePattern(COPPERHEAD);
 			case GOSPER_GLIDER_GUN:

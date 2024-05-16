@@ -20,7 +20,7 @@
     grid-row: 1 / 2;
     grid-column: 2 / 7;
     text-align: center;
-    font-size: 280%;
+    font-size: clamp(220%, 3vw, 5vw);
     color: rgb(255, 255, 255);
     background: conic-gradient(from -40deg at 75% -25%, rgb(95, 26, 5), rgba(114, 1, 129, 0.904));
     border-top-left-radius: 10px;

@@ -1,8 +1,20 @@
 .tick-counter {
     grid-row: 6 / 7;
     grid-column: 1 / 2;
-    color: wheat;
-    font-size:xx-large;
+    color: white;
+    font-size:larger;
     place-self: end center;
 	margin-bottom: auto;
 }
+
+.counter-box {
+	background: conic-gradient(from -40deg at 75% -25%, rgb(95, 26, 5), rgba(114, 1, 129, 0.904));
+	margin: 5px;
+	padding: 10px;
+}
+
+.generation {
+		font-size: large;
+	color: white;
+}
+

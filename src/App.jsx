@@ -11,9 +11,7 @@ import './AlgorithmVisualiser/AlgorithmVisualiser.css';
 import './AlgorithmVisualiser/Components/Buttons/Buttons.css';
 import './AlgorithmVisualiser/Components/Info/Legend.css';
 import './AlgorithmVisualiser/Components/Grid/Grid.css';
-import './AlgorithmVisualiser/Components/Info/Rules.css';
 import './AlgorithmVisualiser/Components/Info/TickCounter.css';
-import './AlgorithmVisualiser/Components/Info/SortingInfo.css'
 
 const App = () => {
 
@@ -28,7 +26,6 @@ const App = () => {
 		targetNodeRow: 13,
 		targetNodeCol: 34,
 		animationSpeed: 60,
-		maxGenerations: 500,
 		currentTick: 0,
 		intervalId: null,
 		isStartNodeSet: true,

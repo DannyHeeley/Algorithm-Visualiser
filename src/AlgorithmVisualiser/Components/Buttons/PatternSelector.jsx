@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import { GAME_OF_LIFE_PATTERNS } from '../../AppModes/GameOfLife/GAME_OF_LIFE_PATTERNS';
 import { usePatternSelector } from './hooks/usePatternSelector';
 
-export const PatternSelector = ({ appState, setAppState }) => {
+export const PatternSelector = memo(({ appState, setAppState }) => {
 
 	const handlePatternChange = usePatternSelector(appState, setAppState);
 	const patterns = Object.values(GAME_OF_LIFE_PATTERNS);
@@ -58,4 +58,4 @@ export const PatternSelector = ({ appState, setAppState }) => {
 			</FormControl>
 		</Box>
 	);
-};
+});

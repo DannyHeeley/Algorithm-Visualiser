@@ -3,7 +3,6 @@ export const dijkstra = (grid, startNode, targetNode) => {
     startNode.distance = 0;
     const unvisitedNodes = getAllNodes(grid);
     while (unvisitedNodes.length) {
-        // TODO: using a priority queue and optimizing the neighbor update process can achieve better performance
         unvisitedNodes.sort((nodeA, nodeB) => nodeA.distance - nodeB.distance);
         const closestNode = unvisitedNodes.shift();
         if (closestNode.isWall) continue;

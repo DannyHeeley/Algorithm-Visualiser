@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { memo } from 'react';
 import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -8,7 +8,7 @@ import Select from '@mui/material/Select';
 import { useModeSelector } from './hooks/useModeSelector';
 import { APP_MODES } from '../../AppModes/APP_MODES';
 
-export const ModeSelector = ({ appState, setAppState }) => {
+export const ModeSelector = memo(({ appState, setAppState }) => {
 	
 	const handleModeChange = useModeSelector(appState, setAppState);
 	const appModes = Object.values(APP_MODES);
@@ -57,4 +57,4 @@ export const ModeSelector = ({ appState, setAppState }) => {
 			</FormControl>
 		</Box>
 	);
-};
+});

@@ -6,7 +6,7 @@ export const startGameOfLife = (
     setAppState,
 ) => {
     const timeDelay = 10000 / appState.animationSpeed;
-    let generationsRemaining = appState.maxGenerations;
+    let generationsRemaining = appState.CURRENT_MODE.maxGenerations;
     const intervalId = setInterval(() => {
         gameOfLife(appState, setAppState)();
         generationsRemaining--;

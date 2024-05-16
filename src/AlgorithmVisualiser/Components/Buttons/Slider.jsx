@@ -1,6 +1,7 @@
+import { memo } from 'react';
 import { Slider, Box } from '@mui/material';
 
-export const AnimationSpeedSlider = ({ appState, setAppState }) => {
+export const AnimationSpeedSlider = memo(({ appState, setAppState }) => {
 	return (
 		<div className='slider'>
 			<div className='slider-label'>Animation Speed:</div>
@@ -20,7 +21,7 @@ export const AnimationSpeedSlider = ({ appState, setAppState }) => {
 			</Box>
 		</div>
 	);
-};
+});
 
 const handleSliderChange = (value, appState, setAppState) => {
 	if (appState.isAnimating) return;

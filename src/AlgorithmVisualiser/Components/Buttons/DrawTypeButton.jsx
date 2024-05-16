@@ -1,7 +1,7 @@
+import { memo } from 'react';
+import { useDrawTypeUpdate } from './hooks/useDrawTypeUpdate';
 
-import { useDrawTypeUpdate } from './hooks/useDrawTypeUpdate'
-
-export const DrawTypeButton = ({ appState, setAppState }) => {
+export const DrawTypeButton = memo(({ appState, setAppState }) => {
 	const { changeDrawType } = useDrawTypeUpdate(appState, setAppState);
 	return (
 		<div className='draw-type'>
@@ -13,4 +13,4 @@ export const DrawTypeButton = ({ appState, setAppState }) => {
 			<div className='draw-type-text'>{appState.DRAW_TYPE.name}</div>
 		</div>
 	);
-};
+});

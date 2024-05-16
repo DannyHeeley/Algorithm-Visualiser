@@ -25,9 +25,9 @@ export async function quickSort(list, setAppState, animationSpeed) {
 
 	async function sort(low, high) {
 		if (low < high) {
-			let pi = await partition(low, high);
-			await sort(low, pi - 1);
-			await sort(pi + 1, high);
+			let pivotIndex = await partition(low, high);
+			await sort(low, pivotIndex - 1);
+			await sort(pivotIndex + 1, high);
 		}
 	}
 

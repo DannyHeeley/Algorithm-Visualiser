@@ -1,6 +1,9 @@
+import { GAME_OF_LIFE_PATTERNS } from "./GAME_OF_LIFE_PATTERNS";
+
 export const initialiseGridWithPattern = (patternObj, grid) => {
 	if (patternObj === null) return grid;
-	const patternData = parseRlePattern(patternObj.pattern);
+	const patternData = patternObj === GAME_OF_LIFE_PATTERNS.RANDOM ? patternObj.pattern : parseRlePattern(patternObj.pattern);
+	console.log(patternData)
 	const xOffset = patternObj.offset.x;
 	const yOffset = patternObj.offset.y;
 	if (patternIsWithinGridBounds(patternData, grid, xOffset, yOffset)) {

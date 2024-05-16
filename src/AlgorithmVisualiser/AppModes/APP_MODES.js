@@ -13,8 +13,16 @@ export const APP_MODES = {
 		ALGORITHMS: PATHFINDING_ALGORITHMS,
 		animation: startPathfinding,
 		DRAW_TYPE: {
-			WALL: { name: 'Draw Weight', classname: 'draw-type-wall' },
-			WEIGHTED: { name: 'Draw Walls', classname: 'draw-type-weight' },
+			WALL: { name: 'Draw Walls', classname: 'draw-type-wall' },
+			WEIGHTED: { name: 'Draw Weight', classname: 'draw-type-weight' },
+		},
+		LEGEND_DATA: {
+			'Start Node': 'legend-icon start',
+			'Target Node': 'legend-icon target',
+			'Visited Node': 'legend-icon visited',
+			'Shortest Path': 'legend-icon shortest',
+			'Walls': 'legend-icon wall',
+			'Weighted Node': 'legend-icon weighted',
 		},
 	},
 	SORTING_MODE: {
@@ -28,6 +36,13 @@ export const APP_MODES = {
 		GRID_DIMENSIONS: { numOfRows: 50, numOfCols: 100 },
 		algorithm: gameOfLife,
 		animation: startGameOfLife,
+		maxGenerations: 1000,
 		PATTERNS: GAME_OF_LIFE_PATTERNS,
+		RULES_DATA: {
+			'Each cell with one or zero neighbors dies, as if by solitude.': 'rule',
+			'Each cell with four or more neighbors dies, as if by overpopulation.': 'rule',
+			'Each cell with two or three neighbors survives.': 'rule',
+			'Each unpopulated cell with three neighbors becomes populated.': 'rule',
+		},
 	},
 };

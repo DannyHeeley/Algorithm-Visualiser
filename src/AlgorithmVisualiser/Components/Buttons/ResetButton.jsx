@@ -1,11 +1,13 @@
+import { memo } from 'react';
 import { useReset } from './hooks/useReset';
 
-export const ResetButton = ({ initialiseGrid, appState, setAppState }) => {
+export const ResetButton = memo(({ initialiseGrid, appState, setAppState }) => {
+	const handleReset = useReset(initialiseGrid, appState, setAppState);
 	return (
 		<button
 			className='reset'
-			onClick={useReset(initialiseGrid, appState, setAppState)}>
+			onClick={handleReset}>
 			Reset ⭯
 		</button>
 	);
-};
+});

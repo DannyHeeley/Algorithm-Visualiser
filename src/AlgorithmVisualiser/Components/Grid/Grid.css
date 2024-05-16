@@ -11,5 +11,5 @@
     min-width: 925px;
 	max-height: 720px;;
     margin-bottom: -14px;
-    transform: scale(1,-1) /*flips the graph on the y axis to handle inverted grid*/
+    transform: scale(1,-1); /*flips the graph on the y axis to handle inverted grid*/
 }

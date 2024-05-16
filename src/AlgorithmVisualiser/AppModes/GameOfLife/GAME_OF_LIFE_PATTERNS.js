@@ -1,7 +1,26 @@
+const generateRandomGameOfLifePattern = () => {
+	const result = [];
+	for (let i = 0; i < 50; i++) {
+		const subArray = [];
+		for (let j = 0; j < 100; j++) {
+			const randomBoolean = Math.random() < 0.2;
+			subArray.push(randomBoolean);
+		}
+		result.push(subArray);
+	}
+	return result;
+};
+
+
 export const GAME_OF_LIFE_PATTERNS = {
 	NO_PATTERN: {
 		name: 'No Pattern',
 		pattern: '',
+		offset: { x: 0, y: 0 },
+	},
+	RANDOM: {
+		name: 'Random',
+		pattern: generateRandomGameOfLifePattern(),
 		offset: { x: 0, y: 0 },
 	},
 	GLIDER: {
@@ -54,3 +73,4 @@ export const GAME_OF_LIFE_PATTERNS = {
 		offset: { x: 20, y: 5 },
 	},
 };
+

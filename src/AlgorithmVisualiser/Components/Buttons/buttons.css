@@ -19,7 +19,7 @@
 .reset {
 	background: conic-gradient(from -40deg at 75% -25%, rgb(100, 28, 6), rgba(66, 0, 75, 0.904));
 	color: white;
-	margin-top: 15px;
+
 	height: 5vh;
 	min-height: 40px;
 	width: 16.5vw;
@@ -49,7 +49,6 @@
 	display: flex;
 	align-self: center;
 	margin: 0.2vw 33px 0px 30px;
-	/* top, right, bottom, left */
 	grid-column: 1 / 2;
 }
 
@@ -100,7 +99,7 @@
 }
 
 .draw-type-wall {
-	background-color: black;
+	background-color: rgb(12, 53, 71);
 }
 
 .draw-type-weight {
