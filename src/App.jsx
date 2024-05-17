@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { AlgorithmVisualiser } from './AlgorithmVisualiser/AlgorithmVisualiser';
 import { useNodeHelper } from './AlgorithmVisualiser/Components/Grid/Node/useNodeHelper.jsx';
-import { generateRandomUnsortedValues } from './AlgorithmVisualiser/AppModes/Sorting/sortHelper.js';
+import { generateRandomUnsortedArray } from './AlgorithmVisualiser/AppModes/Sorting/sortHelper.js';
 import { APP_MODES } from './AlgorithmVisualiser/AppModes/APP_MODES.js';
 import { initialiseGridWithPattern } from './AlgorithmVisualiser/AppModes/GameOfLife/patternHandler.js';
 
@@ -33,13 +33,13 @@ const App = () => {
 		isAnimating: false,
 		mouseIsPressed: false,
 		needsReset: false,
-		sortingArray: null,
+		randomValuesArray: null,
 	});
 
 	useEffect(() => (
 		setAppState((prevState) => ({
 			...prevState,
-			sortingArray: generateRandomUnsortedValues(),
+			randomValuesArray: generateRandomUnsortedArray(),
 		}))
 	), [])
 
@@ -71,13 +71,6 @@ export const initialiseGrid = (appState) => {
 			return initialiseNode(col, row, appState);
 		})
 	);
-};
-
-export const toggleIsAnimating = (setAppState) => {
-	setAppState((prevState) => ({
-		...prevState,
-		isAnimating: !prevState.isAnimating,
-	}));
 };
 
 export default App;

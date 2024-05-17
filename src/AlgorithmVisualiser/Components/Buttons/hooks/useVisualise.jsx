@@ -1,4 +1,3 @@
-import { toggleIsAnimating } from "../../../../App";
 import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { useNodeHelper } from "../../Grid/Node/useNodeHelper";
 
@@ -12,7 +11,7 @@ export const useVisualise = (appState, setAppState) => {
 	const visualiseAlgorithm = () => {
 		if (appState.isAnimating || appState.needsReset || (!startAndTargetNodesSet(appState) && appState.CURRENT_MODE === PATHFINDING_MODE)) return;
 		let visitedNodesInOrder, shortestPathNodesInOrder;
-		toggleIsAnimating(setAppState);
+		setIsAnimating(true, setAppState);
 		toggleNeedsReset(setAppState);
 
 		setTimeout(() => {
@@ -41,5 +40,12 @@ export const useVisualise = (appState, setAppState) => {
 	};
 
 	return visualiseAlgorithm;
-}
+};
+
+export const setIsAnimating = (bool, setAppState) => {
+	setAppState((prevState) => ({
+		...prevState,
+		isAnimating: bool,
+	}));
+};
 

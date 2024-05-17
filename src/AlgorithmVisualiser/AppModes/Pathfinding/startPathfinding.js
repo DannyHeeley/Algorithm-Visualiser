@@ -1,5 +1,5 @@
 import { useNodeHelper } from '../../Components/Grid/Node/useNodeHelper.jsx';
-import { toggleIsAnimating } from '../../../App.jsx';
+import { setIsAnimating } from '../../Components/Buttons/hooks/useVisualise.jsx';
 import { NodeType } from '../../Components/Grid/Node/NodeType.js';
 
 	const { nodeIsAStartOrTarget } = useNodeHelper();
@@ -14,7 +14,7 @@ import { NodeType } from '../../Components/Grid/Node/NodeType.js';
 				// Stop the animation and animate the shortest path if we have been through all the nodes
 				clearInterval(intervalId);
 				animateShortestPath(shortestPathNodesInOrder, setAppState);
-				toggleIsAnimating(setAppState);
+				setIsAnimating(false, setAppState);
 				return;
 			}
 			updateCurrentNode(node, setAppState);

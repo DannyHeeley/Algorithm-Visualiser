@@ -51,7 +51,7 @@ export const useNodeHelper = () => {
 	};
 
 	const handleClassNameSorting = (node, appState) => {
-		if (node.row < appState.sortingArray[node.col]) {
+		if (node.row < appState.randomValuesArray[node.col]) {
 			return NodeType.SORTING;
 		}
 		return NodeType.NODE;

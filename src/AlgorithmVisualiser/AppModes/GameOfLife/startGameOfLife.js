@@ -1,4 +1,4 @@
-import { toggleIsAnimating } from "../../../App";
+import { setIsAnimating } from '../../Components/Buttons/hooks/useVisualise';
 
 export const startGameOfLife = (
     gameOfLife,
@@ -18,7 +18,7 @@ export const startGameOfLife = (
             }
         })
 		if (generationsRemaining === 0) {
-			toggleIsAnimating(setAppState);
+			setIsAnimating(false, setAppState);
             clearInterval(intervalId);
         }
     }, timeDelay);
