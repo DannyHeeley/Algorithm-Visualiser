@@ -5,7 +5,9 @@ import { useMouseEvents } from '../useMouseEvents';
 export const Node = memo(({ node, appState, setAppState }) => {
 	const { handleMouseDown, handleMouseEnter, handleMouseUp } = useMouseEvents(appState, setAppState);
 	const { handleExtraClassNameFor } = useNodeHelper();
-	const currentModeClassName = appState.CURRENT_MODE.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+	const currentModeClassName = appState.CURRENT_MODE.name
+		.toLowerCase()
+		.replace(/\s+/g, '-')
 	return (
 		<div
 			id={`node-${node.row}-${node.col}`}

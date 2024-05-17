@@ -6,10 +6,10 @@ export const generateRandomUnsortedValues = () => {
   return columnHeights;
 };
 
-export const updateStateForStep = (setAppState, list, sortingInterval) => {
+export const updateStateForStep = (setAppState, array, sortingInterval) => {
 	setAppState((prevState) => ({
 		...prevState,
-		sortingArray: [...list],
+		sortingArray: [...array],
 		intervalId: sortingInterval,
 	}));
 };
@@ -23,6 +23,6 @@ export const isSorted = (arr) => {
 	return true;
 };
 
-export const swapValues = (list, index1, index2) => {
-	[list[index1], list[index2]] = [list[index2], list[index1]];
+export const swapElementsAtIndices = (array, index1, index2) => {
+	[array[index1], array[index2]] = [array[index2], array[index1]];
 };

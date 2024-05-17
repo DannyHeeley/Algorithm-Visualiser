@@ -1,66 +1,83 @@
-.legend, .info {
-    font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
-    width: 9.7vw;
-    min-width: 150px;
-    border-radius: 10px;
-    text-align: center;
-    height: fit-content;
-    margin: 0vw 35px 0px 30px;
-    padding: 0vw 5px 0vw 5px;
-    place-self: center;
+.legend,
+.info {
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	width: 9.7vw;
+	min-width: 150px;
+	border-radius: 10px;
+	text-align: center;
+	height: fit-content;
+	margin: 0vw 35px 0px 30px;
+	padding: 0vw 5px 0vw 5px;
+	place-self: center;
 }
 
-.legend-text, .info, .legend-item, .rule, .sorting-info {
-    display: flex;
-    align-items: center;
-    font-size: clamp(0.8rem, 0.8vw, 4rem);
-    font-weight: 900;
+.legend-text,
+.info,
+.legend-item,
+.rule,
+.sorting-info {
+	align-items: center;
+	font-size: clamp(0.8rem, 0.8vw, 4rem);
+	font-weight: 900;
 }
+
+.legend-text,
+.info,
+.legend-item {
+	display: flex;
+}
+
 .info {
-    grid-row: 6 / 7;
-    grid-column: 1 / 2;
-    height: clamp(50px, 5vw, 5vw);
-    background-color: rgb(205, 250, 231);
-    border: 1px solid rgb(0, 255, 34);
+	grid-row: 6 / 7;
+	grid-column: 1 / 2;
+	height: clamp(50px, 5vw, 5vw);
+	background-color: rgb(205, 250, 231);
+	border: 1px solid rgb(0, 255, 34);
 }
+
 .info span {
-    position: relative;
+	position: relative;
 }
+
 .legend {
-    grid-row: 4 / 6;
-    grid-column: 1 / 2;
-    min-height: 241px;
-    background-color: rgb(241, 232, 255);
-    border: 1px solid rgb(102, 18, 18);
-    padding-top: 0.5vw;
-    padding-bottom: 0.5vw;
+	grid-row: 4 / 6;
+	grid-column: 1 / 2;
+	min-height: 241px;
+	background-color: rgb(241, 232, 255);
+	border: 1px solid rgb(102, 18, 18);
+	padding-top: 0.5vw;
+	padding-bottom: 0.5vw;
 }
+
 .legend-icon {
-    width: calc(1.6vw - 2px);
-    height: calc(1.6vw - 2px);
-    box-sizing: border-box;
-    border: 2px solid black;
-    margin: 0px 10px 0px 10px;
+	width: calc(1.6vw - 2px);
+	height: calc(1.6vw - 2px);
+	box-sizing: border-box;
+	border: 2px solid black;
+	margin: 0px 10px 0px 10px;
 }
 
 
 .visited {
-    background-color: rgb(104, 151, 236);
+	background-color: rgb(104, 151, 236);
 }
+
 .target {
-    background-color: red;
+	background-color: red;
 }
+
 .start {
-    background-color: rgb(165, 0, 180);
+	background-color: rgb(165, 0, 180);
 }
+
 .wall {
-    background-color: rgb(12, 53, 71);
+	background-color: rgb(12, 53, 71);
 }
+
 .weighted {
-    background-color: chocolate;
+	background-color: chocolate;
 }
+
 .shortest {
-    background-color: yellow;
+	background-color: yellow;
 }
-
-

@@ -33,7 +33,15 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 				<AnimationSpeedSlider
 					appState={appState}
 					setAppState={setAppState}></AnimationSpeedSlider>
-				<Legend appState={appState}></Legend>
+				<Legend
+					appState={appState}
+					data={
+						appState.CURRENT_MODE === GAME_OF_LIFE_MODE
+							? GAME_OF_LIFE_MODE.RULES_DATA
+							: appState.CURRENT_MODE === PATHFINDING_MODE
+							? PATHFINDING_MODE.LEGEND_DATA
+							: appState.CURRENT_ALGORITHM.INFO
+					}></Legend>
 				{(appState.CURRENT_MODE === SORTING_MODE || appState.CURRENT_MODE === PATHFINDING_MODE) && (
 					<>
 						<ToggleAlgorithmButton
@@ -56,7 +64,6 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 						<PatternSelector
 							appState={appState}
 							setAppState={setAppState}></PatternSelector>
-
 					</>
 				)}
 			</div>

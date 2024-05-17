@@ -2,23 +2,16 @@ import { memo } from 'react';
 import { APP_MODES } from '../../AppModes/APP_MODES';
 import { TickCounter } from './TickCounter';
 
-export const Legend = memo(({appState}) => {
-	const { GAME_OF_LIFE_MODE, PATHFINDING_MODE, SORTING_MODE } = APP_MODES;
+export const Legend = memo(({ appState, data }) => {
 
-	const data = (() => {
-		switch (appState.CURRENT_MODE) {
-			case PATHFINDING_MODE:
-				return Object.entries(APP_MODES.PATHFINDING_MODE.LEGEND_DATA);
-			case GAME_OF_LIFE_MODE:
-				return Object.entries(APP_MODES.GAME_OF_LIFE_MODE.RULES_DATA);
-			case SORTING_MODE:
-				return Object.entries(appState.CURRENT_ALGORITHM.info);
-		}
-	})();
-
+	data = Object.entries(data);
+	const currentModeClassName = appState.CURRENT_MODE.name
+		.toLowerCase()
+		.replace(/\s+/g, '-')
+		.replace(/[^a-z0-9-]/g, '');
 	const LegendItem = ({ className, text }) => {
 		return (
-			<div className='legend-item'>
+			<div className={`legend-item ${appState.CURRENT_MODE}`}>
 				<div className={className}></div>
 				<p className='legend-text'>{text}</p>
 			</div>
@@ -35,9 +28,7 @@ export const Legend = memo(({appState}) => {
 						key={index}></LegendItem>
 				);
 			})}
-			{
-				appState.CURRENT_MODE === GAME_OF_LIFE_MODE && <TickCounter appState={appState}></TickCounter>
-			}
+			{appState.CURRENT_MODE === APP_MODES.GAME_OF_LIFE_MODE && <TickCounter appState={appState}></TickCounter>}
 		</div>
 	);
 });

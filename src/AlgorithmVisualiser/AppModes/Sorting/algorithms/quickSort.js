@@ -1,35 +1,69 @@
-import { swapValues, updateStateForStep } from "../sortHelper";
+import { swapElementsAtIndices, updateStateForStep } from '../sortHelper';
 
-export async function quickSort(list, setAppState, animationSpeed) {
-	async function partition(low, high) {
-		let pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
-		let pivot = list[pivotIndex];
-		swapValues(list, pivotIndex, high);
-		pivotIndex = high;
+export function quickSort(array, setAppState, animationSpeed) {
+	animationSpeed = animationSpeed / 3;
+	let stack = [];
+	stack.push([0, array.length - 1]);
 
-		let i = low - 1;
-		for (let j = low; j < high; j++) {
-			if (list[j] < pivot) {
-				i++;
-				swapValues(list, i, j);
-				await new Promise((resolve) => setTimeout(resolve, animationSpeed));
-				updateStateForStep(setAppState, list);
+	let step = 0;
+	let low = -1;
+	let high = -1;
+	let pivotIndex = -1;
+	let pivot = -1;
+	let i = -1;
+	let j = -1;
+
+	const sortingInterval = setInterval(() => {
+		if (stack.length === 0 && step === 0) {
+			clearInterval(sortingInterval);
+			return;
+		}
+
+		// Initialize the partition, select the pivot, and prepare indices.
+		if (step === 0) {
+			if (stack.length === 0) {
+				clearInterval(sortingInterval);
+				return;
+			}
+			[low, high] = stack.pop();
+			if (low < high) {
+				pivotIndex = Math.floor(Math.random() * (high - low + 1)) + low;
+				pivot = array[pivotIndex];
+				swapElementsAtIndices(array, pivotIndex, high);
+				updateStateForStep(setAppState, array, sortingInterval);
+				pivotIndex = high;
+				i = low - 1;
+				j = low;
+				step = 1;
 			}
 		}
-		i++;
-		swapValues(list, i, pivotIndex); // Move pivot to its final position
-		await new Promise((resolve) => setTimeout(resolve, animationSpeed));
-		updateStateForStep(setAppState, list);
-		return i;
-	}
 
-	async function sort(low, high) {
-		if (low < high) {
-			let pivotIndex = await partition(low, high);
-			await sort(low, pivotIndex - 1);
-			await sort(pivotIndex + 1, high);
+		// Partition the array by comparing elements to the pivot and swapping when necessary.
+		if (step === 1) {
+			if (j < high) {
+				if (array[j] < pivot) {
+					i++;
+					swapElementsAtIndices(array, i, j);
+					updateStateForStep(setAppState, array, sortingInterval);
+				}
+				j++;
+			} else {
+				step = 2;
+			}
 		}
-	}
 
-	await sort(0, list.length - 1);
+		// Place the pivot in its correct position and manage subarray boundaries for further sorting.
+		if (step === 2) {
+			i++;
+			swapElementsAtIndices(array, i, pivotIndex);
+			updateStateForStep(setAppState, array, sortingInterval);
+			if (i - 1 > low) {
+				stack.push([low, i - 1]);
+			}
+			if (i + 1 < high) {
+				stack.push([i + 1, high]);
+			}
+			step = 0;
+		}
+	}, animationSpeed);
 }

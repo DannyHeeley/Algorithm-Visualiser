@@ -2,6 +2,7 @@ import { generateRandomUnsortedValues } from '../../../AppModes/Sorting/sortHelp
 import { APP_MODES } from '../../../AppModes/APP_MODES';
 import { initialiseGridWithPattern } from '../../../AppModes/GameOfLife/patternHandler';
 import { useNodeHelper } from '../../Grid/Node/useNodeHelper';
+import { generateRandomGameOfLifePattern } from '../../../AppModes/GameOfLife/GAME_OF_LIFE_PATTERNS';
 
 export const useReset = (initialiseGrid, appState, setAppState) => {
 
@@ -36,6 +37,9 @@ export const useReset = (initialiseGrid, appState, setAppState) => {
 				});
 			case GAME_OF_LIFE_MODE:
 				clearInterval(appState.intervalId);
+				if (appState.CURRENT_PATTERN === GAME_OF_LIFE_MODE.PATTERNS.RANDOM) {
+					appState.CURRENT_PATTERN.pattern = generateRandomGameOfLifePattern();
+				}
 				return setAppState((prevState) => {
 					return {
 						...prevState,

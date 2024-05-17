@@ -1,13 +1,12 @@
-
 .node {
-    width: calc(1.6vw - 2px);
-    height: calc(1.6vw - 2px);
-    min-height: 18.5px;
-    min-width: 18.5px;
-    box-sizing: border-box;
-    border: 1px solid rgba(204, 204, 204, 0.37);
-    display: inline-flex;
-    position: relative;
+	width: calc(1.6vw - 2px);
+	height: calc(1.6vw - 2px);
+	min-height: 18.5px;
+	min-width: 18.5px;
+	box-sizing: border-box;
+	border: 1px solid rgba(204, 204, 204, 0.37);
+	display: inline-flex;
+	position: relative;
 }
 
 .node.game-of-life-mode {
@@ -30,54 +29,55 @@
 }
 
 .isTarget {
-    background-color: red;
-		box-shadow: inset 0px 0px 0px 1px black;
+	background-color: red;
+	box-shadow: inset 0px 0px 0px 1px black;
 }
 
 .isStart {
-    background-color: rgb(165, 0, 180);
+	background-color: rgb(165, 0, 180);
 	box-shadow: inset 0px 0px 0px 1px black;
 }
 
 .isWall {
-    background-color: rgb(12, 53, 71);
+	background-color: rgb(12, 53, 71);
 }
 
 .isWeighted {
-    background-color: chocolate;
+	background-color: chocolate;
 }
 
 .isSorting {
-    background-color:blueviolet;
+	background-color: blueviolet;
 	box-sizing: border-box;
 	box-shadow: inset 0px 0px 0px 0.8px black;
 }
 
 .isAutomata {
-    background-color: blue;
+	background-color: blue;
 }
 
 .isVisited {
-    animation-name: visitedAnimation;
+	animation-name: visitedAnimation;
 }
 
 .isShortestPath {
-    animation-name: shortestPath;
+	animation-name: shortestPath;
 }
 
 .isWeightedShortestPath {
-    background-color: chocolate;
-    box-shadow: inset 0 0 15px yellow;
+	background-color: chocolate;
+	box-shadow: inset 0 0 15px yellow;
 }
 
-.isVisited, .isShortestPath {
-    animation-duration: 1.5s;
-    animation-timing-function: ease-in-out;
-    animation-delay: 0;
-    animation-direction: alternate;
-    animation-iteration-count: 1;
-    animation-fill-mode: forwards;
-    animation-play-state: running;
+.isVisited,
+.isShortestPath {
+	animation-duration: 1.5s;
+	animation-timing-function: ease-in-out;
+	animation-delay: 0;
+	animation-direction: alternate;
+	animation-iteration-count: 1;
+	animation-fill-mode: forwards;
+	animation-play-state: running;
 }
 
 .isWall {
@@ -91,50 +91,55 @@
 }
 
 @keyframes visitedAnimation {
-    0% {
-        transform: scale(0.3);
-        background-color: mediumorchid;
-    }
-    50% {
-        background-color: darkviolet;
-    }
-    75% {
-        transform: scale(1.2);
-        background-color: steelblue;
-    }
-    100% {
-        transform: scale(1);
-        background-color: cornflowerblue;
-    }
+	0% {
+		transform: scale(0.3);
+		background-color: mediumorchid;
+	}
+
+	50% {
+		background-color: darkviolet;
+	}
+
+	75% {
+		transform: scale(1.2);
+		background-color: steelblue;
+	}
+
+	100% {
+		transform: scale(1);
+		background-color: cornflowerblue;
+	}
 }
 
 @keyframes shortestPath {
-    0% {
-        transform: scale(0.6);
-        background-color: goldenrod;
-    }
-    50% {
-        transform: scale(1.2);
-        background-color: yellow;
-    }
-    100% {
-        transform: scale(1);
-        background-color: yellow;
-    }
+	0% {
+		transform: scale(0.6);
+		background-color: goldenrod;
+	}
+
+	50% {
+		transform: scale(1.2);
+		background-color: yellow;
+	}
+
+	100% {
+		transform: scale(1);
+		background-color: yellow;
+	}
 }
 
 #node-19-49 {
-    border-bottom-right-radius: 5px;
+	border-bottom-right-radius: 5px;
 }
 
 #node-19-0 {
-    border-bottom-left-radius: 5px;
+	border-bottom-left-radius: 5px;
 }
 
 #node-0-0 {
-    border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
 }
 
 #node-0-49 {
-    border-top-right-radius: 5px;
+	border-top-right-radius: 5px;
 }

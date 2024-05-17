@@ -1,20 +1,20 @@
 import { updateStateForStep } from "../sortHelper";
 
-export const selectionSort = (list, setAppState, animationSpeed) => {
+export const selectionSort = (array, setAppState, animationSpeed) => {
 	let i = 0;
 	let indexOfMinimumVal = 0;
 
 	let sortingInterval = setInterval(() => {
-		if (i < list.length - 1) {
+		if (i < array.length - 1) {
 			indexOfMinimumVal = i;
-			for (let j = i + 1; j < list.length; j++) {
-				if (list[j] < list[indexOfMinimumVal]) {
+			for (let j = i + 1; j < array.length; j++) {
+				if (array[j] < array[indexOfMinimumVal]) {
 					indexOfMinimumVal = j;
 				}
 			}
 			if (indexOfMinimumVal !== i) {
-				[list[indexOfMinimumVal], list[i]] = [list[i], list[indexOfMinimumVal]];
-				updateStateForStep(setAppState, list, sortingInterval);
+				[array[indexOfMinimumVal], array[i]] = [array[i], array[indexOfMinimumVal]];
+				updateStateForStep(setAppState, array, sortingInterval);
 			}
 			i++;
 		} else {
@@ -22,5 +22,5 @@ export const selectionSort = (list, setAppState, animationSpeed) => {
 		}
 	}, animationSpeed);
 
-	return list;
+	return array;
 };

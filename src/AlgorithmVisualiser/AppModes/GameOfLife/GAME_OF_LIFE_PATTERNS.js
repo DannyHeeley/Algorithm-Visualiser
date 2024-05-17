@@ -1,4 +1,4 @@
-const generateRandomGameOfLifePattern = () => {
+export const generateRandomGameOfLifePattern = () => {
 	const result = [];
 	for (let i = 0; i < 50; i++) {
 		const subArray = [];
@@ -41,7 +41,7 @@ export const GAME_OF_LIFE_PATTERNS = {
 	HEART: {
 		name: 'Heart',
 		pattern: '2bo2b$bobob$obobo$2ob2o$o3bo!',
-		offset: { x: 45, y: 30 },
+		offset: { x: 46, y: 31 },
 	},
 	GOSPER_GLIDER_GUN: {
 		name: 'Gosper Glider Gun',

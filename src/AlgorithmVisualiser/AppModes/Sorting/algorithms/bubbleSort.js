@@ -1,14 +1,14 @@
-import { swapValues, updateStateForStep } from "../sortHelper";
+import { swapElementsAtIndices, updateStateForStep } from "../sortHelper";
 
-export const bubbleSort = (list, setAppState, animationSpeed) => {
+export const bubbleSort = (array, setAppState, animationSpeed) => {
 	let i = 0;
 	let j = 0;
 	let sortingInterval = setInterval(() => {
-		if (i < list.length - 1) {
-			if (j < list.length - 1 - i) {
-				if (list[j] > list[j + 1]) {
-					swapValues(list, j, j + 1);
-					updateStateForStep(setAppState, list, sortingInterval);
+		if (i < array.length - 1) {
+			if (j < array.length - 1 - i) {
+				if (array[j] > array[j + 1]) {
+					swapElementsAtIndices(array, j, j + 1);
+					updateStateForStep(setAppState, array, sortingInterval);
 				}
 				j++;
 			} else {
@@ -19,6 +19,6 @@ export const bubbleSort = (list, setAppState, animationSpeed) => {
 			clearInterval(sortingInterval);
 		}
 	}, animationSpeed);
-	return list;
+	return array;
 };
 

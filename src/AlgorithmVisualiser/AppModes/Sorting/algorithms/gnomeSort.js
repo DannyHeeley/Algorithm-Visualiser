@@ -1,25 +1,25 @@
 
-import { swapValues } from "../sortHelper";
+import { swapElementsAtIndices } from "../sortHelper";
 import { updateStateForStep } from "../sortHelper";
 
-export const gnomeSort = (list, setAppState, animationSpeed) => {
+export const gnomeSort = (array, setAppState, animationSpeed) => {
 	let index = 0;
 	let sortingInterval = setInterval(() => {
-		if (index < list.length) {
+		if (index < array.length) {
 			if (index === 0) {
 				index++;
 			}
-			if (list[index] >= list[index - 1]) {
+			if (array[index] >= array[index - 1]) {
 				index++;
 			} else {
-				swapValues(list, index, index - 1);
+				swapElementsAtIndices(array, index, index - 1);
 				index--;
-				updateStateForStep(setAppState, list, sortingInterval);
+				updateStateForStep(setAppState, array, sortingInterval);
 			}
 		} else {
 			clearInterval(sortingInterval);
 		}
 	}, animationSpeed);
-	return list;
+	return array;
 };
 

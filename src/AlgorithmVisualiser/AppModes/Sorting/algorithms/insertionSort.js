@@ -1,22 +1,22 @@
-import { updateStateForStep, swapValues } from "../sortHelper";
+import { updateStateForStep, swapElementsAtIndices } from "../sortHelper";
 
-export const insertionSort = (list, setAppState, animationSpeed) => {
+export const insertionSort = (array, setAppState, animationSpeed) => {
 	let i = 1;
 
 	let sortingInterval = setInterval(() => {
-		if (i < list.length) {
+		if (i < array.length) {
 			let j = i - 1;
-			while (j >= 0 && list[j] > list[j + 1]) {
-				swapValues(list, j, j + 1);
+			while (j >= 0 && array[j] > array[j + 1]) {
+				swapElementsAtIndices(array, j, j + 1);
 				j--;
 			}
-			updateStateForStep(setAppState, list, sortingInterval);
+			updateStateForStep(setAppState, array, sortingInterval);
 			i++;
 		} else {
 			clearInterval(sortingInterval);
 		}
 	}, animationSpeed);
 
-	return list;
+	return array;
 };
 
