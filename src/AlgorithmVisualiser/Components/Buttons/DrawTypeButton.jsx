@@ -10,7 +10,9 @@ export const DrawTypeButton = memo(({ appState, setAppState }) => {
 				onClick={changeDrawType}>
 				<div>&#9999;&#65039;</div>
 			</button>
-			<div className='draw-type-text'>{appState.DRAW_TYPE.name}</div>
+			<div className='draw-type-text'>
+				{appState.DRAW_TYPE.name}
+			</div>
 		</div>
 	);
 });

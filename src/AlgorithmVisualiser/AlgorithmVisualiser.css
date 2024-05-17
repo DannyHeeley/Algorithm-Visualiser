@@ -33,36 +33,36 @@
 
 @media screen and (max-height: 950px) and (min-width: 1900px) {
 	.pathfinder-container {
-		zoom: 0.9;
+		transform: scale(0.9);
 	}
 }
 
 @media screen and (max-width: 1300px) {
 	.pathfinder-container {
-		zoom: 0.85;
+		transform: scale(0.85);
 	}
 }
 
 @media screen and (max-width: 970px) {
 	.pathfinder-container {
-		zoom: 0.75;
+		transform: scale(0.75);
 	}
 }
 
 @media screen and (max-width: 910px) {
 	.pathfinder-container {
-		zoom: 0.7;
+		transform: scale(0.7);
 	}
 }
 
 @media screen and (max-width: 850px) {
 	.pathfinder-container {
-		zoom: 0.65;
+		transform: scale(0.65);
 	}
 }
 
 @media screen and (max-width: 785px) {
 	.pathfinder-container {
-		zoom: 0.6;
+		transform: scale(0.6);
 	}
 }
