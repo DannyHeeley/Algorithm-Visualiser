@@ -30,21 +30,21 @@ export const useAlgorithmUpdate = (appState, setAppState) => {
 	const handleSortingAlgoUpdate = (CURRENT_ALGORITHM) => {
 		switch (CURRENT_ALGORITHM) {
 			case BUBBLE_SORT:
-				return QUICK_SORT;
-			case QUICK_SORT:
-				return SELECTION_SORT;
-			case SELECTION_SORT:
-				return INSERTION_SORT;
-			case INSERTION_SORT:
-				return HEAP_SORT;
-			case HEAP_SORT:
 				return COMB_SORT;
 			case COMB_SORT:
+				return INSERTION_SORT;
+			case INSERTION_SORT:
 				return GNOME_SORT;
 			case GNOME_SORT:
-				return BOGO_SORT;
-			case BOGO_SORT:
+				return SELECTION_SORT;
+			case SELECTION_SORT:
+				return HEAP_SORT;
+			case HEAP_SORT:
+				return QUICK_SORT;
+			case QUICK_SORT:
 				return COUNTING_SORT;
+			case COUNTING_SORT:
+				return BOGO_SORT;
 			default:
 				return BUBBLE_SORT;
 		}

@@ -17,11 +17,11 @@ export const SORTING_ALGORITHMS = {
 				'sorting-info-text',
 		},
 	},
-	QUICK_SORT: {
-		name: 'Quick Sort',
-		algorithm: quickSort,
+	COMB_SORT: {
+		name: 'Comb Sort',
+		algorithm: combSort,
 		INFO: {
-			'Quick sort uses a divide-and-conquer strategy. It does so by selecting a pivot element and then sorting values larger than it on one side and smaller to the other side, and then it repeats those steps until the array is sorted. It is useful for sorting big data sets.':
+			'A comparison-based sorting algorithm that is an improvement to bubble sort. In bubble sort, there is a comparison between elements to sort the given array - the gap size between the elements that are compared is 1. Comb sort improves the bubble sort by using a gap of size more than 1':
 				'sorting-info-text',
 		},
 	},
@@ -33,11 +33,11 @@ export const SORTING_ALGORITHMS = {
 				'sorting-info-text',
 		},
 	},
-	HEAP_SORT: {
-		name: 'Heap Sort',
-		algorithm: heapSort,
+	GNOME_SORT: {
+		name: 'Gnome Sort',
+		algorithm: gnomeSort,
 		INFO: {
-			'Heap sort is a comparison-based sorting technique based on Binary Heap data structure. It is similar to the selection sort where we first find the minimum element and place the minimum element at the beginning. Repeat the same process for the remaining elements.':
+			"Gnome sort is a variation of insertion sort that does not use nested loops. Here's how a garden gnome sorts a line of flower pots: they look at the flower pot in front of them and the previous one; if they are in the right order they step one pot forward, otherwise, they swap them and step one pot backward. If there is no previous pot, they step forwards; if there's no pot next to them they are done.":
 				'sorting-info-text',
 		},
 	},
@@ -49,19 +49,19 @@ export const SORTING_ALGORITHMS = {
 				'sorting-info-text',
 		},
 	},
-	COMB_SORT: {
-		name: 'Comb Sort',
-		algorithm: combSort,
+	HEAP_SORT: {
+		name: 'Heap Sort',
+		algorithm: heapSort,
 		INFO: {
-			'A comparison-based sorting algorithm that is an improvement to bubble sort. In bubble sort, there is a comparison between elements to sort the given array - the gap size between the elements that are compared is 1. Comb sort improves the bubble sort by using a gap of size more than 1':
+			'A comparison-based sorting technique based on Binary Heap data structure. It is similar to the selection sort where we first find the minimum element and place the minimum element at the beginning. Repeat the same process for the remaining elements.':
 				'sorting-info-text',
 		},
 	},
-	GNOME_SORT: {
-		name: 'Gnome Sort',
-		algorithm: gnomeSort,
+	QUICK_SORT: {
+		name: 'Quick Sort',
+		algorithm: quickSort,
 		INFO: {
-			'Gnome sort is a variation of insertion sort that does not use nested loops. Here\'s how a garden gnome sorts a line of flower pots: they look at the flower pot in front of them and the previous one; if they are in the right order they step one pot forward, otherwise, they swap them and step one pot backward. If there is no previous pot, they step forwards; if there\'s no pot next to them they are done.':
+			'Quick sort uses a divide-and-conquer strategy. It does so by selecting a pivot element and then sorting values larger than it on one side and smaller to the other side, and then it repeats those steps until the array is sorted. It is useful for sorting big data sets.':
 				'sorting-info-text',
 		},
 	},
