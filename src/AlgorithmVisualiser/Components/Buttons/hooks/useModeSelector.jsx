@@ -22,6 +22,7 @@ export const useModeSelector = (appState, setAppState) => {
 	};
 
 	const changeMode = (newMode, newAlgorithm, newGrid) => {
+		clearInterval(appState.intervalId);
 		return setAppState((prevState) => ({
 			...prevState,
 			grid: newGrid,
