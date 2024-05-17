@@ -1,7 +1,7 @@
 import { memo } from 'react';
 import { useAlgorithmUpdate } from "./hooks/useAlgorithmUpdate";
 
-export const ToggleAlgorithmButton = memo(({ appState, setAppState }) => {
+export const UpdateAlgorithmButton = memo(({ appState, setAppState }) => {
 	const handleAlgorithmUpdate = useAlgorithmUpdate(appState, setAppState);
 	return (
 		<div className='toggle-algorithm'>

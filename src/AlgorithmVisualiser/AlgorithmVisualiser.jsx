@@ -3,7 +3,7 @@ import { Legend } from './Components/Info/Legend.jsx';
 import { DrawTypeButton } from './Components/Buttons/DrawTypeButton.jsx';
 import { ResetButton } from './Components/Buttons/ResetButton.jsx';
 import { VisualiseButton } from './Components/Buttons/VisualiseButton.jsx';
-import { ToggleAlgorithmButton } from './Components/Buttons/ToggleAlgorithmButton.jsx';
+import { UpdateAlgorithmButton } from './Components/Buttons/UpdateAlgorithmButton.jsx';
 import { Grid } from './Components/Grid/Grid.jsx';
 import { ModeSelector } from './Components/Buttons/ModeSelector.jsx';
 import { initialiseGrid } from '../App.jsx';
@@ -44,9 +44,9 @@ export const AlgorithmVisualiser = ({ appState, setAppState }) => {
 					}></Legend>
 				{(appState.CURRENT_MODE === SORTING_MODE || appState.CURRENT_MODE === PATHFINDING_MODE) && (
 					<>
-						<ToggleAlgorithmButton
+						<UpdateAlgorithmButton
 							appState={appState}
-							setAppState={setAppState}></ToggleAlgorithmButton>
+							setAppState={setAppState}></UpdateAlgorithmButton>
 					</>
 				)}
 				{appState.CURRENT_MODE === PATHFINDING_MODE && (
