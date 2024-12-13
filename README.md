@@ -22,10 +22,9 @@ This project brings commonly used algorithms to life, enabling users to see how 
 - Users can experiment freely or explore various starting patterns
 
 ## 🛠️ Technologies Used
-Frontend: React.js (UI framework for dynamic and interactive visualisation)
-Backend: Node.js and Express (to serve the application and manage data)
-Algorithm Logic: JavaScript-based implementations
-Styling: CSS/SCSS for modern and responsive design
+- Frontend: React.js (UI framework for dynamic and interactive visualisation)
+- Algorithm Logic: JavaScript-based implementations
+- Styling: CSS and MUI components for modern and responsive design
 
 ## 🚀 Getting Started
 
