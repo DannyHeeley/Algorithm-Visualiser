@@ -1,6 +1,6 @@
 # Algorithm Visualiser
 
-A dynamic and interactive visualisation tool for understanding and learning algorithms. 
+A dynamic and interactive tool for visualising algorithms. 
 
 This project brings commonly used algorithms to life, enabling users to see how they work through visual animations.
 
