@@ -47,8 +47,3 @@ Contributions are welcome! If you’d like to improve the project:
 ## 📄 License
 - This project is licensed under the MIT License. See the LICENSE file for details.
 
-## 👤 Contact
-- Danny Heeley
-- GitHub Profile
-- LinkedIn
-
