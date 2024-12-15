@@ -33,7 +33,7 @@ This project brings commonly used algorithms to life, enabling users to see how 
 ## 📈 Roadmap
 - Implement tooltip/tutorial feature for improved UX
 - Improve mobile responsiveness
-- Add unit tests and CI/CD pipeline
+- Add unit tests
 - Add more algorithms (e.g., Prim's, Kruskal's)
 
 ## 🧑‍💻 Contribution Guidelines
